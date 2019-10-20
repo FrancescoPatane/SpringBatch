@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import it.pccube.batchmigration.destination.WriterFactory;
+import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
@@ -44,9 +45,8 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-        		.start(migrateFeFattura())
-//                .start(this.migrateFeLotto())
-//                .next(migrateFeLottoStep2)
+                .start(this.migrateFeLotto())
+                .next(this.migrateFeFattura())
 //                .next(migrateFeLottoStep3)
                 .build();
     }
@@ -61,27 +61,24 @@ public class JobConfiguration {
     }
     
     
-    public Step migrateFeLotto() {
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLotto() {
     	return stepBuilderFactory.get("migrateFeLotto").<FeLotto, FatTLotto>chunk(4)
 				.reader(this.tableReader(FeLotto.class, FeLotto.TABLE_NAME))
-				.processor(this.processorFactory.getProcessor())
+				.processor(this.processorFactory.getProcessor(FeLotto.class))
 				.writer(this.writerFactory.getWriter(FatTLotto.class))
 				.listener(new WriterListener())
 				.build();
     }
     
     
-    public Step migrateFeFattura() {
-    	return stepBuilderFactory.get("migrateFeFattura").<FeFattura, FeFattura>chunk(4)
+    @SuppressWarnings("unchecked")
+	public Step migrateFeFattura() {
+    	return stepBuilderFactory.get("migrateFeFattura").<FeFattura, FatTFattura>chunk(4)
 				.reader(this.tableReader(FeFattura.class, FeFattura.TABLE_NAME))
-//				.processor(this.processorFactory.getProcessor())
-//				.writer(this.writerFactory.getWriter(FatTLotto.class))
-				.writer(items -> {
-					for (FeFattura item : items) {
-						System.out.println(">> " + item.getIdFattura());
-					}
-				})
-//				.listener(new WriterListener())
+				.processor(this.processorFactory.getProcessor(FeFattura.class))
+				.writer(this.writerFactory.getWriter(FatTFattura.class))
+				.listener(new WriterListener())
 				.build();
     }    
 

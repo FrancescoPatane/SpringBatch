@@ -27,7 +27,7 @@ public class WriterListener implements ItemWriteListener<ModelEntity>{
 
 	@Override
 	public void afterWrite(List<? extends ModelEntity> items) {
-		StringBuilder sb = new StringBuilder("Persistend entities: [");
+		StringBuilder sb = new StringBuilder("Persisted entities: [");
 		for (ModelEntity e : items) {
 			sb.append(e.getTableName());
 			sb.append(" PK: ");

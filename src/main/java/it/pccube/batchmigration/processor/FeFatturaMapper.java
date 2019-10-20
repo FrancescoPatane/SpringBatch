@@ -15,7 +15,7 @@ import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeLotto;
 
-public class FatTFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
+public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 
 	private static final Logger logger = LoggerFactory.getLogger(FeLottoMapper.class);
 
@@ -25,6 +25,7 @@ public class FatTFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >
 
 	@Override
 	public FatTFattura process(FeFattura source) throws Exception {
+		logger.info("Mapping FeFattura with PK: " + source.getIdFattura());
 		FatTFattura destination = new FatTFattura();
 		destination.setCdBolloVirtuale(source.getBolloVirtuale());
 		destination.setCdCapResa(source.getCapResa());
@@ -100,6 +101,7 @@ public class FatTFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >
 		destination.setQtTotalePercorsoVeicolo(destination.getQtTotalePercorsoVeicolo());
 		destination.setTsInserimento(destination.getTsInserimento());
 		destination.setTsUltimaModifica(destination.getTsUltimaModifica());
+		logger.info("Mapping complete");
 		return destination;
 	}
 
