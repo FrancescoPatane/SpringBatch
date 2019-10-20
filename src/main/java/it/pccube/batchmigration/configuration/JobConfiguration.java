@@ -14,8 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatTLotto;
-import it.pccube.batchmigration.destination.model.WriterFactory;
+import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeLotto;
 
@@ -63,6 +64,7 @@ public class JobConfiguration {
 				.reader(this.tableReader(FeLotto.class, FeLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor())
 				.writer(this.writerFactory.getWriter(FatTLotto.class))
+				.listener(new WriterListener())
 				.build();
     }
 

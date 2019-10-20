@@ -1,4 +1,4 @@
-package it.pccube.batchmigration.destination.model;
+package it.pccube.batchmigration.destination;
 
 import javax.sql.DataSource;
 
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import it.pccube.batchmigration.destination.model.sql.InsertQuery;
+import it.pccube.batchmigration.destination.sql.InsertQuery;
 
 @Component
 public class WriterFactory {

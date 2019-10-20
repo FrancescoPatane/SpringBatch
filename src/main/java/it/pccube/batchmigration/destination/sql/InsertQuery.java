@@ -1,4 +1,4 @@
-package it.pccube.batchmigration.destination.model.sql;
+package it.pccube.batchmigration.destination.sql;
 
 public class InsertQuery {
 	

@@ -25,6 +25,7 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 
 	@Override
 	public FatTLotto process(FeLotto source) throws Exception {
+		logger.info("Mapping FeLotto with PK: " + source.getIdLotto());
 		FatTLotto origin = new FatTLotto();
 		origin.setIdAdesione(source.getIdAdesione());
 		origin.setCdCapSedeCedente(source.getCapSedeCedente());
@@ -168,6 +169,7 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 			origin.setQtSizeXmlFirmato(BigDecimal.valueOf(source.getSizeXmlFirmato()));
 		origin.setTsInserimento(source.getTmstInserimento());
 		origin.setTsUltimaModifica(source.getTmstUltimoAggiornamento());
+		logger.info("Mapping complete");
 		return origin;
 	}
 

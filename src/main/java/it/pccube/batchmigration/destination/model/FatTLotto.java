@@ -3,9 +3,9 @@ package it.pccube.batchmigration.destination.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class FatTLotto {
+public class FatTLotto implements ModelEntity{
 	
-	public static final String TABLE_NAME = "FAT_T_LOTTO";
+	public final String tableName = "FAT_T_LOTTO";
 	
 	private Long idLotto;
 	
@@ -1255,6 +1255,16 @@ public class FatTLotto {
 
 	public void setIdAdesione(Long idAdesione) {
 		this.idAdesione = idAdesione;
+	}
+
+	@Override
+	public String getPKDescription() {
+		return this.idLotto.toString();
+	}
+
+	@Override
+	public String getTableName() {
+		return this.tableName;
 	}
 	
 	
