@@ -18,6 +18,7 @@ import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
+import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeLotto;
 
 @Configuration
@@ -43,7 +44,8 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-                .start(this.migrateFeLotto())
+        		.start(migrateFeFattura())
+//                .start(this.migrateFeLotto())
 //                .next(migrateFeLottoStep2)
 //                .next(migrateFeLottoStep3)
                 .build();
@@ -60,13 +62,28 @@ public class JobConfiguration {
     
     
     public Step migrateFeLotto() {
-    	return stepBuilderFactory.get("readTableStep").<FeLotto, FatTLotto>chunk(4)
+    	return stepBuilderFactory.get("migrateFeLotto").<FeLotto, FatTLotto>chunk(4)
 				.reader(this.tableReader(FeLotto.class, FeLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor())
 				.writer(this.writerFactory.getWriter(FatTLotto.class))
 				.listener(new WriterListener())
 				.build();
     }
+    
+    
+    public Step migrateFeFattura() {
+    	return stepBuilderFactory.get("migrateFeFattura").<FeFattura, FeFattura>chunk(4)
+				.reader(this.tableReader(FeFattura.class, FeFattura.TABLE_NAME))
+//				.processor(this.processorFactory.getProcessor())
+//				.writer(this.writerFactory.getWriter(FatTLotto.class))
+				.writer(items -> {
+					for (FeFattura item : items) {
+						System.out.println(">> " + item.getIdFattura());
+					}
+				})
+//				.listener(new WriterListener())
+				.build();
+    }    
 
 
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class FatTLotto implements ModelEntity{
 	
-	public final String tableName = "FAT_T_LOTTO";
+	private final String tableName = "FAT_T_LOTTO";
 	
 	private Long idLotto;
 	
