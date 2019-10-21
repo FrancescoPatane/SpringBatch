@@ -4,51 +4,38 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-public class FatTFattura implements ModelEntity {
-	
-	
-	private static final String TABLE_NAME = "FAT_T_FATTURA";
-	
-	public static final String INSERT_QUERY = "INSERT INTO FAT_T_FATTURA (id_fattura, id_diz_tipo_documento, id_divisa, dt_data, cd_numero, id_diz_tipo_ritenuta, im_importo_ritenuta, pc_aliquota_ritenuta, id_diz_causale_pagamento, cd_numero_bollo, im_importo_bollo, im_importo_totale_documento, im_arrotondamento, ds_causale, id_diz_art_73, id_paese_vettore, cd_codice_vettore, cd_codice_fiscale_vettore, nm_denominazione_vettore, nm_nome_vettore, nm_cognome_vettore, nm_titolo_vettore, cd_cod_eori_vettore, cd_num_licenza_guida_vettore, nm_mezzo_trasporto, ds_causale_trasporto, qt_numero_colli, ds_descrizione, cd_unita_misura_peso, qt_peso_lordo, qt_peso_netto, dt_data_ora_ritiro, dt_data_inizio_trasporto, id_diz_tipo_resa, nm_indirizzo_resa, cd_numero_civico_resa, cd_cap_resa, id_comune_resa, nm_comune_resa_est, id_provincia_resa, id_regione_resa, id_nazione_resa, dt_data_ora_consegna, cd_norma_di_riferimento, cd_numero_fattura_principale, dt_data_fattura_principale, id_fattura_principale, dt_data_immat_veicolo, qt_totale_percorso_veicolo, id_lotto, nm_utente_inserimento, ts_inserimento, nm_utente_ultima_modifica, ts_ultima_modifica, id_lotto_fat_rifiutata, pg_versione_lotto_fat_rifiut, id_fattura_rifiutata, cd_bollo_virtuale, id_xml_eu_uploaded, nm_xml_eu_uploaded_name, id_xml_eu_generated, nm_xml_eu_generated_name) VALUES (:idFattura, :idDizTipoDocumento, :idDizDivisa, :dtData, :cdNumero, :idDizTipoRitenuta, :imImportoRitenuta, :pcAliquotaRitenuta, :idDizCausalePagamento, :cdNumeroBollo, :imImportoBollo, :imImportoTotaleDocumento, :imArrotondamento, :dsCausale, :idDizArt73, :idPaeseVettore, :cdCodiceVettore, :cdCodiceFiscaleVettore, :nmDenominazioneVettore, :nmNomeVettore, :nmCognomeVettore, :nmTitoloVettore, :cdCodEoriVettore, :cdNumLicenzaGuidaVettore, :nmMezzoTrasporto, :dsCausaleTrasporto, :qtNumeroColli, :dsDescrizione, :cdUnitaMisuraPeso, :qtPesoLordo, :qtPesoNetto, :dtDataOraRitiro, :dtDataInizioTrasporto, :idDizTipoResa, :nmIndirizzoResa, :cdNumeroCivicoResa, :cdCapResa, :idComuneResa, :nmComuneResaEst, :idProvinciaResa, :idRegioneResa, :idNazioneResa, :dtDataOraConsegna, :cdNormaDiRiferimento, :cdNumeroFatturaPrincipale, :dtDataFatturaPrincipale, :idFatturaPrincipale, :dtDataImmatVeicolo, :qtTotalePercorsoVeicolo, :idLotto, :nmUtenteInserimento, :tsInserimento, :nmUtenteUltimaModifica, :tsUltimaModifica, :idLottoFatRifiutata, :pgVersioneLottoFatRifiut, :idFatturaRifiutata, :cdBolloVirtuale, :idXmlEuUploaded, :nmXmlEuUploadedName, :idXmlEuGenerated, :nmXmlEuGeneratedName)";
 
 
-	private Long idFattura;
+public class FatTFatturaStor implements ModelEntity {
+	
+	private static final String TABLE_NAME = "FAT_T_FATTURA_STOR";
+	
+	public static final String INSERT_QUERY = "INSERT INTO FAT_T_FATTURA_STOR (id_fattura, id_diz_tipo_documento, id_divisa, dt_data, cd_numero, id_diz_tipo_ritenuta, im_importo_ritenuta, pc_aliquota_ritenuta, id_diz_causale_pagamento, cd_numero_bollo, im_importo_bollo, im_importo_totale_documento, im_arrotondamento, ds_causale, id_diz_art_73, id_paese_vettore, cd_codice_vettore, cd_codice_fiscale_vettore, nm_denominazione_vettore, nm_nome_vettore, nm_cognome_vettore, nm_titolo_vettore, cd_cod_eori_vettore, cd_num_licenza_guida_vettore, nm_mezzo_trasporto, ds_causale_trasporto, qt_numero_colli, ds_descrizione, cd_unita_misura_peso, qt_peso_lordo, qt_peso_netto, dt_data_ora_ritiro, dt_data_inizio_trasporto, id_diz_tipo_resa, nm_indirizzo_resa, cd_numero_civico_resa, cd_cap_resa, id_comune_resa, nm_comune_resa_est, id_provincia_resa, id_regione_resa, id_nazione_resa, dt_data_ora_consegna, cd_norma_di_riferimento, cd_numero_fattura_principale, dt_data_fattura_principale, id_fattura_principale, dt_data_immat_veicolo, qt_totale_percorso_veicolo, id_lotto, nm_utente_inserimento, ts_inserimento, nm_utente_ultima_modifica, ts_ultima_modifica, id_lotto_fat_rifiutata, pg_vers_lotto_fat_rifiutata, id_fattura_rifiutata, cd_bollo_virtuale, id_xml_eu_uploaded, nm_xml_eu_uploaded_name, id_xml_eu_generated, nm_xml_eu_generated_name, id_fattura_stor, pg_versione_lotto) VALUES (:idFattura, :idDizTipoDocumento, :idDivisa, :dtData, :cdNumero, :idDizTipoRitenuta, :imImportoRitenuta, :pcAliquotaRitenuta, :idDizCausalePagamento, :cdNumeroBollo, :imImportoBollo, :imImportoTotaleDocumento, :imArrotondamento, :dsCausale, :idDizArt73, :idPaeseVettore, :cdCodiceVettore, :cdCodiceFiscaleVettore, :nmDenominazioneVettore, :nmNomeVettore, :nmCognomeVettore, :nmTitoloVettore, :cdCodEoriVettore, :cdNumLicenzaGuidaVettore, :nmMezzoTrasporto, :dsCausaleTrasporto, :qtNumeroColli, :dsDescrizione, :cdUnitaMisuraPeso, :qtPesoLordo, :qtPesoNetto, :dtDataOraRitiro, :dtDataInizioTrasporto, :idDizTipoResa, :nmIndirizzoResa, :cdNumeroCivicoResa, :cdCapResa, :idComuneResa, :nmComuneResaEst, :idProvinciaResa, :idRegioneResa, :idNazioneResa, :dtDataOraConsegna, :cdNormaDiRiferimento, :cdNumeroFatturaPrincipale, :dtDataFatturaPrincipale, :idFatturaPrincipale, :dtDataImmatVeicolo, :qtTotalePercorsoVeicolo, :idLotto, :nmUtenteInserimento, :tsInserimento, :nmUtenteUltimaModifica, :tsUltimaModifica, :idLottoFatRifiutata, :pgVersioneLottoFatRifiut, :idFatturaRifiutata, :cdBolloVirtuale, :idXmlEuUploaded, :nmXmlEuUploadedName, :idXmlEuGenerated, :nmXmlEuGeneratedName, :idFatturaStor, :pgVersioneLotto)";
 
-	
-	
+
+
+	private Long idFatturaStor;
+
 	private String cdBolloVirtuale;
 
-	
-	
 	private String cdCapResa;
 
-	
-	
 	private String cdCodEoriVettore;
 
-	
-	
 	private String cdCodiceFiscaleVettore;
 
-	
-	
 	private String cdCodiceVettore;
 
-	
-	
 	private String cdNormaDiRiferimento;
 
-	
-	
 	private String cdNumLicenzaGuidaVettore;
 
 	private String cdNumero;
 
 	private String cdNumeroBollo;
-	
-	
+
 	private String cdNumeroCivicoResa;
-	
+
 	private String cdNumeroFatturaPrincipale;
 
 	private String cdUnitaMisuraPeso;
@@ -70,146 +57,97 @@ public class FatTFattura implements ModelEntity {
 	private Date dtDataOraConsegna;
 
 	private Date dtDataOraRitiro;
-	
+
+	private Long idFattura;
+
 	private Long idComuneResa;
-	
+
 	private Long idNazioneResa;
-	
+
 	private Long idPaeseVettore;
 
 	private Long idProvinciaResa;
-	
+
 	private Long idRegioneResa;
 
-	
-	
 	private BigDecimal imArrotondamento;
 
-	
-	
 	private BigDecimal imImportoBollo;
 
-	
-	
 	private BigDecimal imImportoRitenuta;
 
-	
-	
 	private BigDecimal imImportoTotaleDocumento;
 
-	
-	
 	private String nmCognomeVettore;
 
-	
-	
 	private String nmComuneResaEst;
 
-	
-	
 	private String nmDenominazioneVettore;
 
-	
-	
 	private String nmIndirizzoResa;
 
-	
-	
 	private String nmMezzoTrasporto;
 
-	
-	
 	private String nmNomeVettore;
 
-	
-	
 	private String nmTitoloVettore;
 
-	
-	
 	private String nmUtenteInserimento;
 
-	
-	
 	private String nmUtenteUltimaModifica;
 
-	
-	
 	private BigDecimal pcAliquotaRitenuta;
 
-	
-	
 	private BigDecimal pgVersioneLottoFatRifiut;
 
-	
-	
 	private BigDecimal qtNumeroColli;
 
-	
-	
 	private BigDecimal qtPesoLordo;
 
-	
-	
 	private BigDecimal qtPesoNetto;
 
-	
-	
 	private String qtTotalePercorsoVeicolo;
 
-	
-	
 	private String idXmlEuUploaded;
 
-	
-	
 	private String idXmlEuGenerated;
 
-	
-	
 	private String nmXmlEuUploadedName;
 
-	
-	
 	private String nmXmlEuGeneratedName;
 
-	
-	
-	
 	private Date tsInserimento;
 
-	
-	
-	
 	private Date tsUltimaModifica;
 
-
 	private Long idDizCausalePagamento;
-
-	private Long idDizDivisa;
-
-	private Long idDizArt73;
 
 	private Long idDizTipoResa;
 
 	private Long idDizTipoRitenuta;
 
+	private Long idDivisa;
+
+	private Long idDizArt73;
+
+	private Long idFatturaRifiutata;
+
+	private Long idLottoFatRifiutata;
+
+	private Long pgVersioneLotto;
+
 	private Long idDizTipoDocumento;
 
 	private Long idFatturaPrincipale;
 
-	private Long idFatturaRifiutata;
-
 	private Long idLotto;
 
-	private Long idLottoFatRifiutata;
-
-	public Long getIdFattura() {
-		return idFattura;
+	public Long getIdFatturaStor() {
+		return idFatturaStor;
 	}
 
-	public void setIdFattura(Long idFattura) {
-		this.idFattura = idFattura;
+	public void setIdFatturaStor(Long idFatturaStor) {
+		this.idFatturaStor = idFatturaStor;
 	}
 
 	public String getCdBolloVirtuale() {
@@ -378,6 +316,14 @@ public class FatTFattura implements ModelEntity {
 
 	public void setDtDataOraRitiro(Date dtDataOraRitiro) {
 		this.dtDataOraRitiro = dtDataOraRitiro;
+	}
+
+	public Long getIdFattura() {
+		return idFattura;
+	}
+
+	public void setIdFattura(Long idFattura) {
+		this.idFattura = idFattura;
 	}
 
 	public Long getIdComuneResa() {
@@ -628,22 +574,6 @@ public class FatTFattura implements ModelEntity {
 		this.idDizCausalePagamento = idDizCausalePagamento;
 	}
 
-	public Long getIdDizDivisa() {
-		return idDizDivisa;
-	}
-
-	public void setIdDizDivisa(Long idDizDivisa) {
-		this.idDizDivisa = idDizDivisa;
-	}
-
-	public Long getIdDizArt73() {
-		return idDizArt73;
-	}
-
-	public void setIdDizArt73(Long idDizArt73) {
-		this.idDizArt73 = idDizArt73;
-	}
-
 	public Long getIdDizTipoResa() {
 		return idDizTipoResa;
 	}
@@ -658,6 +588,46 @@ public class FatTFattura implements ModelEntity {
 
 	public void setIdDizTipoRitenuta(Long idDizTipoRitenuta) {
 		this.idDizTipoRitenuta = idDizTipoRitenuta;
+	}
+
+	public Long getIdDivisa() {
+		return idDivisa;
+	}
+
+	public void setIdDivisa(Long idDivisa) {
+		this.idDivisa = idDivisa;
+	}
+
+	public Long getIdDizArt73() {
+		return idDizArt73;
+	}
+
+	public void setIdDizArt73(Long idDizArt73) {
+		this.idDizArt73 = idDizArt73;
+	}
+
+	public Long getIdFatturaRifiutata() {
+		return idFatturaRifiutata;
+	}
+
+	public void setIdFatturaRifiutata(Long idFatturaRifiutata) {
+		this.idFatturaRifiutata = idFatturaRifiutata;
+	}
+
+	public Long getIdLottoFatRifiutata() {
+		return idLottoFatRifiutata;
+	}
+
+	public void setIdLottoFatRifiutata(Long idLottoFatRifiutata) {
+		this.idLottoFatRifiutata = idLottoFatRifiutata;
+	}
+
+	public Long getPgVersioneLotto() {
+		return pgVersioneLotto;
+	}
+
+	public void setPgVersioneLotto(Long pgVersioneLotto) {
+		this.pgVersioneLotto = pgVersioneLotto;
 	}
 
 	public Long getIdDizTipoDocumento() {
@@ -676,14 +646,6 @@ public class FatTFattura implements ModelEntity {
 		this.idFatturaPrincipale = idFatturaPrincipale;
 	}
 
-	public Long getIdFatturaRifiutata() {
-		return idFatturaRifiutata;
-	}
-
-	public void setIdFatturaRifiutata(Long idFatturaRifiutata) {
-		this.idFatturaRifiutata = idFatturaRifiutata;
-	}
-
 	public Long getIdLotto() {
 		return idLotto;
 	}
@@ -692,26 +654,17 @@ public class FatTFattura implements ModelEntity {
 		this.idLotto = idLotto;
 	}
 
-	public Long getIdLottoFatRifiutata() {
-		return idLottoFatRifiutata;
-	}
-
-	public void setIdLottoFatRifiutata(Long idLottoFatRifiutata) {
-		this.idLottoFatRifiutata = idLottoFatRifiutata;
-	}
-
 	@Override
 	public String getPKDescription() {
-		return this.idFattura.toString();
+		return this.getIdFatturaStor().toString();
 	}
 
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
 	}
-
 	
 	
-
+	
 
 }

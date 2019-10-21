@@ -37,6 +37,7 @@ public class FlowConfiguration {
 	public Flow flowFattura() {
 	    return new FlowBuilder<SimpleFlow>("flowFattura")
 	        .start(this.stepFactory.migrateFeFattura())
+	        .next(this.stepFactory.migrateFeFatturaStorico())
 	        .next(this.stepFactory.migrateFeCausaleFattura())
 	        .next(this.stepFactory.migrateFeCausaleFatturaStorico())
 	        .build();

@@ -10,23 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import it.pccube.batchmigration.client.doc.DocumentaleService;
 import it.pccube.batchmigration.client.doc.OutputDocumentale;
-import it.pccube.batchmigration.destination.model.FatTFattura;
-import it.pccube.batchmigration.destination.model.FatTLotto;
-import it.pccube.batchmigration.source.model.FeFattura;
-import it.pccube.batchmigration.source.model.FeLotto;
+import it.pccube.batchmigration.destination.model.FatTFatturaStor;
+import it.pccube.batchmigration.source.model.FeFatturaStorico;
 
-public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
+public class FeFatturaStoricoMapper implements ItemProcessor<FeFatturaStorico, FatTFatturaStor >{
 
-	private static final Logger logger = LoggerFactory.getLogger(FeFatturaMapper.class);
+	private static final Logger logger = LoggerFactory.getLogger(FeFatturaStoricoMapper.class);
 
 	@Autowired
 	private DocumentaleService docService;
-
-
+	
+	
 	@Override
-	public FatTFattura process(FeFattura source) throws Exception {
-		logger.info("Mapping FeFattura with PK: " + source.getIdFattura());
-		FatTFattura destination = new FatTFattura();
+	public FatTFatturaStor process(FeFatturaStorico source) throws Exception {
+		logger.info("Mapping FeFatturaStorico with PK: " + source.getIdFatturaStorico());
+		FatTFatturaStor destination = new FatTFatturaStor();
+		destination.setIdFatturaStor(source.getIdFatturaStorico());
+		destination.setPgVersioneLotto(source.getVersioneLotto());
 		destination.setCdBolloVirtuale(source.getBolloVirtuale());
 		destination.setCdCapResa(source.getCapResa());
 		destination.setCdCodEoriVettore(source.getCodEoriVettore());
@@ -51,7 +51,7 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		destination.setIdComuneResa(source.getComuneResa());
 		destination.setIdDizArt73(source.getArt73());
 		destination.setIdDizCausalePagamento(source.getCausalePagamento());
-		destination.setIdDizDivisa(source.getDivisa());
+		destination.setIdDivisa(source.getDivisa());
 		destination.setIdDizTipoDocumento(source.getTipoDocumento());
 		destination.setIdDizTipoResa(source.getTipoResa());
 		destination.setIdDizTipoRitenuta(source.getTipoRitenuta());
@@ -59,23 +59,23 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		destination.setIdFatturaPrincipale(source.getIdFatturaPrincipale());
 		destination.setIdFatturaRifiutata(source.getIdFatturaRifiutata());
 		destination.setIdLotto(source.getIdLotto());
-		destination.setIdLottoFatRifiutata(source.getIdLottoFatturaRifiutata());
+		destination.setIdLottoFatRifiutata(source.getIdLottoFatRifiutata());
 		destination.setIdNazioneResa(source.getNazioneResa());
-		destination.setIdPaeseVettore(source.getPaeseVettore());
+		destination.setIdPaeseVettore(source.getIdPaeseVettore());
 		destination.setIdProvinciaResa(source.getProvinciaResa());
 		destination.setIdRegioneResa(source.getRegioneResa());
-//		if (source.getXmlEuGenerated() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuGenerated tabella FeFattura con id: " + source.getIdFattura());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
-//			destination.setIdXmlEuGenerated(doc.getId());
-//		}
-//		if (source.getXmlEuUploaded() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuUploadedName tabella FeFattura con id: " + source.getIdFattura());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
-//			destination.setIdXmlEuGenerated(doc.getId());
-//		}
+		if (source.getXmlEuGenerated() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuGenerated tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
+			destination.setIdXmlEuGenerated(doc.getId());
+		}
+		if (source.getXmlEuUploaded() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuUploadedName tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
+			destination.setIdXmlEuGenerated(doc.getId());
+		}
 		destination.setImArrotondamento(source.getArrotondamento());
 		destination.setImImportoBollo(source.getImportoBollo());
 		destination.setImImportoRitenuta(source.getImportoRitenuta());
@@ -92,8 +92,8 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		destination.setNmXmlEuGeneratedName(source.getXmlEuGeneratedName());
 		destination.setNmXmlEuUploadedName(source.getXmlEuUploadedName());
 		destination.setPcAliquotaRitenuta(source.getAliquotaRitenuta());
-		if (source.getVersioneLottoFatturaRifiutata()!=null)
-			destination.setPgVersioneLottoFatRifiut(BigDecimal.valueOf(source.getVersioneLottoFatturaRifiutata()));
+		if (source.getVersioneLottoFatRifiutata()!=null)
+			destination.setPgVersioneLottoFatRifiut(BigDecimal.valueOf(source.getVersioneLottoFatRifiutata()));
 		if (source.getNumeroColli()!=null)
 			destination.setQtNumeroColli(BigDecimal.valueOf(source.getNumeroColli()));
 		destination.setQtPesoLordo(destination.getQtPesoLordo());
@@ -104,5 +104,4 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		logger.info("Mapping complete");
 		return destination;
 	}
-
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
+import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 
 @Component
@@ -40,6 +41,9 @@ public class WriterFactory {
 		case "FatTFattura":
 			query = FatTFattura.INSERT_QUERY;
 			break;
+		case "FatTFatturaStor":
+			query = FatTFatturaStor.INSERT_QUERY;
+			break;	
 		case "FatTCausaleFattura":
 			query = FatTCausaleFattura.INSERT_QUERY;
 			break;
