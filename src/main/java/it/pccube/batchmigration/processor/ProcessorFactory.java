@@ -30,6 +30,14 @@ public class ProcessorFactory {
 			this.beanFactory.autowireBean(feFatturaMapper);
 			mapper =  feFatturaMapper;
 			break;
+		case "FeCausaleFattura":
+			FeCausaleFatturaMapper feCausaleFatturaMapper =  new FeCausaleFatturaMapper();
+			mapper =  feCausaleFatturaMapper;
+			break;
+		case "FeCausaleFatturaStorico":
+			FeCausaleFatturaStoricoMapper fecausaleFatturaStoricoMapper =  new FeCausaleFatturaStoricoMapper();
+			mapper =  fecausaleFatturaStoricoMapper;
+			break;
 		}
 		return mapper;
 	}

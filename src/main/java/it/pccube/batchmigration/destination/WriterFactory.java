@@ -8,16 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
+import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 
 @Component
 public class WriterFactory {
-	
+
 	@Autowired
 	@Qualifier("dbDestination")
 	private  DataSource dbDestination;
-	
+
 	public <T> JdbcBatchItemWriter<T> getWriter(Class<T> clazz){
 		JdbcBatchItemWriter<T> writer = new JdbcBatchItemWriter<>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<T>());
@@ -26,8 +28,8 @@ public class WriterFactory {
 		writer.afterPropertiesSet();
 		return writer;
 	}
-	
-	
+
+
 	private <T> String getQuery(Class<T> clazz) {
 		String query = null;
 		String modelClassName = clazz.getSimpleName();
@@ -38,9 +40,15 @@ public class WriterFactory {
 		case "FatTFattura":
 			query = FatTFattura.INSERT_QUERY;
 			break;
+		case "FatTCausaleFattura":
+			query = FatTCausaleFattura.INSERT_QUERY;
+			break;
+		case "FatTCausaleFatturaStor":
+			query = FatTCausaleFatturaStor.INSERT_QUERY;
+			break;
 		}
 		return query;
 	}
-	
-
 }
+
+

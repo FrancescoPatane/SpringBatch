@@ -17,7 +17,7 @@ import it.pccube.batchmigration.source.model.FeLotto;
 
 public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 
-	private static final Logger logger = LoggerFactory.getLogger(FeLottoMapper.class);
+	private static final Logger logger = LoggerFactory.getLogger(FeFatturaMapper.class);
 
 	@Autowired
 	private DocumentaleService docService;
@@ -64,18 +64,18 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		destination.setIdPaeseVettore(source.getPaeseVettore());
 		destination.setIdProvinciaResa(source.getProvinciaResa());
 		destination.setIdRegioneResa(source.getRegioneResa());
-//		if (source.getXmlEuGenerated() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuGenerated tabella FeFattura con id: " + source.getIdFattura());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
-//			destination.setIdXmlEuGenerated(doc.getId());
-//		}
-//		if (source.getXmlEuUploaded() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuUploadedName tabella FeFattura con id: " + source.getIdFattura());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
-//			destination.setIdXmlEuGenerated(doc.getId());
-//		}
+		if (source.getXmlEuGenerated() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuGenerated tabella FeFattura con id: " + source.getIdFattura());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
+			destination.setIdXmlEuGenerated(doc.getId());
+		}
+		if (source.getXmlEuUploaded() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlEuUploadedName tabella FeFattura con id: " + source.getIdFattura());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
+			destination.setIdXmlEuGenerated(doc.getId());
+		}
 		destination.setImArrotondamento(source.getArrotondamento());
 		destination.setImImportoBollo(source.getImportoBollo());
 		destination.setImImportoRitenuta(source.getImportoRitenuta());

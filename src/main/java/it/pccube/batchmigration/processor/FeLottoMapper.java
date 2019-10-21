@@ -111,18 +111,18 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 		destination.setIdUfficioReaCedente(source.getUfficioReaCedente());
 		
 		
-//		if (source.getXmlFirmato() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
-//			origin.setIdXmlFirmato(doc.getId());
-//		}
-//		if (source.getXmlNonFirmato() != null){
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
-//			origin.setIdXmlNonFirmato(doc.getId());
-//		}
+		if (source.getXmlFirmato() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
+			destination.setIdXmlFirmato(doc.getId());
+		}
+		if (source.getXmlNonFirmato() != null){
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
+			destination.setIdXmlNonFirmato(doc.getId());
+		}
 		
 		destination.setImCapitaleSocialeCedente(source.getCapitaleSocialeCedente());
 		destination.setNmAlboProfessionaleCedente(source.getAlboProfessionaleCedente());
