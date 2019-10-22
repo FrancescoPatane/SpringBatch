@@ -23,7 +23,14 @@ public class FlowConfiguration {
 	public Flow splitFlow() {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
-	        .add(flowLotto(), flowFattura())
+	        .add(flowLotto(), flowFattura(), flowAdesione())
+	        .build();
+	}
+	
+	
+	public Flow flowAdesione() {
+	    return new FlowBuilder<SimpleFlow>("flowAdesione")
+	        .start(this.stepFactory.migrateFeAdesione())
 	        .build();
 	}
 	

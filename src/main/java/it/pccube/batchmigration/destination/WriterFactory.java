@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
+import it.pccube.batchmigration.source.model.FeAdesione;
 
 @Component
 public class WriterFactory {
@@ -36,6 +38,9 @@ public class WriterFactory {
 		String query = null;
 		String modelClassName = clazz.getSimpleName();
 		switch(modelClassName) {
+		case "FatTAdesione":
+			query = FatTAdesione.INSERT_QUERY;
+			break;
 		case "FatTLotto":
 			query = FatTLotto.INSERT_QUERY;
 			break;

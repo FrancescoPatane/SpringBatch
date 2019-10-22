@@ -1020,7 +1020,7 @@ public class FeLotto implements ModelEntity {
 	}
 	@Override
 	public String getPKDescription() {
-		return this.getIdLotto().toString();
+		return this.idLotto.toString();
 	}
 	@Override
 	public String getTableName() {

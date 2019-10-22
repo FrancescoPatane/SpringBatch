@@ -2,20 +2,14 @@ package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.pccube.batchmigration.client.doc.DocumentaleService;
-import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
-import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 
 public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTLottoStor >{
-	
-	private static final Logger logger = LoggerFactory.getLogger(FeLottoMapper.class);
 	
 	@Autowired
 	private DocumentaleService docService;

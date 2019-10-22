@@ -20,6 +20,10 @@ public class ProcessorFactory {
 		ItemProcessor  mapper= null;
 		String srcModelClassName = sourceClass.getSimpleName();
 		switch(srcModelClassName) {
+		case "FeAdesione":
+			FeAdesioneMapper fAdesioneMapper =  new FeAdesioneMapper();
+			mapper =  fAdesioneMapper;
+			break;
 		case "FeLotto":
 			FeLottoMapper feLottoMapper =  new FeLottoMapper();
 			this.beanFactory.autowireBean(feLottoMapper);

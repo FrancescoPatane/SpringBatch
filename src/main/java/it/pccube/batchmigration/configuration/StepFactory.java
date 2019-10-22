@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
+import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -23,6 +24,7 @@ import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
+import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
@@ -131,6 +133,19 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeCausaleFatturaStorico.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTCausaleFatturaStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAdesione() {
+    	return stepBuilderFactory.get("migrateFeAdesione")
+    			.listener(new ExecutionListener())
+    			.<FeAdesione, FatTAdesione>chunk(50)
+				.reader(this.tableReader(FeAdesione.class, FeAdesione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAdesione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAdesione.class))
 				.listener(new WriterListener())
 				.build();
     } 

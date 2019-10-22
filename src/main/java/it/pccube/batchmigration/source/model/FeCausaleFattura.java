@@ -82,7 +82,7 @@ public class FeCausaleFattura  implements ModelEntity{
 
 	@Override
 	public String getPKDescription() {
-		return this.getIdCausaleFattura().toString();
+		return this.idCausaleFattura.toString();
 	}
 
 	@Override

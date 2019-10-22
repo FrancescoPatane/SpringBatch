@@ -1,23 +1,16 @@
 package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
-import java.util.Base64;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.pccube.batchmigration.client.doc.DocumentaleService;
-import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTFattura;
-import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.source.model.FeFattura;
-import it.pccube.batchmigration.source.model.FeLotto;
 
 public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 
-	private static final Logger logger = LoggerFactory.getLogger(FeFatturaMapper.class);
 
 	@Autowired
 	private DocumentaleService docService;
@@ -25,7 +18,6 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 
 	@Override
 	public FatTFattura process(FeFattura source) throws Exception {
-		logger.info("Mapping FeFattura with PK: " + source.getIdFattura());
 		FatTFattura destination = new FatTFattura();
 		destination.setCdBolloVirtuale(source.getBolloVirtuale());
 		destination.setCdCapResa(source.getCapResa());
@@ -101,7 +93,6 @@ public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
 		destination.setQtTotalePercorsoVeicolo(destination.getQtTotalePercorsoVeicolo());
 		destination.setTsInserimento(destination.getTsInserimento());
 		destination.setTsUltimaModifica(destination.getTsUltimaModifica());
-		logger.info("Mapping complete");
 		return destination;
 	}
 
