@@ -2,6 +2,8 @@ package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +12,8 @@ import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 
 public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTLottoStor >{
+	
+	public static final Logger logger = LoggerFactory.getLogger(FeFatturaStoricoMapper.class);
 	
 	@Autowired
 	private DocumentaleService docService;

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
+import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
+import it.pccube.batchmigration.destination.model.FatTAllegato;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -25,6 +27,8 @@ import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
 import it.pccube.batchmigration.source.model.FeAdesione;
+import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
+import it.pccube.batchmigration.source.model.FeAllegato;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
@@ -146,6 +150,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeAdesione.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTAdesione.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAdesioneNotifica() {
+    	return stepBuilderFactory.get("migrateFeAdesioneNotifica")
+    			.listener(new ExecutionListener())
+    			.<FeAdesioneNotifica, FatTAdesioneNotifica>chunk(50)
+				.reader(this.tableReader(FeAdesioneNotifica.class, FeAdesioneNotifica.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAdesioneNotifica.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAdesioneNotifica.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAllegato() {
+    	return stepBuilderFactory.get("migrateFeAllegato")
+    			.listener(new ExecutionListener())
+    			.<FeAllegato, FatTAllegato>chunk(50)
+				.reader(this.tableReader(FeAllegato.class, FeAllegato.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAllegato.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAllegato.class))
 				.listener(new WriterListener())
 				.build();
     } 

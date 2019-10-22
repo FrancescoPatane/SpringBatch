@@ -23,7 +23,13 @@ public class FlowConfiguration {
 	public Flow splitFlow() {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
-	        .add(flowLotto(), flowFattura(), flowAdesione())
+	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato())
+	        .build();
+	}
+	
+	public Flow flowAllegato() {
+	    return new FlowBuilder<SimpleFlow>("flowAllegato")
+	        .start(this.stepFactory.migrateFeAllegato())
 	        .build();
 	}
 	
@@ -31,6 +37,7 @@ public class FlowConfiguration {
 	public Flow flowAdesione() {
 	    return new FlowBuilder<SimpleFlow>("flowAdesione")
 	        .start(this.stepFactory.migrateFeAdesione())
+	        .next(this.stepFactory.migrateFeAdesioneNotifica())
 	        .build();
 	}
 	

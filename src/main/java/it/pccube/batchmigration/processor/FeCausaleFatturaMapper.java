@@ -5,7 +5,7 @@ import org.springframework.batch.item.ItemProcessor;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 
-public class FeCausaleFatturaMapper implements ItemProcessor<FeCausaleFattura, FatTCausaleFattura >{
+public class FeCausaleFatturaMapper implements ItemProcessor<FeCausaleFattura, FatTCausaleFattura>{
 
 
 	@Override
