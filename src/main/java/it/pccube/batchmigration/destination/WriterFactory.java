@@ -13,6 +13,7 @@ import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoStor;
 
 @Component
 public class WriterFactory {
@@ -37,6 +38,9 @@ public class WriterFactory {
 		switch(modelClassName) {
 		case "FatTLotto":
 			query = FatTLotto.INSERT_QUERY;
+			break;
+		case "FatTLottoStor":
+			query = FatTLottoStor.INSERT_QUERY;
 			break;
 		case "FatTFattura":
 			query = FatTFattura.INSERT_QUERY;

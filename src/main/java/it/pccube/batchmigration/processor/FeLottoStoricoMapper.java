@@ -1,7 +1,6 @@
 package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
-import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,27 +8,28 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.pccube.batchmigration.client.doc.DocumentaleService;
-import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.source.model.FeLotto;
+import it.pccube.batchmigration.source.model.FeLottoStorico;
 
-public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
+public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTLottoStor >{
 	
 	private static final Logger logger = LoggerFactory.getLogger(FeLottoMapper.class);
-
 	
 	@Autowired
 	private DocumentaleService docService;
 
 	@Override
-	public FatTLotto process(FeLotto source) throws Exception {
-		FatTLotto destination = new FatTLotto();
+	public FatTLottoStor process(FeLottoStorico source) throws Exception {
+		FatTLottoStor destination = new FatTLottoStor();
+		destination.setIdLottoStor(source.getIdLottoStorico());
 		destination.setIdAdesione(source.getIdAdesione());
 		destination.setCdCapSedeCedente(source.getCapSedeCedente());
 		destination.setCdCapSedeCessionario(source.getCapSedeCessionario());
 		destination.setCdCapStabileCedente(source.getCapStabileCedente());
 		destination.setCdCapStabileCessionario(source.getCapStabileCessionario());
-		destination.setCdCfCedente(source.getCodiceFiscaleCedente());
+		destination.setCdCodiceFiscaleCedente(source.getCodiceFiscaleCedente());
 		destination.setCdCivicoStabileCessionario(source.getIndirizzoStabileCessionario());
 		destination.setCdCodEoriCedente(source.getCodEoriCedente());
 		destination.setCdCodEoriCessionario(source.getCodEoriCessionario());
@@ -44,7 +44,7 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 		destination.setCdCodiceRapFiscale(source.getIdCodiceRapFiscale());
 		destination.setCdCodiceTerzoInt(source.getIdCodiceTerzoInt());
 		destination.setCdCodiceTrasmittente(source.getIdCodiceTrasmittente());
-		destination.setCdCodRapFiscaleCes(source.getIdCodiceRapFiscaleCes());
+		destination.setCdCodiceRapFiscaleCes(source.getIdCodiceRapFiscaleCes());
 		destination.setCdFaxCedente(source.getFaxCedente());
 		destination.setCdFormatoTrasmissione(source.getFormatoTrasmissione());
 		destination.setCdHashXmlFirmato(source.getHashXmlFirmato());
@@ -142,7 +142,7 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 		destination.setNmDenominazioneTerzoInt(source.getDenominazioneTerzoInt());
 		destination.setNmEmailCedente(source.getEmailCedente());
 		destination.setNmEmailTrasmittente(source.getEmailTrasmittente());
-		destination.setNmIndirizStabileCessionario(source.getIndirizzoStabileCedente());
+		destination.setNmIndirizzoStabileCes(source.getIndirizzoStabileCedente());
 		destination.setNmIndirizzoSedeCedente(source.getIndirizzoSedeCedente());
 		destination.setNmIndirizzoSedeCessionario(source.getIndirizzoSedeCessionario());
 		destination.setNmIndirizzoStabileCedente(source.getIndirizzoStabileCedente());
@@ -160,14 +160,12 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto >{
 		destination.setNmTitoloTerzoInt(source.getTitoloTerzoInt());
 		destination.setNmUtenteInserimento(source.getUseridInserimento());
 		destination.setNmUtenteUltimaModifica(source.getUseridUltimoAggiornamento());
-		if (source.getVersioneLotto() != null)
-			destination.setPgVersioneLotto(BigDecimal.valueOf(source.getVersioneLotto()));
 		if (source.getSizeXmlFirmato() != null)
 			destination.setQtSizeXmlFirmato(BigDecimal.valueOf(source.getSizeXmlFirmato()));
 		destination.setTsInserimento(source.getTmstInserimento());
 		destination.setTsUltimaModifica(source.getTmstUltimoAggiornamento());
+		
 		return destination;
 	}
-
 
 }

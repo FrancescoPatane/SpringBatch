@@ -31,6 +31,7 @@ public class FlowConfiguration {
 	public Flow flowLotto() {
 	    return new FlowBuilder<SimpleFlow>("flowLotto")
 	        .start(this.stepFactory.migrateFeLotto())
+	        .next(this.stepFactory.migrateFeLottoStorico())
 	        .build();
 	}
 	

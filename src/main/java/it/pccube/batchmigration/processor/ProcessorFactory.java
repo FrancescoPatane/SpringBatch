@@ -25,6 +25,11 @@ public class ProcessorFactory {
 			this.beanFactory.autowireBean(feLottoMapper);
 			mapper =  feLottoMapper;
 			break;
+		case "FeLottoStorico":
+			FeLottoStoricoMapper feLottoStoricoMapper =  new FeLottoStoricoMapper();
+			this.beanFactory.autowireBean(feLottoStoricoMapper);
+			mapper =  feLottoStoricoMapper;
+			break;
 		case "FeFattura":
 			FeFatturaMapper feFatturaMapper =  new FeFatturaMapper();
 			this.beanFactory.autowireBean(feFatturaMapper);

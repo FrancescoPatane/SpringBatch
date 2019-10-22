@@ -17,6 +17,7 @@ import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.listener.ExecutionListener;
 import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
@@ -26,6 +27,7 @@ import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
+import it.pccube.batchmigration.source.model.FeLottoStorico;
 
 @Component
 public class StepFactory {
@@ -63,6 +65,19 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeLotto.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTLotto.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLottoStorico() {
+    	return stepBuilderFactory.get("migrateFeLottoStorico")
+    			.listener(new ExecutionListener())
+    			.<FeLottoStorico, FatTLottoStor>chunk(50)
+				.reader(this.tableReader(FeLottoStorico.class, FeLottoStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeLottoStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTLottoStor.class))
 				.listener(new WriterListener())
 				.build();
     }
