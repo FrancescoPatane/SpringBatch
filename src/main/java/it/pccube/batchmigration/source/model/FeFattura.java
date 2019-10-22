@@ -4,8 +4,10 @@ package it.pccube.batchmigration.source.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import it.pccube.batchmigration.model.ModelEntity;
 
-public class FeFattura  {
+
+public class FeFattura  implements ModelEntity{
 	
 	public static final String TABLE_NAME = "FE_FATTURA";
 
@@ -679,6 +681,16 @@ public class FeFattura  {
 
 	public void setCausale(String causale) {
 		this.causale = causale;
+	}
+
+	@Override
+	public String getPKDescription() {
+		return this.idFattura.toString();
+	}
+
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
 	}
 	
 	

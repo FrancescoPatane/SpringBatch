@@ -64,18 +64,18 @@ public class FeFatturaStoricoMapper implements ItemProcessor<FeFatturaStorico, F
 		destination.setIdPaeseVettore(source.getIdPaeseVettore());
 		destination.setIdProvinciaResa(source.getProvinciaResa());
 		destination.setIdRegioneResa(source.getRegioneResa());
-		if (source.getXmlEuGenerated() != null){
-			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuGenerated tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
-			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
-			destination.setIdXmlEuGenerated(doc.getId());
-		}
-		if (source.getXmlEuUploaded() != null){
-			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
-			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuUploadedName tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
-			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
-			destination.setIdXmlEuGenerated(doc.getId());
-		}
+//		if (source.getXmlEuGenerated() != null){
+//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+//			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuGenerated tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
+//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuGeneratedName());
+//			destination.setIdXmlEuGenerated(doc.getId());
+//		}
+//		if (source.getXmlEuUploaded() != null){
+//			String base64String = Base64.getEncoder().encodeToString(source.getXmlEuGenerated());
+//			logger.info("Tentativo chiamata documentale per salvataggio documento XmlEuUploadedName tabella FeFatturaStorico con id: " + source.getIdFatturaStorico());
+//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getXmlEuUploadedName());
+//			destination.setIdXmlEuGenerated(doc.getId());
+//		}
 		destination.setImArrotondamento(source.getArrotondamento());
 		destination.setImImportoBollo(source.getImportoBollo());
 		destination.setImImportoRitenuta(source.getImportoRitenuta());

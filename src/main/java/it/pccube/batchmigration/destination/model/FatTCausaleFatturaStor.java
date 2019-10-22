@@ -2,11 +2,13 @@ package it.pccube.batchmigration.destination.model;
 
 import java.util.Date;
 
+import it.pccube.batchmigration.model.ModelEntity;
+
 
 
 public class FatTCausaleFatturaStor implements ModelEntity {
 
-	private static final String TABLE_NAME = "FAT_T_CAUSALE_FATTURA_STOR";
+	public static final String TABLE_NAME = "FAT_T_CAUSALE_FATTURA_STOR";
 
 	public static final String INSERT_QUERY = "INSERT INTO FAT_T_CAUSALE_FATTURA_STOR (id_causale_fattura_stor, id_causale_fattura, ds_causale, id_fattura, nm_utente_inserimento, ts_inserimento, nm_utente_ultima_modifica, ts_ultima_modifica, id_fattura_stor) VALUES (:idCausaleFatturaStor, :idCausaleFattura, :dsCausale, :idFattura, :nmUtenteInserimento, :tsInserimento, :nmUtenteUltimaModifica, :tsUltimaModifica, :idFatturaStor)";
 

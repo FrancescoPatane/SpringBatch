@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ItemWriteListener;
 
-import it.pccube.batchmigration.destination.model.ModelEntity;
+import it.pccube.batchmigration.model.ModelEntity;
 
 public class WriterListener implements ItemWriteListener<ModelEntity>{
 	
@@ -40,8 +40,16 @@ public class WriterListener implements ItemWriteListener<ModelEntity>{
 
 	@Override
 	public void onWriteError(Exception exception, List<? extends ModelEntity> items) {
-		// TODO Auto-generated method stub
-		
+		StringBuilder sb = new StringBuilder("Failed to persist the following entities: [");
+		for (ModelEntity e : items) {
+			sb.append(e.getTableName());
+			sb.append(" PK: ");
+			sb.append(e.getPKDescription());
+			sb.append(" ");
+		}
+		sb.append("]");
+		logger.error(sb.toString());
+		logger.error(exception.getMessage(), exception);
 	}
 
 }

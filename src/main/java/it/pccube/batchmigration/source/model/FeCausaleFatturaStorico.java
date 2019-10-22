@@ -2,8 +2,10 @@ package it.pccube.batchmigration.source.model;
 
 import java.sql.Date;
 
+import it.pccube.batchmigration.model.ModelEntity;
 
-public class FeCausaleFatturaStorico{
+
+public class FeCausaleFatturaStorico implements ModelEntity{
 	
 	public static final String TABLE_NAME = "FE_CAUSALE_FATTURA_STORICO";
 	
@@ -95,6 +97,16 @@ public class FeCausaleFatturaStorico{
 
 	public void setTmstUltimoAggiornamento(Date tmstUltimoAggiornamento) {
 		this.tmstUltimoAggiornamento = tmstUltimoAggiornamento;
+	}
+
+	@Override
+	public String getPKDescription() {
+		return this.idCausaleFatturaStorico.toString();
+	}
+
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
 	}
 	
 	

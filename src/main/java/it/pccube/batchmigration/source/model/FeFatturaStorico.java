@@ -3,7 +3,9 @@ package it.pccube.batchmigration.source.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class FeFatturaStorico {
+import it.pccube.batchmigration.model.ModelEntity;
+
+public class FeFatturaStorico implements ModelEntity{
 	
 	public static final String TABLE_NAME = "FE_FATTURA_STORICO";
 
@@ -694,6 +696,14 @@ public class FeFatturaStorico {
 
 	/****/
 	
-	
+	@Override
+	public String getPKDescription() {
+		return this.idFatturaStorico.toString();
+	}
+
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
+	}
 
 }

@@ -17,6 +17,8 @@ import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.listener.ExecutionListener;
+import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
@@ -54,9 +56,12 @@ public class StepFactory {
 	
     @SuppressWarnings("unchecked")
 	public Step migrateFeLotto() {
-    	return stepBuilderFactory.get("migrateFeLotto").<FeLotto, FatTLotto>chunk(200)
+    	return stepBuilderFactory.get("migrateFeLotto")
+    			.listener(new ExecutionListener())
+    			.<FeLotto, FatTLotto>chunk(50)
 				.reader(this.tableReader(FeLotto.class, FeLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLotto.class))
+				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTLotto.class))
 				.listener(new WriterListener())
 				.build();
@@ -65,9 +70,12 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeFattura() {
-    	return stepBuilderFactory.get("migrateFeFattura").<FeFattura, FatTFattura>chunk(200)
+    	return stepBuilderFactory.get("migrateFeFattura")
+    			.listener(new ExecutionListener())
+    			.<FeFattura, FatTFattura>chunk(50)
 				.reader(this.tableReader(FeFattura.class, FeFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFattura.class))
+				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTFattura.class))
 				.listener(new WriterListener())
 				.build();
@@ -75,9 +83,12 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeFatturaStorico() {
-    	return stepBuilderFactory.get("migrateFeFatturaStorico").<FeFatturaStorico, FatTFatturaStor>chunk(200)
+    	return stepBuilderFactory.get("migrateFeFatturaStorico")
+    			.listener(new ExecutionListener())
+    			.<FeFatturaStorico, FatTFatturaStor>chunk(50)
 				.reader(this.tableReader(FeFatturaStorico.class, FeFatturaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFatturaStorico.class))
+				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTFatturaStor.class))
 				.listener(new WriterListener())
 				.build();
@@ -85,9 +96,12 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeCausaleFattura() {
-    	return stepBuilderFactory.get("migrateFeCausaleFattura").<FeCausaleFattura, FatTCausaleFattura>chunk(200)
+    	return stepBuilderFactory.get("migrateFeCausaleFattura")
+    			.listener(new ExecutionListener())
+    			.<FeCausaleFattura, FatTCausaleFattura>chunk(50)
 				.reader(this.tableReader(FeCausaleFattura.class, FeCausaleFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCausaleFattura.class))
+				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTCausaleFattura.class))
 				.listener(new WriterListener())
 				.build();
@@ -95,9 +109,12 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeCausaleFatturaStorico() {
-    	return stepBuilderFactory.get("migrateFeCausaleFatturaStorico").<FeCausaleFatturaStorico, FatTCausaleFatturaStor>chunk(200)
+    	return stepBuilderFactory.get("migrateFeCausaleFatturaStorico")
+    			.listener(new ExecutionListener())
+    			.<FeCausaleFatturaStorico, FatTCausaleFatturaStor>chunk(50)
 				.reader(this.tableReader(FeCausaleFatturaStorico.class, FeCausaleFatturaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCausaleFatturaStorico.class))
+				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTCausaleFatturaStor.class))
 				.listener(new WriterListener())
 				.build();

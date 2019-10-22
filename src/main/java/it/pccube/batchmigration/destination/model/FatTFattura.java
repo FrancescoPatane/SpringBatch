@@ -3,11 +3,13 @@ package it.pccube.batchmigration.destination.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import it.pccube.batchmigration.model.ModelEntity;
+
 
 public class FatTFattura implements ModelEntity {
 	
 	
-	private static final String TABLE_NAME = "FAT_T_FATTURA";
+	public static final String TABLE_NAME = "FAT_T_FATTURA";
 	
 	public static final String INSERT_QUERY = "INSERT INTO FAT_T_FATTURA (id_fattura, id_diz_tipo_documento, id_divisa, dt_data, cd_numero, id_diz_tipo_ritenuta, im_importo_ritenuta, pc_aliquota_ritenuta, id_diz_causale_pagamento, cd_numero_bollo, im_importo_bollo, im_importo_totale_documento, im_arrotondamento, ds_causale, id_diz_art_73, id_paese_vettore, cd_codice_vettore, cd_codice_fiscale_vettore, nm_denominazione_vettore, nm_nome_vettore, nm_cognome_vettore, nm_titolo_vettore, cd_cod_eori_vettore, cd_num_licenza_guida_vettore, nm_mezzo_trasporto, ds_causale_trasporto, qt_numero_colli, ds_descrizione, cd_unita_misura_peso, qt_peso_lordo, qt_peso_netto, dt_data_ora_ritiro, dt_data_inizio_trasporto, id_diz_tipo_resa, nm_indirizzo_resa, cd_numero_civico_resa, cd_cap_resa, id_comune_resa, nm_comune_resa_est, id_provincia_resa, id_regione_resa, id_nazione_resa, dt_data_ora_consegna, cd_norma_di_riferimento, cd_numero_fattura_principale, dt_data_fattura_principale, id_fattura_principale, dt_data_immat_veicolo, qt_totale_percorso_veicolo, id_lotto, nm_utente_inserimento, ts_inserimento, nm_utente_ultima_modifica, ts_ultima_modifica, id_lotto_fat_rifiutata, pg_versione_lotto_fat_rifiut, id_fattura_rifiutata, cd_bollo_virtuale, id_xml_eu_uploaded, nm_xml_eu_uploaded_name, id_xml_eu_generated, nm_xml_eu_generated_name) VALUES (:idFattura, :idDizTipoDocumento, :idDizDivisa, :dtData, :cdNumero, :idDizTipoRitenuta, :imImportoRitenuta, :pcAliquotaRitenuta, :idDizCausalePagamento, :cdNumeroBollo, :imImportoBollo, :imImportoTotaleDocumento, :imArrotondamento, :dsCausale, :idDizArt73, :idPaeseVettore, :cdCodiceVettore, :cdCodiceFiscaleVettore, :nmDenominazioneVettore, :nmNomeVettore, :nmCognomeVettore, :nmTitoloVettore, :cdCodEoriVettore, :cdNumLicenzaGuidaVettore, :nmMezzoTrasporto, :dsCausaleTrasporto, :qtNumeroColli, :dsDescrizione, :cdUnitaMisuraPeso, :qtPesoLordo, :qtPesoNetto, :dtDataOraRitiro, :dtDataInizioTrasporto, :idDizTipoResa, :nmIndirizzoResa, :cdNumeroCivicoResa, :cdCapResa, :idComuneResa, :nmComuneResaEst, :idProvinciaResa, :idRegioneResa, :idNazioneResa, :dtDataOraConsegna, :cdNormaDiRiferimento, :cdNumeroFatturaPrincipale, :dtDataFatturaPrincipale, :idFatturaPrincipale, :dtDataImmatVeicolo, :qtTotalePercorsoVeicolo, :idLotto, :nmUtenteInserimento, :tsInserimento, :nmUtenteUltimaModifica, :tsUltimaModifica, :idLottoFatRifiutata, :pgVersioneLottoFatRifiut, :idFatturaRifiutata, :cdBolloVirtuale, :idXmlEuUploaded, :nmXmlEuUploadedName, :idXmlEuGenerated, :nmXmlEuGeneratedName)";
 

@@ -4,7 +4,9 @@ package it.pccube.batchmigration.source.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class FeLotto  {
+import it.pccube.batchmigration.model.ModelEntity;
+
+public class FeLotto implements ModelEntity {
 
 	public static final String TABLE_NAME = "FE_LOTTO";
 
@@ -1015,6 +1017,14 @@ public class FeLotto  {
 	}
 	public void setXmlNonFirmato(byte[] xmlNonFirmato) {
 		this.xmlNonFirmato = xmlNonFirmato;
+	}
+	@Override
+	public String getPKDescription() {
+		return this.getIdLotto().toString();
+	}
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
 	}
 	
 	

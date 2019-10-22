@@ -1,4 +1,4 @@
-package it.pccube.batchmigration.destination.model;
+package it.pccube.batchmigration.model;
 
 public interface ModelEntity {
 	
