@@ -16,7 +16,9 @@ import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
 import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
+import it.pccube.batchmigration.destination.model.FatTAltroDatoGestStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
+import it.pccube.batchmigration.destination.model.FatTArchivio;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -32,7 +34,9 @@ import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
 import it.pccube.batchmigration.source.model.FeAllegatoStorico;
+import it.pccube.batchmigration.source.model.FeAltroDatoGestStorico;
 import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
+import it.pccube.batchmigration.source.model.FeArchivio;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
@@ -206,6 +210,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeAltroDatoGestionale.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTAltroDatoGestionale.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAltroDatoGestStorico() {
+    	return stepBuilderFactory.get("migrateFeAltroDatoGestStorico")
+    			.listener(new ExecutionListener())
+    			.<FeAltroDatoGestStorico, FatTAltroDatoGestionale>chunk(50)
+				.reader(this.tableReader(FeAltroDatoGestStorico.class, FeAltroDatoGestStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAltroDatoGestStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAltroDatoGestStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeArchivio() {
+    	return stepBuilderFactory.get("migrateFeArchivio")
+    			.listener(new ExecutionListener())
+    			.<FeArchivio, FatTArchivio>chunk(50)
+				.reader(this.tableReader(FeArchivio.class, FeArchivio.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeArchivio.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTArchivio.class))
 				.listener(new WriterListener())
 				.build();
     } 

@@ -45,6 +45,10 @@ public class ProcessorFactory {
 			FeAdesioneNotificaMapper feAdesioneNotificaMapper =  new FeAdesioneNotificaMapper();
 			mapper =  feAdesioneNotificaMapper;
 			break;
+		case "FeAltroDatoGestStorico":
+			FeAltroDatoGestionaleStoricoMapper feAltroDatoGestionaleStoricoMapper =  new FeAltroDatoGestionaleStoricoMapper();
+			mapper =  feAltroDatoGestionaleStoricoMapper;
+			break;
 		case "FeLotto":
 			FeLottoMapper feLottoMapper =  new FeLottoMapper();
 			this.beanFactory.autowireBean(feLottoMapper);
@@ -72,6 +76,11 @@ public class ProcessorFactory {
 		case "FeCausaleFatturaStorico":
 			FeCausaleFatturaStoricoMapper fecausaleFatturaStoricoMapper =  new FeCausaleFatturaStoricoMapper();
 			mapper =  fecausaleFatturaStoricoMapper;
+			break;
+		case "FeArchivio":
+			FeArchivioMapper feArchivioMapper =  new FeArchivioMapper();
+			this.beanFactory.autowireBean(feArchivioMapper);
+			mapper =  feArchivioMapper;
 			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);

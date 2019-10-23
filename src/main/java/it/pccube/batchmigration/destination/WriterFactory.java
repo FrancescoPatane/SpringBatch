@@ -12,7 +12,9 @@ import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
 import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
+import it.pccube.batchmigration.destination.model.FatTAltroDatoGestStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
+import it.pccube.batchmigration.destination.model.FatTArchivio;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -20,7 +22,6 @@ import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
-import it.pccube.batchmigration.source.model.FeAdesione;
 
 @Component
 public class WriterFactory {
@@ -58,6 +59,9 @@ public class WriterFactory {
 		case "FatTAltroDatoGestionale":
 			query = FatTAltroDatoGestionale.INSERT_QUERY;
 			break;
+		case "FatTAltroDatoGestStor":
+			query = FatTAltroDatoGestStor.INSERT_QUERY;
+			break;
 		case "FatTLotto":
 			query = FatTLotto.INSERT_QUERY;
 			break;
@@ -75,6 +79,9 @@ public class WriterFactory {
 			break;
 		case "FatTCausaleFatturaStor":
 			query = FatTCausaleFatturaStor.INSERT_QUERY;
+			break;
+		case "FatTArchivio":
+			query = FatTArchivio.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

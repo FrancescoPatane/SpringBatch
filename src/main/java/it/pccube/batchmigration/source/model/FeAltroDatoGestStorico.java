@@ -1,16 +1,16 @@
 package it.pccube.batchmigration.source.model;
 
-import it.pccube.batchmigration.model.ModelEntity;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
+import it.pccube.batchmigration.model.ModelEntity;
 
-public class FeAltroDatoGestionale implements ModelEntity {
+public class FeAltroDatoGestStorico implements ModelEntity {
 	
 	public static final String TABLE_NAME = "FE_ALTRO_DATO_GESTIONALE";
 
-
+	private Long idAltroDatoGestStorico;
+	
 	private Long idAltroDatoGestionale;
 
 	private String tipoDato;
@@ -22,6 +22,8 @@ public class FeAltroDatoGestionale implements ModelEntity {
 	private Date riferimentoData;
 
 	private Long idDettaglioLinea;
+	
+	private Long idDettaglioLineaStorico;
 
 	private String useridInserimento;
 
@@ -30,6 +32,14 @@ public class FeAltroDatoGestionale implements ModelEntity {
 	private String useridUltimoAggiornamento;
 
 	private Date tmstUltimoAggiornamento;
+
+	public Long getIdAltroDatoGestStorico() {
+		return idAltroDatoGestStorico;
+	}
+
+	public void setIdAltroDatoGestStorico(Long idAltroDatoGestStorico) {
+		this.idAltroDatoGestStorico = idAltroDatoGestStorico;
+	}
 
 	public Long getIdAltroDatoGestionale() {
 		return idAltroDatoGestionale;
@@ -111,17 +121,24 @@ public class FeAltroDatoGestionale implements ModelEntity {
 		this.tmstUltimoAggiornamento = tmstUltimoAggiornamento;
 	}
 
+	public Long getIdDettaglioLineaStorico() {
+		return idDettaglioLineaStorico;
+	}
+
+	public void setIdDettaglioLineaStorico(Long idDettaglioLineaStorico) {
+		this.idDettaglioLineaStorico = idDettaglioLineaStorico;
+	}
+
 	@Override
 	public String getPKDescription() {
-		return this.idAltroDatoGestionale.toString();
+		return this.idAltroDatoGestStorico.toString();
 	}
 
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
 	}
-
 	
-
+	
 
 }

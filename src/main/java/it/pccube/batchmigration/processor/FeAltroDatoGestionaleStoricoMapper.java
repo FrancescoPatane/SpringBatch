@@ -2,14 +2,14 @@ package it.pccube.batchmigration.processor;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
-import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
+import it.pccube.batchmigration.destination.model.FatTAltroDatoGestStor;
+import it.pccube.batchmigration.source.model.FeAltroDatoGestStorico;
 
-public class FeAltroDatoGestionaleMapper implements ItemProcessor<FeAltroDatoGestionale, FatTAltroDatoGestionale>{
+public class FeAltroDatoGestionaleStoricoMapper implements ItemProcessor<FeAltroDatoGestStorico, FatTAltroDatoGestStor>{
 
 	@Override
-	public FatTAltroDatoGestionale process(FeAltroDatoGestionale source) throws Exception {
-		FatTAltroDatoGestionale destination = new FatTAltroDatoGestionale();
+	public FatTAltroDatoGestStor process(FeAltroDatoGestStorico source) throws Exception {
+		FatTAltroDatoGestStor destination = new FatTAltroDatoGestStor();
 		destination.setCdRiferimentoTesto(source.getRiferimentoTesto());
 		destination.setDtDataRiferimentoData(source.getRiferimentoData());
 		destination.setIdAltroDatoGestionale(source.getIdAltroDatoGestionale());
@@ -20,7 +20,8 @@ public class FeAltroDatoGestionaleMapper implements ItemProcessor<FeAltroDatoGes
 		destination.setNrRiferimentoNumero(source.getRiferimentoNumero());
 		destination.setTsInserimento(source.getTmstInserimento());
 		destination.setTsUltimaModifica(source.getTmstUltimoAggiornamento());
+		destination.setIdAltroDatoGestStor(source.getIdAltroDatoGestStorico());
+		destination.setIdDettaglioLineaStor(source.getIdDettaglioLineaStorico());
 		return destination;
 	}
-
 }

@@ -23,7 +23,7 @@ public class FlowConfiguration {
 	public Flow splitFlow() {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
-	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale())
+	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio())
 	        .build();
 	}
 	
@@ -37,6 +37,7 @@ public class FlowConfiguration {
 	public Flow flowAltroDatoGestionale() {
 	    return new FlowBuilder<SimpleFlow>("flowAltroDatoGestionale")
 	        .start(this.stepFactory.migrateFeAltroDatoGestionale())
+	        .next(this.stepFactory.migrateFeAltroDatoGestStorico())
 	        .build();
 	}
 	
@@ -62,6 +63,12 @@ public class FlowConfiguration {
 	        .next(this.stepFactory.migrateFeFatturaStorico())
 	        .next(this.stepFactory.migrateFeCausaleFattura())
 	        .next(this.stepFactory.migrateFeCausaleFatturaStorico())
+	        .build();
+	}
+	
+	public Flow flowArchivio() {
+	    return new FlowBuilder<SimpleFlow>("flowArchivio")
+	        .start(this.stepFactory.migrateFeArchivio())
 	        .build();
 	}
 	

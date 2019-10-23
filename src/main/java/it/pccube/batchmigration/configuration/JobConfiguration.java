@@ -23,17 +23,17 @@ public class JobConfiguration {
 	
     @Bean
     public Job migration() {
-//        return jobBuilderFactory.get("migration")
-//                .start(this.stepFactory.migrateFeAltroDatoGestionale())
-//                .next(this.stepFactory.migrateFeAllegatoStorico())
-////                .next(this.stepFactory.migrateFeFattura())
-////                .next(this.stepFactory.migrateFeCausaleFattura())
-//                .build();
-    	
         return jobBuilderFactory.get("migration")
-                .start(flowProvider.splitFlow())
-                .build()
+                .start(this.stepFactory.migrateFeArchivio())
+//                .next(this.stepFactory.migrateFeArchivio())
+//                .next(this.stepFactory.migrateFeFattura())
+//                .next(this.stepFactory.migrateFeCausaleFattura())
                 .build();
+    	
+//        return jobBuilderFactory.get("migration")
+//                .start(flowProvider.splitFlow())
+//                .build()
+//                .build();
     }
     
     
