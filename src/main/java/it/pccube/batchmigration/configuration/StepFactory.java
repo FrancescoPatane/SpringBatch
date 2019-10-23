@@ -25,6 +25,8 @@ import it.pccube.batchmigration.destination.model.FatTArticolo;
 import it.pccube.batchmigration.destination.model.FatTArticoloStor;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
+import it.pccube.batchmigration.destination.model.FatTCompSezioneStor;
+import it.pccube.batchmigration.destination.model.FatTCompilazioneSezione;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
@@ -34,6 +36,8 @@ import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
+import it.pccube.batchmigration.source.model.FeCompSezioneStorico;
+import it.pccube.batchmigration.source.model.FeCompilazioneSezione;
 import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
@@ -297,6 +301,33 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeStatoArchivio.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatAStatoArchivio.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeCompilazioneSezione() {
+    	return stepBuilderFactory.get("migrateFeCompilazioneSezione")
+    			.listener(new ExecutionListener())
+    			.<FeCompilazioneSezione, FatTCompilazioneSezione>chunk(50)
+				.reader(this.tableReader(FeCompilazioneSezione.class, FeCompilazioneSezione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeCompilazioneSezione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTCompilazioneSezione.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeCompilazioneSezioneStorico() {
+    	return stepBuilderFactory.get("migrateFeCompilazioneSezioneStorico")
+    			.listener(new ExecutionListener())
+    			.<FeCompSezioneStorico, FatTCompSezioneStor>chunk(50)
+				.reader(this.tableReader(FeCompSezioneStorico.class, FeCompSezioneStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeCompSezioneStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTCompSezioneStor.class))
 				.listener(new WriterListener())
 				.build();
     } 
