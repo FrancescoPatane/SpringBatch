@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
+import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
+import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
@@ -46,6 +48,8 @@ import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
+import it.pccube.batchmigration.source.model.FeStatoAdesione;
+import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
 @Component
 public class StepFactory {
@@ -270,6 +274,31 @@ public class StepFactory {
 				.build();
     } 
     
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoAdesione() {
+    	return stepBuilderFactory.get("migrateFeStatoAdesione")
+    			.listener(new ExecutionListener())
+    			.<FeStatoAdesione, FatAStatoAdesione>chunk(50)
+				.reader(this.tableReader(FeStatoAdesione.class, FeStatoAdesione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoAdesione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoAdesione.class))
+				.listener(new WriterListener())
+				.build();
+    } 
     
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoArchivio() {
+    	return stepBuilderFactory.get("migrateFeStatoArchivio")
+    			.listener(new ExecutionListener())
+    			.<FeStatoArchivio, FatAStatoArchivio>chunk(50)
+				.reader(this.tableReader(FeStatoArchivio.class, FeStatoArchivio.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoArchivio.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoArchivio.class))
+				.listener(new WriterListener())
+				.build();
+    } 
 
 }

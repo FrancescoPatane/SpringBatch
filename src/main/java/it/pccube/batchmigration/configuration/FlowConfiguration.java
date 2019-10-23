@@ -25,6 +25,7 @@ public class FlowConfiguration {
 	        .split(taskExecutor())
 	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio())
 	        .next(flowArticolo())
+	        .next(flowTabelleStato())
 	        .build();
 	}
 	
@@ -77,6 +78,13 @@ public class FlowConfiguration {
 	    return new FlowBuilder<SimpleFlow>("flowArticolo")
 	        .start(this.stepFactory.migrateFeArticolo())
 	        .next(this.stepFactory.migrateFeArticoloStorico())
+	        .build();
+	}
+	
+	public Flow flowTabelleStato() {
+	    return new FlowBuilder<SimpleFlow>("flowTabelleStato")
+	        .start(this.stepFactory.migrateFeStatoAdesione())
+	        .next(this.stepFactory.migrateFeStatoArchivio())
 	        .build();
 	}
 	

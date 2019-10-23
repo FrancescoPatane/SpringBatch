@@ -6,7 +6,6 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.exception.NoProcessorFoundException;
-import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
 
 @Component
 public class ProcessorFactory {
@@ -89,6 +88,14 @@ public class ProcessorFactory {
 		case "FeArticoloStorico":
 			FeArticoloStoricoMapper feArticoloStoricoMapper =  new FeArticoloStoricoMapper();
 			mapper =  feArticoloStoricoMapper;
+			break;
+		case "FeStatoAdesione":
+			FeStatoAdesioneMapper feStatoAdesioneMapper =  new FeStatoAdesioneMapper();
+			mapper =  feStatoAdesioneMapper;
+			break;
+		case "FeStatoArchivio":
+			FeStatoArchivioMapper feStatoArchivioMapper =  new FeStatoArchivioMapper();
+			mapper =  feStatoArchivioMapper;
 			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);

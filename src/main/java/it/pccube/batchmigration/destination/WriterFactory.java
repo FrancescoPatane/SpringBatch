@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
+import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
@@ -90,6 +92,12 @@ public class WriterFactory {
 			break;
 		case "FatTArticoloStor":
 			query = FatTArticoloStor.INSERT_QUERY;
+			break;
+		case "FatAStatoAdesione":
+			query = FatAStatoAdesione.INSERT_QUERY;
+			break;
+		case "FatAStatoArchivio":
+			query = FatAStatoArchivio.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
