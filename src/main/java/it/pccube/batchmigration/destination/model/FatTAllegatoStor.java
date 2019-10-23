@@ -1,20 +1,24 @@
 package it.pccube.batchmigration.destination.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import it.pccube.batchmigration.model.ModelEntity;
 
+public class FatTAllegatoStor implements ModelEntity {
 
-public class FatTAllegato implements ModelEntity {
-
-	public static final String TABLE_NAME = "FAT_T_ALLEGATO";
 	
-	public static final String INSERT_QUERY = "INSERT INTO FAT_T_ALLEGATO (DS_DESCRIZIONE_ATTACHMENT,ID_ALLEGATO,ID_ATTACHMENT,ID_FATTURA,NM_ALGORITMO_COMPRESSIONE,NM_FORMATO_ATTACHMENT,NM_NOME_ATTACHMENT,NM_UTENTE_INSERIMENTO,NM_UTENTE_ULTIMA_MODIFICA,TS_INSERIMENTO,TS_ULTIMA_MODIFICA) VALUES (:dsDescrizioneAttachment, :idAllegato, :idAttachment, :idFattura, :nmAlgoritmoCompressione, :nmFormatoAttachment, :nmNomeAttachment, :nmUtenteInserimento, :nmUtenteUltimaModifica, :tsInserimento, :tsUltimaModifica)";
+	public static final String TABLE_NAME = "FAT_T_ALLEGATO_STOR";
+	
+	public static final String INSERT_QUERY = "INSERT INTO FAT_T_ALLEGATO_STOR (ID_ALLEGATO_STOR, DS_DESCRIZIONE_ATTACHMENT,ID_ALLEGATO,ID_ATTACHMENT,ID_FATTURA,ID_FATTURA_STOR,NM_ALGORITMO_COMPRESSIONE,NM_FORMATO_ATTACHMENT,NM_NOME_ATTACHMENT,NM_UTENTE_INSERIMENTO,NM_UTENTE_ULTIMA_MODIFICA,TS_INSERIMENTO,TS_ULTIMA_MODIFICA) VALUES (:idAllegatoStor, :dsDescrizioneAttachment, :idAllegato, :idAttachment, :idFattura, :idFatturaStor, :nmAlgoritmoCompressione, :nmFormatoAttachment, :nmNomeAttachment, :nmUtenteInserimento, :nmUtenteUltimaModifica, :tsInserimento, :tsUltimaModifica)";
 
+	private Long idAllegatoStor;
+
+	private String dsDescrizioneAttachment;
 
 	private Long idAllegato;
 
-	private String dsDescrizioneAttachment;
+	private BigDecimal idFattura;
 
 	private String nmAlgoritmoCompressione;
 
@@ -32,7 +36,23 @@ public class FatTAllegato implements ModelEntity {
 
 	private Date tsUltimaModifica;
 
-	private Long idFattura;
+	private Long idFatturaStor;
+
+	public Long getIdAllegatoStor() {
+		return idAllegatoStor;
+	}
+
+	public void setIdAllegatoStor(Long idAllegatoStor) {
+		this.idAllegatoStor = idAllegatoStor;
+	}
+
+	public String getDsDescrizioneAttachment() {
+		return dsDescrizioneAttachment;
+	}
+
+	public void setDsDescrizioneAttachment(String dsDescrizioneAttachment) {
+		this.dsDescrizioneAttachment = dsDescrizioneAttachment;
+	}
 
 	public Long getIdAllegato() {
 		return idAllegato;
@@ -42,12 +62,12 @@ public class FatTAllegato implements ModelEntity {
 		this.idAllegato = idAllegato;
 	}
 
-	public String getDsDescrizioneAttachment() {
-		return dsDescrizioneAttachment;
+	public BigDecimal getIdFattura() {
+		return idFattura;
 	}
 
-	public void setDsDescrizioneAttachment(String dsDescrizioneAttachment) {
-		this.dsDescrizioneAttachment = dsDescrizioneAttachment;
+	public void setIdFattura(BigDecimal idFattura) {
+		this.idFattura = idFattura;
 	}
 
 	public String getNmAlgoritmoCompressione() {
@@ -114,17 +134,17 @@ public class FatTAllegato implements ModelEntity {
 		this.tsUltimaModifica = tsUltimaModifica;
 	}
 
-	public Long getIdFattura() {
-		return idFattura;
+	public Long getIdFatturaStor() {
+		return idFatturaStor;
 	}
 
-	public void setIdFattura(Long idFattura) {
-		this.idFattura = idFattura;
+	public void setIdFatturaStor(Long idFatturaStor) {
+		this.idFatturaStor = idFatturaStor;
 	}
 
 	@Override
 	public String getPKDescription() {
-		return this.idAllegato.toString();
+		return this.idAllegatoStor.toString();
 	}
 
 	@Override
@@ -132,6 +152,9 @@ public class FatTAllegato implements ModelEntity {
 		return TABLE_NAME;
 	}
 
+
 	
 	
+	
+
 }

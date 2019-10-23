@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.exception.NoProcessorFoundException;
+import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
+
 @Component
 public class ProcessorFactory {
 
@@ -24,6 +27,15 @@ public class ProcessorFactory {
 			FeAllegatoMapper feAllegatoMapper =  new FeAllegatoMapper();
 			this.beanFactory.autowireBean(feAllegatoMapper);
 			mapper =  feAllegatoMapper;
+			break;
+		case "FeAllegatoStorico":
+			FeAllegatoStoricoMapper feAllegatoStoricoMapper =  new FeAllegatoStoricoMapper();
+			this.beanFactory.autowireBean(feAllegatoStoricoMapper);
+			mapper =  feAllegatoStoricoMapper;
+			break;
+		case "FeAltroDatoGestionale":
+			FeAltroDatoGestionaleMapper feAltroDatoGestionaleMapper =  new FeAltroDatoGestionaleMapper();
+			mapper =  feAltroDatoGestionaleMapper;
 			break;
 		case "FeAdesione":
 			FeAdesioneMapper fAdesioneMapper =  new FeAdesioneMapper();
@@ -61,7 +73,8 @@ public class ProcessorFactory {
 			FeCausaleFatturaStoricoMapper fecausaleFatturaStoricoMapper =  new FeCausaleFatturaStoricoMapper();
 			mapper =  fecausaleFatturaStoricoMapper;
 			break;
-			
+		default:
+			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);
 		}
 		return mapper;
 	}

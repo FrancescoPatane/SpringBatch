@@ -23,13 +23,20 @@ public class FlowConfiguration {
 	public Flow splitFlow() {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
-	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato())
+	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale())
 	        .build();
 	}
 	
 	public Flow flowAllegato() {
 	    return new FlowBuilder<SimpleFlow>("flowAllegato")
 	        .start(this.stepFactory.migrateFeAllegato())
+	        .next(this.stepFactory.migrateFeAllegatoStorico())
+	        .build();
+	}
+	
+	public Flow flowAltroDatoGestionale() {
+	    return new FlowBuilder<SimpleFlow>("flowAltroDatoGestionale")
+	        .start(this.stepFactory.migrateFeAltroDatoGestionale())
 	        .build();
 	}
 	

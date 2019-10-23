@@ -11,12 +11,15 @@ import org.springframework.stereotype.Component;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
+import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
+import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
+import it.pccube.batchmigration.exception.NoWriterFoundException;
 import it.pccube.batchmigration.source.model.FeAdesione;
 
 @Component
@@ -49,6 +52,12 @@ public class WriterFactory {
 		case "FatTAllegato":
 			query = FatTAllegato.INSERT_QUERY;
 			break;
+		case "FatTAllegatoStor":
+			query = FatTAllegatoStor.INSERT_QUERY;
+			break;
+		case "FatTAltroDatoGestionale":
+			query = FatTAltroDatoGestionale.INSERT_QUERY;
+			break;
 		case "FatTLotto":
 			query = FatTLotto.INSERT_QUERY;
 			break;
@@ -67,6 +76,8 @@ public class WriterFactory {
 		case "FatTCausaleFatturaStor":
 			query = FatTCausaleFatturaStor.INSERT_QUERY;
 			break;
+		default:
+			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
 		}
 		return query;
 	}

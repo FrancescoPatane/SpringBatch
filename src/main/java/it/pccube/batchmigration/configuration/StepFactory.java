@@ -15,6 +15,8 @@ import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
+import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
+import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -29,6 +31,8 @@ import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
 import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
+import it.pccube.batchmigration.source.model.FeAllegatoStorico;
+import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
@@ -179,5 +183,33 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAllegatoStorico() {
+    	return stepBuilderFactory.get("migrateFeAllegatoStorico")
+    			.listener(new ExecutionListener())
+    			.<FeAllegatoStorico, FatTAllegatoStor>chunk(50)
+				.reader(this.tableReader(FeAllegatoStorico.class, FeAllegatoStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAllegatoStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAllegatoStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAltroDatoGestionale() {
+    	return stepBuilderFactory.get("migrateFeAltroDatoGestionale")
+    			.listener(new ExecutionListener())
+    			.<FeAltroDatoGestionale, FatTAltroDatoGestionale>chunk(50)
+				.reader(this.tableReader(FeAltroDatoGestionale.class, FeAltroDatoGestionale.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAltroDatoGestionale.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAltroDatoGestionale.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
 
 }
