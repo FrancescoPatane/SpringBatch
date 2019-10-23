@@ -82,6 +82,14 @@ public class ProcessorFactory {
 			this.beanFactory.autowireBean(feArchivioMapper);
 			mapper =  feArchivioMapper;
 			break;
+		case "FeArticolo":
+			FeArticoloMapper feArticoloMapper =  new FeArticoloMapper();
+			mapper =  feArticoloMapper;
+			break;
+		case "FeArticoloStorico":
+			FeArticoloStoricoMapper feArticoloStoricoMapper =  new FeArticoloStoricoMapper();
+			mapper =  feArticoloStoricoMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);
 		}

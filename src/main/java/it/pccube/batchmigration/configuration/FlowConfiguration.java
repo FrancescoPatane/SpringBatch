@@ -24,6 +24,7 @@ public class FlowConfiguration {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
 	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio())
+	        .next(flowArticolo())
 	        .build();
 	}
 	
@@ -69,6 +70,13 @@ public class FlowConfiguration {
 	public Flow flowArchivio() {
 	    return new FlowBuilder<SimpleFlow>("flowArchivio")
 	        .start(this.stepFactory.migrateFeArchivio())
+	        .build();
+	}
+	
+	public Flow flowArticolo() {
+	    return new FlowBuilder<SimpleFlow>("flowArticolo")
+	        .start(this.stepFactory.migrateFeArticolo())
+	        .next(this.stepFactory.migrateFeArticoloStorico())
 	        .build();
 	}
 	

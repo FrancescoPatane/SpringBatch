@@ -1,8 +1,6 @@
 package it.pccube.batchmigration.destination.model;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import it.pccube.batchmigration.model.ModelEntity;
 

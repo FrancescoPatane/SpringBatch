@@ -19,6 +19,8 @@ import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
 import it.pccube.batchmigration.destination.model.FatTArchivio;
+import it.pccube.batchmigration.destination.model.FatTArticolo;
+import it.pccube.batchmigration.destination.model.FatTArticoloStor;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFattura;
@@ -37,6 +39,8 @@ import it.pccube.batchmigration.source.model.FeAllegatoStorico;
 import it.pccube.batchmigration.source.model.FeAltroDatoGestStorico;
 import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
 import it.pccube.batchmigration.source.model.FeArchivio;
+import it.pccube.batchmigration.source.model.FeArticolo;
+import it.pccube.batchmigration.source.model.FeArticoloStorico;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
@@ -236,6 +240,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeArchivio.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTArchivio.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeArticolo() {
+    	return stepBuilderFactory.get("migrateFeArticolo")
+    			.listener(new ExecutionListener())
+    			.<FeArticolo, FatTArticolo>chunk(50)
+				.reader(this.tableReader(FeArticolo.class, FeArticolo.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeArticolo.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTArticolo.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeArticoloStorico() {
+    	return stepBuilderFactory.get("migrateFeArticoloStorico")
+    			.listener(new ExecutionListener())
+    			.<FeArticoloStorico, FatTArticoloStor>chunk(50)
+				.reader(this.tableReader(FeArticoloStorico.class, FeArticoloStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeArticoloStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTArticoloStor.class))
 				.listener(new WriterListener())
 				.build();
     } 
