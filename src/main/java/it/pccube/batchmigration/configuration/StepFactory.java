@@ -30,6 +30,8 @@ import it.pccube.batchmigration.destination.model.FatTCompilazioneSezione;
 import it.pccube.batchmigration.destination.model.FatTConservAutoreLotto;
 import it.pccube.batchmigration.destination.model.FatTDatiCassaPrevStor;
 import it.pccube.batchmigration.destination.model.FatTDatiCassaPrevidenz;
+import it.pccube.batchmigration.destination.model.FatTDatiDdt;
+import it.pccube.batchmigration.destination.model.FatTDatiDdtStor;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -66,6 +68,8 @@ import it.pccube.batchmigration.source.model.FeConfigXsdSezione;
 import it.pccube.batchmigration.source.model.FeConservazAutoreLotto;
 import it.pccube.batchmigration.source.model.FeDatiCassaPrevStorico;
 import it.pccube.batchmigration.source.model.FeDatiCassaPrevidenziale;
+import it.pccube.batchmigration.source.model.FeDatiDdt;
+import it.pccube.batchmigration.source.model.FeDatiDdtStorico;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -89,6 +93,7 @@ public class StepFactory {
 	
 	@Autowired
 	private  WriterFactory writerFactory;
+	
 	
 	
     public <T> JdbcCursorItemReader<T> tableReader(Class<T> modelClass, String tableName) {
@@ -469,6 +474,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeDatiCassaPrevStorico.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTDatiCassaPrevStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiDdtStorico() {
+    	return stepBuilderFactory.get("migrateFeDatiDdtStorico")
+    			.listener(new ExecutionListener())
+    			.<FeDatiDdtStorico, FatTDatiDdtStor>chunk(50)
+				.reader(this.tableReader(FeDatiDdtStorico.class, FeDatiDdtStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiDdtStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiDdtStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiDdt() {
+    	return stepBuilderFactory.get("migrateFeDatiDdt")
+    			.listener(new ExecutionListener())
+    			.<FeDatiDdt, FatTDatiDdt>chunk(50)
+				.reader(this.tableReader(FeDatiDdt.class, FeDatiDdt.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiDdt.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiDdt.class))
 				.listener(new WriterListener())
 				.build();
     } 

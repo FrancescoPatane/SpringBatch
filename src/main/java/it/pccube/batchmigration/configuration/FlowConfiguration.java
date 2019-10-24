@@ -111,6 +111,8 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowDatiConfig")
 				.start(this.stepFactory.migrateFeDatiCassaPrevidenziale())
 				.next(this.stepFactory.migrateFeDatiCassaPrevStorico())
+				.next(this.stepFactory.migrateFeDatiDdt())
+				.next(this.stepFactory.migrateFeDatiDdtStorico())
 				.build();
 	}
 }
