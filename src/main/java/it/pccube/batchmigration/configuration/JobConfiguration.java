@@ -24,8 +24,8 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-                .start(this.stepFactory.migrateFeConfigEsitoVerifFirma())
-                .next(this.stepFactory.migrateFeConfigFoglioStile())
+    	        .start(this.stepFactory.migrateFeConfigGenerale())
+    	        .next(this.stepFactory.migrateFeConfigMacrosezApp())
 //                .next(this.stepFactory.migrateFeFattura())
 //                .next(this.stepFactory.migrateFeCausaleFattura())
                 .build();

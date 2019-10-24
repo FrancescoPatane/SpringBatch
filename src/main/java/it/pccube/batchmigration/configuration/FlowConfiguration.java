@@ -99,6 +99,8 @@ public class FlowConfiguration {
 	    return new FlowBuilder<SimpleFlow>("flowCompilazioneConfig")
 	        .start(this.stepFactory.migrateFeConfigEsitoVerifFirma())
 	        .next(this.stepFactory.migrateFeConfigFoglioStile())
+	        .next(this.stepFactory.migrateFeConfigGenerale())
+	        .next(this.stepFactory.migrateFeConfigMacrosezApp())
 	        .build();
 	}
 	

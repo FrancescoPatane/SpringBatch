@@ -31,17 +31,14 @@ import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFoglioStileCfg;
+import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
+import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
 import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
-import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
-import it.pccube.batchmigration.source.model.FeCompSezioneStorico;
-import it.pccube.batchmigration.source.model.FeCompilazioneSezione;
-import it.pccube.batchmigration.source.model.FeConfigEsitoVerifFirma;
-import it.pccube.batchmigration.source.model.FeConfigFoglioStile;
 import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
@@ -52,6 +49,13 @@ import it.pccube.batchmigration.source.model.FeArchivio;
 import it.pccube.batchmigration.source.model.FeArticolo;
 import it.pccube.batchmigration.source.model.FeArticoloStorico;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
+import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
+import it.pccube.batchmigration.source.model.FeCompSezioneStorico;
+import it.pccube.batchmigration.source.model.FeCompilazioneSezione;
+import it.pccube.batchmigration.source.model.FeConfigEsitoVerifFirma;
+import it.pccube.batchmigration.source.model.FeConfigFoglioStile;
+import it.pccube.batchmigration.source.model.FeConfigGenerale;
+import it.pccube.batchmigration.source.model.FeConfigMacrosezApp;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -359,6 +363,33 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeConfigFoglioStile.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTFoglioStileCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigGenerale() {
+    	return stepBuilderFactory.get("migrateFeConfigGenerale")
+    			.listener(new ExecutionListener())
+    			.<FeConfigGenerale, FatTGeneraleCfg>chunk(50)
+				.reader(this.tableReader(FeConfigGenerale.class, FeConfigGenerale.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigGenerale.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTGeneraleCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigMacrosezApp() {
+    	return stepBuilderFactory.get("FeConfigMacrosezApp")
+    			.listener(new ExecutionListener())
+    			.<FeConfigMacrosezApp, FatTMacrosezAppCfg>chunk(50)
+				.reader(this.tableReader(FeConfigMacrosezApp.class, FeConfigMacrosezApp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigMacrosezApp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTMacrosezAppCfg.class))
 				.listener(new WriterListener())
 				.build();
     } 

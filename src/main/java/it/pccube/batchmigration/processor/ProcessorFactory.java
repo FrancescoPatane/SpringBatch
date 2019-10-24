@@ -17,7 +17,7 @@ public class ProcessorFactory {
 	public ProcessorFactory(AutowireCapableBeanFactory beanFactory){
 		this.beanFactory = beanFactory;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public  ItemProcessor getProcessor(Class sourceClass) {
 		ItemProcessor  mapper= null;
@@ -115,8 +115,17 @@ public class ProcessorFactory {
 			this.beanFactory.autowireBean(feConfigEsitoVerifFirmaMapper);
 			mapper =  feConfigEsitoVerifFirmaMapper;
 			break;
+		case "FeConfigGenerale":
+			FeConfigGeneraleMapper feConfigGeneraleMapper =  new FeConfigGeneraleMapper();
+			this.beanFactory.autowireBean(feConfigGeneraleMapper);
+			mapper =  feConfigGeneraleMapper;
+			break;		
+		case "FeConfigMacrosezApp":
+			FeConfigMacrosezAppMapper feConfigMacrosezAppMapper =  new FeConfigMacrosezAppMapper();
+			mapper =  feConfigMacrosezAppMapper;
+			break;
 		default:
-			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);
+			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
 		return mapper;
 	}
