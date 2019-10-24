@@ -101,6 +101,8 @@ public class FlowConfiguration {
 	        .next(this.stepFactory.migrateFeConfigFoglioStile())
 	        .next(this.stepFactory.migrateFeConfigGenerale())
 	        .next(this.stepFactory.migrateFeConfigMacrosezApp())
+	        .next(this.stepFactory.migrateFeConfigXsdSezione())
+	        .next(this.stepFactory.migrateFeConfigXsdCampo())
 	        .build();
 	}
 	

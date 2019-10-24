@@ -35,6 +35,8 @@ import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
+import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
+import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
 import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
@@ -56,6 +58,8 @@ import it.pccube.batchmigration.source.model.FeConfigEsitoVerifFirma;
 import it.pccube.batchmigration.source.model.FeConfigFoglioStile;
 import it.pccube.batchmigration.source.model.FeConfigGenerale;
 import it.pccube.batchmigration.source.model.FeConfigMacrosezApp;
+import it.pccube.batchmigration.source.model.FeConfigXsdCampo;
+import it.pccube.batchmigration.source.model.FeConfigXsdSezione;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -383,13 +387,40 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeConfigMacrosezApp() {
-    	return stepBuilderFactory.get("FeConfigMacrosezApp")
+    	return stepBuilderFactory.get("migrateFeConfigMacrosezApp")
     			.listener(new ExecutionListener())
     			.<FeConfigMacrosezApp, FatTMacrosezAppCfg>chunk(50)
 				.reader(this.tableReader(FeConfigMacrosezApp.class, FeConfigMacrosezApp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigMacrosezApp.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTMacrosezAppCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigXsdCampo() {
+    	return stepBuilderFactory.get("migrateFeConfigXsdCampo")
+    			.listener(new ExecutionListener())
+    			.<FeConfigXsdCampo, FatTMacrosezAppCfg>chunk(50)
+				.reader(this.tableReader(FeConfigXsdCampo.class, FeConfigXsdCampo.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigXsdCampo.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTXsdCampoCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigXsdSezione() {
+    	return stepBuilderFactory.get("migrateFeConfigXsdSezione")
+    			.listener(new ExecutionListener())
+    			.<FeConfigXsdSezione, FatTMacrosezAppCfg>chunk(50)
+				.reader(this.tableReader(FeConfigXsdSezione.class, FeConfigXsdSezione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigXsdSezione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTXsdSezioneCfg.class))
 				.listener(new WriterListener())
 				.build();
     } 

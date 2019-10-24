@@ -124,6 +124,14 @@ public class ProcessorFactory {
 			FeConfigMacrosezAppMapper feConfigMacrosezAppMapper =  new FeConfigMacrosezAppMapper();
 			mapper =  feConfigMacrosezAppMapper;
 			break;
+		case "FeConfigXsdSezione":
+			FeConfigXsdSezioneMapper feConfigXsdSezioneMapper =  new FeConfigXsdSezioneMapper();
+			mapper =  feConfigXsdSezioneMapper;
+			break;
+		case "FeConfigXsdCampo":
+			FeConfigXsdCampoMapper feConfigXsdCampoMapper =  new FeConfigXsdCampoMapper();
+			mapper =  feConfigXsdCampoMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
