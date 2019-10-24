@@ -132,6 +132,18 @@ public class ProcessorFactory {
 			FeConfigXsdCampoMapper feConfigXsdCampoMapper =  new FeConfigXsdCampoMapper();
 			mapper =  feConfigXsdCampoMapper;
 			break;
+		case "FeConservazAutoreLotto":
+			FeConservazAutoreLottoMapper feConservazAutoreLottoMapper =  new FeConservazAutoreLottoMapper();
+			mapper =  feConservazAutoreLottoMapper;
+			break;
+		case "FeDatiCassaPrevidenziale":
+			FeDatiCassaPrevidenzialeMapper feDatiCassaPrevidenzialeMapper =  new FeDatiCassaPrevidenzialeMapper();
+			mapper =  feDatiCassaPrevidenzialeMapper;
+			break;
+		case "FeDatiCassaPrevStorico":
+			FeDatiCassaPrevStoricoMapper feDatiCassaPrevStoricoMapper =  new FeDatiCassaPrevStoricoMapper();
+			mapper =  feDatiCassaPrevStoricoMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

@@ -27,6 +27,9 @@ import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTCompSezioneStor;
 import it.pccube.batchmigration.destination.model.FatTCompilazioneSezione;
+import it.pccube.batchmigration.destination.model.FatTConservAutoreLotto;
+import it.pccube.batchmigration.destination.model.FatTDatiCassaPrevStor;
+import it.pccube.batchmigration.destination.model.FatTDatiCassaPrevidenz;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -60,6 +63,9 @@ import it.pccube.batchmigration.source.model.FeConfigGenerale;
 import it.pccube.batchmigration.source.model.FeConfigMacrosezApp;
 import it.pccube.batchmigration.source.model.FeConfigXsdCampo;
 import it.pccube.batchmigration.source.model.FeConfigXsdSezione;
+import it.pccube.batchmigration.source.model.FeConservazAutoreLotto;
+import it.pccube.batchmigration.source.model.FeDatiCassaPrevStorico;
+import it.pccube.batchmigration.source.model.FeDatiCassaPrevidenziale;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -421,6 +427,48 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeConfigXsdSezione.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTXsdSezioneCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConservazAutoreLotto() {
+    	return stepBuilderFactory.get("migrateFeConservazAutoreLotto")
+    			.listener(new ExecutionListener())
+    			.<FeConservazAutoreLotto, FatTConservAutoreLotto>chunk(50)
+				.reader(this.tableReader(FeConservazAutoreLotto.class, FeConservazAutoreLotto.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConservazAutoreLotto.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTConservAutoreLotto.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiCassaPrevidenziale() {
+    	return stepBuilderFactory.get("migrateFeDatiCassaPrevidenziale")
+    			.listener(new ExecutionListener())
+    			.<FeDatiCassaPrevidenziale, FatTDatiCassaPrevidenz>chunk(50)
+				.reader(this.tableReader(FeDatiCassaPrevidenziale.class, FeDatiCassaPrevidenziale.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiCassaPrevidenziale.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiCassaPrevidenz.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiCassaPrevStorico() {
+    	return stepBuilderFactory.get("migrateFeDatiCassaPrevStorico")
+    			.listener(new ExecutionListener())
+    			.<FeDatiCassaPrevStorico, FatTDatiCassaPrevStor>chunk(50)
+				.reader(this.tableReader(FeDatiCassaPrevStorico.class, FeDatiCassaPrevStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiCassaPrevStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiCassaPrevStor.class))
 				.listener(new WriterListener())
 				.build();
     } 
