@@ -12,7 +12,7 @@ import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.source.model.FeFattura;
 
-public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura >{
+public class FeFatturaMapper implements ItemProcessor<FeFattura, FatTFattura>{
 
 	public static final Logger logger = LoggerFactory.getLogger(FeFatturaMapper.class);
 

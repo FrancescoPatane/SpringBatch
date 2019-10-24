@@ -106,6 +106,15 @@ public class ProcessorFactory {
 			FeCompSezioneStoricoMapper feCompSezioneStoricoMapper =  new FeCompSezioneStoricoMapper();
 			mapper =  feCompSezioneStoricoMapper;
 			break;
+		case "FeConfigFoglioStile":
+			FeConfigFoglioStileMapper feConfigFoglioStileMapper =  new FeConfigFoglioStileMapper();
+			mapper =  feConfigFoglioStileMapper;
+			break;
+		case "FeConfigEsitoVerifFirma":
+			FeConfigEsitoVerifFirmaMapper feConfigEsitoVerifFirmaMapper =  new FeConfigEsitoVerifFirmaMapper();
+			this.beanFactory.autowireBean(feConfigEsitoVerifFirmaMapper);
+			mapper =  feConfigEsitoVerifFirmaMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity" + srcModelClassName);
 		}

@@ -27,8 +27,10 @@ import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTCompSezioneStor;
 import it.pccube.batchmigration.destination.model.FatTCompilazioneSezione;
+import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
+import it.pccube.batchmigration.destination.model.FatTFoglioStileCfg;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -38,6 +40,8 @@ import it.pccube.batchmigration.processor.ProcessorFactory;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
 import it.pccube.batchmigration.source.model.FeCompSezioneStorico;
 import it.pccube.batchmigration.source.model.FeCompilazioneSezione;
+import it.pccube.batchmigration.source.model.FeConfigEsitoVerifFirma;
+import it.pccube.batchmigration.source.model.FeConfigFoglioStile;
 import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
@@ -328,6 +332,33 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeCompSezioneStorico.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTCompSezioneStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigEsitoVerifFirma() {
+    	return stepBuilderFactory.get("FeConfigEsitoVerifFirma")
+    			.listener(new ExecutionListener())
+    			.<FeConfigEsitoVerifFirma, FatTEsitoVerifFirmaCfg>chunk(50)
+				.reader(this.tableReader(FeConfigEsitoVerifFirma.class, FeConfigEsitoVerifFirma.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigEsitoVerifFirma.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTEsitoVerifFirmaCfg.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeConfigFoglioStile() {
+    	return stepBuilderFactory.get("migrateFeConfigFoglioStile")
+    			.listener(new ExecutionListener())
+    			.<FeConfigFoglioStile, FatTFoglioStileCfg>chunk(50)
+				.reader(this.tableReader(FeConfigFoglioStile.class, FeConfigFoglioStile.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeConfigFoglioStile.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTFoglioStileCfg.class))
 				.listener(new WriterListener())
 				.build();
     } 

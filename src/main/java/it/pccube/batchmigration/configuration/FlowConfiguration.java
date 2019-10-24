@@ -24,7 +24,7 @@ public class FlowConfiguration {
 	    return new FlowBuilder<SimpleFlow>("splitFlow")
 	        .split(taskExecutor())
 	        .add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio(),
-	        		flowArticolo(), flowCompilazioneSezione(), flowTabelleStato())
+	        		flowArticolo(), flowCompilazioneSezione(), flowTabelleStato(), flowCompilazioneConfig())
 	        .build();
 	}
 	
@@ -91,6 +91,14 @@ public class FlowConfiguration {
 	    return new FlowBuilder<SimpleFlow>("flowCompilazioneSezione")
 	        .start(this.stepFactory.migrateFeCompilazioneSezione())
 	        .next(this.stepFactory.migrateFeCompilazioneSezioneStorico())
+	        .build();
+	}
+	
+	
+	public Flow flowCompilazioneConfig() {
+	    return new FlowBuilder<SimpleFlow>("flowCompilazioneConfig")
+	        .start(this.stepFactory.migrateFeConfigEsitoVerifFirma())
+	        .next(this.stepFactory.migrateFeConfigFoglioStile())
 	        .build();
 	}
 	
