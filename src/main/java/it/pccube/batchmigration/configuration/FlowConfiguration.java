@@ -123,4 +123,11 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeDatiSalStorico())
 				.build();
 	}
+	
+	public Flow flowDatiDettagli() {
+		return new FlowBuilder<SimpleFlow>("flowDatiDettagli")
+				.start(this.stepFactory.migrateFeDettaglioLinea())
+				.next(this.stepFactory.migrateFeDettaglioLineaStorico())
+				.build();
+	}
 }

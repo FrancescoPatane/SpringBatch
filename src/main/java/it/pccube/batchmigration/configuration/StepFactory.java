@@ -40,6 +40,8 @@ import it.pccube.batchmigration.destination.model.FatTDatiRiferimento;
 import it.pccube.batchmigration.destination.model.FatTDatiRiferimentoStor;
 import it.pccube.batchmigration.destination.model.FatTDatiSal;
 import it.pccube.batchmigration.destination.model.FatTDatiSalStor;
+import it.pccube.batchmigration.destination.model.FatTDettaglioLinea;
+import it.pccube.batchmigration.destination.model.FatTDettaglioLineaStor;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -86,6 +88,8 @@ import it.pccube.batchmigration.source.model.FeDatiRiferimento;
 import it.pccube.batchmigration.source.model.FeDatiRiferimentoStorico;
 import it.pccube.batchmigration.source.model.FeDatiSal;
 import it.pccube.batchmigration.source.model.FeDatiSalStorico;
+import it.pccube.batchmigration.source.model.FeDettaglioLinea;
+import it.pccube.batchmigration.source.model.FeDettaglioLineaStorico;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -625,5 +629,33 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDettaglioLinea() {
+    	return stepBuilderFactory.get("migrateFeDettaglioLinea")
+    			.listener(new ExecutionListener())
+    			.<FeDettaglioLinea, FatTDettaglioLinea>chunk(50)
+				.reader(this.tableReader(FeDettaglioLinea.class, FeDettaglioLinea.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDettaglioLinea.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDettaglioLinea.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDettaglioLineaStorico() {
+    	return stepBuilderFactory.get("migrateFeDettaglioLineaStorico")
+    			.listener(new ExecutionListener())
+    			.<FeDettaglioLineaStorico, FatTDettaglioLineaStor>chunk(50)
+				.reader(this.tableReader(FeDettaglioLineaStorico.class, FeDettaglioLineaStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDettaglioLineaStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDettaglioLineaStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+
 
 }
