@@ -41,6 +41,7 @@ import it.pccube.batchmigration.destination.model.FatTDettaglioLineaStor;
 import it.pccube.batchmigration.destination.model.FatTDettaglioPagStor;
 import it.pccube.batchmigration.destination.model.FatTDettaglioPagamento;
 import it.pccube.batchmigration.destination.model.FatTErroreNotifica;
+import it.pccube.batchmigration.destination.model.FatTEsitoFtp;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -202,6 +203,9 @@ public class WriterFactory {
 			break;
 		case "FatTErroreNotifica":
 			query = FatTErroreNotifica.INSERT_QUERY;
+			break;
+		case "FatTEsitoFtp":
+			query = FatTEsitoFtp.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

@@ -139,4 +139,10 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeErroreNotifica())
 				.build();
 	}
+	
+	public Flow flowFtp() {
+		return new FlowBuilder<SimpleFlow>("flowFtp")
+				.start(this.stepFactory.migrateFeEsitoFtp())
+				.build();
+	}
 }

@@ -204,6 +204,10 @@ public class ProcessorFactory {
 			FeErroreNotificaMapper feErroreNotificaMapper =  new FeErroreNotificaMapper();
 			mapper =  feErroreNotificaMapper;
 			break;
+		case "FeEsitoFtp":
+			FeEsitoFtpMapper feEsitoFtpMapper =  new FeEsitoFtpMapper();
+			mapper =  feEsitoFtpMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
