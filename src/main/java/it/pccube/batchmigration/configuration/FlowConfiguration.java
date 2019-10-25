@@ -117,6 +117,10 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeDatiPagamentoStorico())
 				.next(this.stepFactory.migrateFeDatiRiepilogo())
 				.next(this.stepFactory.migrateFeDatiRiepilogoStorico())
+				.next(this.stepFactory.migrateFeDatiRiferimento())
+				.next(this.stepFactory.migrateFeDatiRiferimentoStorico())
+				.next(this.stepFactory.migrateFeDatiSal())
+				.next(this.stepFactory.migrateFeDatiSalStorico())
 				.build();
 	}
 }
