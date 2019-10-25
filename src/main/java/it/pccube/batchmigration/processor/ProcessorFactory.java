@@ -200,6 +200,10 @@ public class ProcessorFactory {
 			FeDettaglioPagStoricoMapper feDettaglioPagStoricoMapper =  new FeDettaglioPagStoricoMapper();
 			mapper =  feDettaglioPagStoricoMapper;
 			break;
+		case "FeErroreNotifica":
+			FeErroreNotificaMapper feErroreNotificaMapper =  new FeErroreNotificaMapper();
+			mapper =  feErroreNotificaMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
