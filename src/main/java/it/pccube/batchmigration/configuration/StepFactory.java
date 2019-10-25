@@ -42,6 +42,8 @@ import it.pccube.batchmigration.destination.model.FatTDatiSal;
 import it.pccube.batchmigration.destination.model.FatTDatiSalStor;
 import it.pccube.batchmigration.destination.model.FatTDettaglioLinea;
 import it.pccube.batchmigration.destination.model.FatTDettaglioLineaStor;
+import it.pccube.batchmigration.destination.model.FatTDettaglioPagStor;
+import it.pccube.batchmigration.destination.model.FatTDettaglioPagamento;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -90,6 +92,8 @@ import it.pccube.batchmigration.source.model.FeDatiSal;
 import it.pccube.batchmigration.source.model.FeDatiSalStorico;
 import it.pccube.batchmigration.source.model.FeDettaglioLinea;
 import it.pccube.batchmigration.source.model.FeDettaglioLineaStorico;
+import it.pccube.batchmigration.source.model.FeDettaglioPagStorico;
+import it.pccube.batchmigration.source.model.FeDettaglioPagamento;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -656,6 +660,34 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDettaglioPagStorico() {
+    	return stepBuilderFactory.get("migrateFeDettaglioPagStorico")
+    			.listener(new ExecutionListener())
+    			.<FeDettaglioPagStorico, FatTDettaglioPagStor>chunk(50)
+				.reader(this.tableReader(FeDettaglioPagStorico.class, FeDettaglioPagStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDettaglioPagStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDettaglioPagStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDettaglioPagamento() {
+    	return stepBuilderFactory.get("migrateFeDettaglioPagamento")
+    			.listener(new ExecutionListener())
+    			.<FeDettaglioPagamento, FatTDettaglioPagamento>chunk(50)
+				.reader(this.tableReader(FeDettaglioPagamento.class, FeDettaglioPagamento.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDettaglioPagamento.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDettaglioPagamento.class))
+				.listener(new WriterListener())
+				.build();
+    }
 
 
 }

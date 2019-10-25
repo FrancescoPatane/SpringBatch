@@ -128,6 +128,8 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowDatiDettagli")
 				.start(this.stepFactory.migrateFeDettaglioLinea())
 				.next(this.stepFactory.migrateFeDettaglioLineaStorico())
+				.next(this.stepFactory.migrateFeDettaglioPagamento())
+				.next(this.stepFactory.migrateFeDettaglioPagStorico())
 				.build();
 	}
 }

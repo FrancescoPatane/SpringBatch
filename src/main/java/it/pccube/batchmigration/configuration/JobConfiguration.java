@@ -24,8 +24,8 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-        		.start(this.stepFactory.migrateFeDettaglioLinea())
-				.next(this.stepFactory.migrateFeDettaglioLineaStorico())
+        		.start(this.stepFactory.migrateFeDettaglioPagamento())
+				.next(this.stepFactory.migrateFeDettaglioPagStorico())
                 .build();
 //        return jobBuilderFactory.get("migration")
 //                .start(flowProvider.splitFlow())

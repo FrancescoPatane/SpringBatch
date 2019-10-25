@@ -192,6 +192,14 @@ public class ProcessorFactory {
 			FeTDettaglioLineaStoricoMapper feTDettaglioLineaStoricoMapper =  new FeTDettaglioLineaStoricoMapper();
 			mapper =  feTDettaglioLineaStoricoMapper;
 			break;
+		case "FeDettaglioPagamento":
+			FeDettaglioPagamentoMapper feDettaglioPagamentoMapper =  new FeDettaglioPagamentoMapper();
+			mapper =  feDettaglioPagamentoMapper;
+			break;
+		case "FeDettaglioPagStorico":
+			FeDettaglioPagStoricoMapper feDettaglioPagStoricoMapper =  new FeDettaglioPagStoricoMapper();
+			mapper =  feDettaglioPagStoricoMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
