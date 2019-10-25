@@ -34,6 +34,8 @@ import it.pccube.batchmigration.destination.model.FatTDatiDdt;
 import it.pccube.batchmigration.destination.model.FatTDatiDdtStor;
 import it.pccube.batchmigration.destination.model.FatTDatiPagamento;
 import it.pccube.batchmigration.destination.model.FatTDatiPagamentoStor;
+import it.pccube.batchmigration.destination.model.FatTDatiRiepilogo;
+import it.pccube.batchmigration.destination.model.FatTDatiRiepilogoStor;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
@@ -74,6 +76,8 @@ import it.pccube.batchmigration.source.model.FeDatiDdt;
 import it.pccube.batchmigration.source.model.FeDatiDdtStorico;
 import it.pccube.batchmigration.source.model.FeDatiPagamento;
 import it.pccube.batchmigration.source.model.FeDatiPagamentoStorico;
+import it.pccube.batchmigration.source.model.FeDatiRiepilogo;
+import it.pccube.batchmigration.source.model.FeDatiRiepilogoStorico;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -531,6 +535,33 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeDatiPagamentoStorico.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTDatiPagamentoStor.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiRiepilogo() {
+    	return stepBuilderFactory.get("migrateFeDatiRiepilogo")
+    			.listener(new ExecutionListener())
+    			.<FeDatiRiepilogo, FatTDatiRiepilogo>chunk(50)
+				.reader(this.tableReader(FeDatiRiepilogo.class, FeDatiRiepilogo.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiRiepilogo.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiRiepilogo.class))
+				.listener(new WriterListener())
+				.build();
+    } 
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeDatiRiepilogoStorico() {
+    	return stepBuilderFactory.get("migrateFeDatiRiepilogoStorico")
+    			.listener(new ExecutionListener())
+    			.<FeDatiRiepilogoStorico, FatTDatiRiepilogoStor>chunk(50)
+				.reader(this.tableReader(FeDatiRiepilogoStorico.class, FeDatiRiepilogoStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeDatiRiepilogoStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTDatiRiepilogoStor.class))
 				.listener(new WriterListener())
 				.build();
     } 

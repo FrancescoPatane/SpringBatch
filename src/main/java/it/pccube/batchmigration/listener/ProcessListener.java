@@ -17,7 +17,7 @@ public class ProcessListener implements ItemProcessListener<ModelEntity, ModelEn
 
 	@Override
 	public void afterProcess(ModelEntity item, ModelEntity result) {
-		logger.info("Mapping into " + item.getClass().getSimpleName() + " completed successfully");
+		logger.info("Mapping into " + result.getClass().getSimpleName() + " completed successfully");
 	}
 
 	@Override

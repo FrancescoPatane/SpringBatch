@@ -160,6 +160,14 @@ public class ProcessorFactory {
 			FeDatiPagamentoStoricoMapper feDatiPagamentoStoricoMapper =  new FeDatiPagamentoStoricoMapper();
 			mapper =  feDatiPagamentoStoricoMapper;
 			break;
+		case "FeDatiRiepilogo":
+			FeDatiRiepilogoMapper feDatiRiepilogoMapper =  new FeDatiRiepilogoMapper();
+			mapper =  feDatiRiepilogoMapper;
+			break;
+		case "FeDatiRiepilogoStorico":
+			FeDatiRiepilogoStoricoMapper feDatiRiepilogoStoricoMapper =  new FeDatiRiepilogoStoricoMapper();
+			mapper =  feDatiRiepilogoStoricoMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
