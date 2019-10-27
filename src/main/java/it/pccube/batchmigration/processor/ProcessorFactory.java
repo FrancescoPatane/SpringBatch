@@ -216,6 +216,10 @@ public class ProcessorFactory {
 			FeExcelFatturaMapper feExcelFatturaMapper =  new FeExcelFatturaMapper();
 			mapper =  feExcelFatturaMapper;
 			break;
+		case "FeImpreseCollegAssoc":
+			FeImpreseCollegAssocMapper feImpreseCollegAssocMapper =  new FeImpreseCollegAssocMapper();
+			mapper =  feImpreseCollegAssocMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
