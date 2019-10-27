@@ -47,6 +47,8 @@ import it.pccube.batchmigration.destination.model.FatTDettaglioPagamento;
 import it.pccube.batchmigration.destination.model.FatTErroreNotifica;
 import it.pccube.batchmigration.destination.model.FatTEsitoFtp;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
+import it.pccube.batchmigration.destination.model.FatTExcelFailValidaz;
+import it.pccube.batchmigration.destination.model.FatTExcelFattura;
 import it.pccube.batchmigration.destination.model.FatTFattura;
 import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFoglioStileCfg;
@@ -98,6 +100,8 @@ import it.pccube.batchmigration.source.model.FeDettaglioPagStorico;
 import it.pccube.batchmigration.source.model.FeDettaglioPagamento;
 import it.pccube.batchmigration.source.model.FeErroreNotifica;
 import it.pccube.batchmigration.source.model.FeEsitoFtp;
+import it.pccube.batchmigration.source.model.FeExcelFailValidazione;
+import it.pccube.batchmigration.source.model.FeExcelFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeLotto;
@@ -715,6 +719,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeEsitoFtp.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTEsitoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeExcelFattura() {
+    	return stepBuilderFactory.get("migrateFeExcelFattura")
+    			.listener(new ExecutionListener())
+    			.<FeExcelFattura, FatTExcelFattura>chunk(50)
+				.reader(this.tableReader(FeExcelFattura.class, FeExcelFattura.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeExcelFattura.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTExcelFattura.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeExcelFailValidazione() {
+    	return stepBuilderFactory.get("migrateFeExcelFailValidazione")
+    			.listener(new ExecutionListener())
+    			.<FeExcelFailValidazione, FatTExcelFailValidaz>chunk(50)
+				.reader(this.tableReader(FeExcelFailValidazione.class, FeExcelFailValidazione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeExcelFailValidazione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTExcelFailValidaz.class))
 				.listener(new WriterListener())
 				.build();
     }

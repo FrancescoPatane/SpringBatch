@@ -208,6 +208,14 @@ public class ProcessorFactory {
 			FeEsitoFtpMapper feEsitoFtpMapper =  new FeEsitoFtpMapper();
 			mapper =  feEsitoFtpMapper;
 			break;
+		case "FeExcelFailValidazione":
+			FeExcelFailValidazioneMapper feExcelFailValidazioneMapper =  new FeExcelFailValidazioneMapper();
+			mapper =  feExcelFailValidazioneMapper;
+			break;
+		case "FeExcelFattura":
+			FeExcelFatturaMapper feExcelFatturaMapper =  new FeExcelFatturaMapper();
+			mapper =  feExcelFatturaMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

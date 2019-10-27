@@ -65,6 +65,8 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeFatturaStorico())
 				.next(this.stepFactory.migrateFeCausaleFattura())
 				.next(this.stepFactory.migrateFeCausaleFatturaStorico())
+				.next(this.stepFactory.migrateFeExcelFattura())
+				.next(this.stepFactory.migrateFeExcelFailValidazione())
 				.build();
 	}
 
