@@ -55,6 +55,7 @@ import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTImpreseCollegAssoc;
 import it.pccube.batchmigration.destination.model.FatTIpa;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoRicEstrUff;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
@@ -234,6 +235,9 @@ public class WriterFactory {
 			break;	
 		case "FatTEsecuzioneBatchLog":
 			query = FatTEsecuzioneBatchLog.INSERT_QUERY;
+			break;	
+		case "FatTLottoRicEstrUff":
+			query = FatTLottoRicEstrUff.INSERT_QUERY;
 			break;	
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

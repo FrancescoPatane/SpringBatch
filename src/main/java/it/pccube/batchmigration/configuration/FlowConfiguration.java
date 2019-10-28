@@ -56,6 +56,7 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeLotto())
 				.next(this.stepFactory.migrateFeLottoStorico())
 				.next(this.stepFactory.migrateFeConservazAutoreLotto())
+				.next(this.stepFactory.migrateFeLottoRichiestaEstrUff())
 				.build();
 	}
 

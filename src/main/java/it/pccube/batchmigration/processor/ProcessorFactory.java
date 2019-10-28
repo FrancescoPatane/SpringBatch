@@ -236,7 +236,10 @@ public class ProcessorFactory {
 			FeLogEsecuzioneBatchDbMapper feLogEsecuzioneBatchDbMapper =  new FeLogEsecuzioneBatchDbMapper();
 			mapper =  feLogEsecuzioneBatchDbMapper;
 			break;
-			
+		case "FeLottoRichiestaEstrUff":
+			FeLottoRichiestaEstrUffMapper feLottoRichiestaEstrUffMapper =  new FeLottoRichiestaEstrUffMapper();
+			mapper =  feLottoRichiestaEstrUffMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

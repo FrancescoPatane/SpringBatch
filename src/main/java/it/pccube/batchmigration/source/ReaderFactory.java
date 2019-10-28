@@ -20,6 +20,15 @@ public class ReaderFactory {
 	@Qualifier("dbSource")
 	private  DataSource dataSource;
 	
+    public <T> JdbcCursorItemReader<T> tableReader(Class<T> modelClass, String tableName) {
+        return new JdbcCursorItemReaderBuilder<T>()
+                .name("tableReader")
+                .dataSource(this.dataSource)
+                .sql("SELECT * FROM " + tableName)
+                .rowMapper(new  BeanPropertyRowMapper<T>(modelClass))
+                .build();
+    }
+	
 	
     public JdbcCursorItemReader<FeLogErroreBatchDb> getFeLogErroreBatchDbReader() {
         return new JdbcCursorItemReaderBuilder<FeLogErroreBatchDb>()
