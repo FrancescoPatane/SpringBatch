@@ -252,6 +252,11 @@ public class ProcessorFactory {
 			FeMonitoraggioInvioSdiMapper feMonitoraggioInvioSdiMapper =  new FeMonitoraggioInvioSdiMapper();
 			mapper =  feMonitoraggioInvioSdiMapper;
 			break;
+		case "FeNotifica":
+			FeNotificaMapper feNotificaMapper =  new FeNotificaMapper();
+			mapper =  feNotificaMapper;
+			break;	
+			
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

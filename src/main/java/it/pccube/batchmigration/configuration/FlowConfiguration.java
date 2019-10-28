@@ -23,8 +23,8 @@ public class FlowConfiguration {
 	public Flow splitFlow() {
 		return new FlowBuilder<SimpleFlow>("splitFlow")
 				.split(taskExecutor())
-				.add(flowLotto(), flowFattura(), flowAdesione(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio(), flowLogReport(),
-						flowArticolo(), flowCompilazioneSezione(), flowTabelleStato(), flowCompilazioneConfig(), flowDatiDettagli(), flowDatiConfig())
+				.add(flowLotto(), flowFattura(), flowAdesioneNotifica(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio(), flowLogReport(),
+						flowArticolo(), flowCompilazioneSezione(), flowCompilazioneConfig(), flowDatiDettagli(), flowDatiConfig())
 				.build();
 	}
 
@@ -43,10 +43,12 @@ public class FlowConfiguration {
 	}
 
 
-	public Flow flowAdesione() {
-		return new FlowBuilder<SimpleFlow>("flowAdesione")
+	public Flow flowAdesioneNotifica() {
+		return new FlowBuilder<SimpleFlow>("flowAdesioneNotifica")
 				.start(this.stepFactory.migrateFeAdesione())
 				.next(this.stepFactory.migrateFeAdesioneNotifica())
+				.next(this.stepFactory.migrateFeNotifica())
+				.next(this.stepFactory.migrateFeStatoAdesione())
 				.build();
 	}
 
@@ -74,6 +76,7 @@ public class FlowConfiguration {
 	public Flow flowArchivio() {
 		return new FlowBuilder<SimpleFlow>("flowArchivio")
 				.start(this.stepFactory.migrateFeArchivio())
+				.next(this.stepFactory.migrateFeStatoArchivio())
 				.build();
 	}
 
@@ -84,12 +87,12 @@ public class FlowConfiguration {
 				.build();
 	}
 
-	public Flow flowTabelleStato() {
-		return new FlowBuilder<SimpleFlow>("flowTabelleStato")
-				.start(this.stepFactory.migrateFeStatoAdesione())
-				.next(this.stepFactory.migrateFeStatoArchivio())
-				.build();
-	}
+//	public Flow flowTabelleStato() {
+//		return new FlowBuilder<SimpleFlow>("flowTabelleStato")
+//				.start(this.stepFactory.migrateFeStatoAdesione())
+//				.next(this.stepFactory.migrateFeStatoArchivio())
+//				.build();
+//	}
 
 	public Flow flowCompilazioneSezione() {
 		return new FlowBuilder<SimpleFlow>("flowCompilazioneSezione")

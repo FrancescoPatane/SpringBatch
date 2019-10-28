@@ -59,6 +59,7 @@ import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
 import it.pccube.batchmigration.destination.model.FatTMail;
 import it.pccube.batchmigration.destination.model.FatTMonitorInvioSdi;
+import it.pccube.batchmigration.destination.model.FatTNotifica;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -119,6 +120,7 @@ import it.pccube.batchmigration.source.model.FeLottoStorico;
 import it.pccube.batchmigration.source.model.FeLottoSupportoFtp;
 import it.pccube.batchmigration.source.model.FeMail;
 import it.pccube.batchmigration.source.model.FeMonitoraggioInvioSdi;
+import it.pccube.batchmigration.source.model.FeNotifica;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -884,6 +886,20 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeMonitoraggioInvioSdi.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTMonitorInvioSdi.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeNotifica() {
+    	return stepBuilderFactory.get("migrateFeNotifica")
+    			.listener(new ExecutionListener())
+    			.<FeNotifica, FatTNotifica>chunk(50)
+				.reader(this.readerFactory.tableReader(FeNotifica.class, FeNotifica.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeNotifica.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTNotifica.class))
 				.listener(new WriterListener())
 				.build();
     }
