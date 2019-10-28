@@ -1,17 +1,12 @@
 package it.pccube.batchmigration.configuration;
 
-import javax.sql.DataSource;
-
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
-import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
+import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -119,6 +114,7 @@ import it.pccube.batchmigration.source.model.FeLogEsecuzioneBatchDb;
 import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoRichiestaEstrUff;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
+import it.pccube.batchmigration.source.model.FeLottoSupportoFtp;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -846,5 +842,21 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLottoSupportoFtp() {
+    	return stepBuilderFactory.get("migrateFeLottoSupportoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeLottoSupportoFtp, FatALottoSupportoFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeLottoSupportoFtp.class, FeLottoSupportoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeLottoSupportoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatALottoSupportoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    
 
 }

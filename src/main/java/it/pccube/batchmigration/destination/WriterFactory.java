@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -239,6 +240,9 @@ public class WriterFactory {
 		case "FatTLottoRicEstrUff":
 			query = FatTLottoRicEstrUff.INSERT_QUERY;
 			break;	
+		case "FatALottoSupportoFtp":
+			query = FatALottoSupportoFtp.INSERT_QUERY;
+			break;		
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
 		}

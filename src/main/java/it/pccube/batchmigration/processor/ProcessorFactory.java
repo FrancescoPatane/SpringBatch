@@ -240,6 +240,10 @@ public class ProcessorFactory {
 			FeLottoRichiestaEstrUffMapper feLottoRichiestaEstrUffMapper =  new FeLottoRichiestaEstrUffMapper();
 			mapper =  feLottoRichiestaEstrUffMapper;
 			break;	
+		case "FeLottoSupportoFtp":
+			FeLottoSupportoFtpMapper feLottoSupportoFtpMapper =  new FeLottoSupportoFtpMapper();
+			mapper =  feLottoSupportoFtpMapper;
+			break;		
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

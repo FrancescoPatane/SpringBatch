@@ -148,6 +148,7 @@ public class FlowConfiguration {
 	public Flow flowFtp() {
 		return new FlowBuilder<SimpleFlow>("flowFtp")
 				.start(this.stepFactory.migrateFeEsitoFtp())
+				.next(this.stepFactory.migrateFeLottoSupportoFtp())
 				.build();
 	}
 	
