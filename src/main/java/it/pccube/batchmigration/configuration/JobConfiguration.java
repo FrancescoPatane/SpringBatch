@@ -24,7 +24,7 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-        		.start(this.stepFactory.migrateFeImpreseCollegAssoc())
+        		.start(this.stepFactory.migrateFeIpa())
 //				.next(this.stepFactory.migrateFeDettaglioPagStorico())
                 .build();
 //        return jobBuilderFactory.get("migration")

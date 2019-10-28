@@ -220,6 +220,10 @@ public class ProcessorFactory {
 			FeImpreseCollegAssocMapper feImpreseCollegAssocMapper =  new FeImpreseCollegAssocMapper();
 			mapper =  feImpreseCollegAssocMapper;
 			break;
+		case "FeIpa":
+			FeIpaMapper feIpaMapper =  new FeIpaMapper();
+			mapper =  feIpaMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

@@ -140,6 +140,7 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowMinor")
 				.start(this.stepFactory.migrateFeErroreNotifica())
 				.next(this.stepFactory.migrateFeImpreseCollegAssoc())
+				.next(this.stepFactory.migrateFeIpa())
 				.build();
 	}
 	

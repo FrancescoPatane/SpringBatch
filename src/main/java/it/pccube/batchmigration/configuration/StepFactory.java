@@ -54,6 +54,7 @@ import it.pccube.batchmigration.destination.model.FatTFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTFoglioStileCfg;
 import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTImpreseCollegAssoc;
+import it.pccube.batchmigration.destination.model.FatTIpa;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
@@ -106,6 +107,7 @@ import it.pccube.batchmigration.source.model.FeExcelFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeImpreseCollegAssoc;
+import it.pccube.batchmigration.source.model.FeIpa;
 import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
@@ -760,6 +762,20 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeImpreseCollegAssoc.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTImpreseCollegAssoc.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeIpa() {
+    	return stepBuilderFactory.get("migrateFeIpa")
+    			.listener(new ExecutionListener())
+    			.<FeIpa, FatTIpa>chunk(50)
+				.reader(this.tableReader(FeIpa.class, FeIpa.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeIpa.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTIpa.class))
 				.listener(new WriterListener())
 				.build();
     }
