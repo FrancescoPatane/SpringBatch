@@ -57,6 +57,8 @@ import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.destination.model.FatTLottoRicEstrUff;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
+import it.pccube.batchmigration.destination.model.FatTMail;
+import it.pccube.batchmigration.destination.model.FatTMonitorInvioSdi;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -115,6 +117,8 @@ import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoRichiestaEstrUff;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 import it.pccube.batchmigration.source.model.FeLottoSupportoFtp;
+import it.pccube.batchmigration.source.model.FeMail;
+import it.pccube.batchmigration.source.model.FeMonitoraggioInvioSdi;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -852,6 +856,34 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeLottoSupportoFtp.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatALottoSupportoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeMail() {
+    	return stepBuilderFactory.get("migrateFeMail")
+    			.listener(new ExecutionListener())
+    			.<FeMail, FatTMail>chunk(50)
+				.reader(this.readerFactory.tableReader(FeMail.class, FeMail.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeMail.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTMail.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeMonitoraggioInvioSdi() {
+    	return stepBuilderFactory.get("migrateFeMonitoraggioInvioSdi")
+    			.listener(new ExecutionListener())
+    			.<FeMonitoraggioInvioSdi, FatTMonitorInvioSdi>chunk(50)
+				.reader(this.readerFactory.tableReader(FeMonitoraggioInvioSdi.class, FeMonitoraggioInvioSdi.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeMonitoraggioInvioSdi.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTMonitorInvioSdi.class))
 				.listener(new WriterListener())
 				.build();
     }

@@ -101,7 +101,7 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto>{
 		destination.setIdRegioneSedeCessionario(source.getRegioneSedeCessionario());
 		destination.setIdRegioneStabileCedente(source.getRegioneStabileCedente());
 		destination.setIdRegioneStabileCessionario(source.getRegioneStabileCessionario());
-//TODO
+//TODO id sedia
 //		entity.setIdSediaAssegnatario(idSediaAssegnatario);
 //		entity.setIdSediaCreatore(idSediaCreatore);
 //		entity.setIdSediaUltimaMod(idSediaUltimaMod);

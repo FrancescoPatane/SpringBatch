@@ -142,6 +142,7 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeErroreNotifica())
 				.next(this.stepFactory.migrateFeImpreseCollegAssoc())
 				.next(this.stepFactory.migrateFeIpa())
+				.next(this.stepFactory.migrateFeMail())
 				.build();
 	}
 	
@@ -157,6 +158,7 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeLogApplicativo())
 				.next(this.stepFactory.migrateFeLogErroreBatchDb())
 				.next(this.stepFactory.migrateFeLogEsecuzioneBatchDb())
+				.next(this.stepFactory.migrateFeMonitoraggioInvioSdi())
 				.build();
 	}
 }

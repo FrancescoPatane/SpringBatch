@@ -244,6 +244,14 @@ public class ProcessorFactory {
 			FeLottoSupportoFtpMapper feLottoSupportoFtpMapper =  new FeLottoSupportoFtpMapper();
 			mapper =  feLottoSupportoFtpMapper;
 			break;		
+		case "FeMail":
+			FeMailMapper feMailMapper =  new FeMailMapper();
+			mapper =  feMailMapper;
+			break;	
+		case "FeMonitoraggioInvioSdi":
+			FeMonitoraggioInvioSdiMapper feMonitoraggioInvioSdiMapper =  new FeMonitoraggioInvioSdiMapper();
+			mapper =  feMonitoraggioInvioSdiMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}
