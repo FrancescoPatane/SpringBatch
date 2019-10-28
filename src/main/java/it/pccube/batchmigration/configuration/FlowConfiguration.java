@@ -153,6 +153,8 @@ public class FlowConfiguration {
 	public Flow flowLogReport() {
 		return new FlowBuilder<SimpleFlow>("flowLogReport")
 				.start(this.stepFactory.migrateFeLogApplicativo())
+				.next(this.stepFactory.migrateFeLogErroreBatchDb())
+				.next(this.stepFactory.migrateFeLogEsecuzioneBatchDb())
 				.build();
 	}
 }

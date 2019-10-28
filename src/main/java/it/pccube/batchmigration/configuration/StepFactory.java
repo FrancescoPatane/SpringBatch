@@ -45,7 +45,9 @@ import it.pccube.batchmigration.destination.model.FatTDettaglioLinea;
 import it.pccube.batchmigration.destination.model.FatTDettaglioLineaStor;
 import it.pccube.batchmigration.destination.model.FatTDettaglioPagStor;
 import it.pccube.batchmigration.destination.model.FatTDettaglioPagamento;
+import it.pccube.batchmigration.destination.model.FatTErroreBatchLog;
 import it.pccube.batchmigration.destination.model.FatTErroreNotifica;
+import it.pccube.batchmigration.destination.model.FatTEsecuzioneBatchLog;
 import it.pccube.batchmigration.destination.model.FatTEsitoFtp;
 import it.pccube.batchmigration.destination.model.FatTEsitoVerifFirmaCfg;
 import it.pccube.batchmigration.destination.model.FatTExcelFailValidaz;
@@ -65,6 +67,7 @@ import it.pccube.batchmigration.listener.ExecutionListener;
 import it.pccube.batchmigration.listener.ProcessListener;
 import it.pccube.batchmigration.listener.WriterListener;
 import it.pccube.batchmigration.processor.ProcessorFactory;
+import it.pccube.batchmigration.source.ReaderFactory;
 import it.pccube.batchmigration.source.model.FeAdesione;
 import it.pccube.batchmigration.source.model.FeAdesioneNotifica;
 import it.pccube.batchmigration.source.model.FeAllegato;
@@ -110,6 +113,8 @@ import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeImpreseCollegAssoc;
 import it.pccube.batchmigration.source.model.FeIpa;
 import it.pccube.batchmigration.source.model.FeLogApplicativo;
+import it.pccube.batchmigration.source.model.FeLogErroreBatchDb;
+import it.pccube.batchmigration.source.model.FeLogEsecuzioneBatchDb;
 import it.pccube.batchmigration.source.model.FeLotto;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
@@ -131,6 +136,9 @@ public class StepFactory {
 	
 	@Autowired
 	private  WriterFactory writerFactory;
+	
+	@Autowired
+	private ReaderFactory readerFactory;
 	
 	
 	
@@ -794,6 +802,33 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     }
-
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLogErroreBatchDb() {
+    	return stepBuilderFactory.get("migrateFeLogErroreBatchDb")
+    			.listener(new ExecutionListener())
+    			.<FeLogErroreBatchDb, FatTErroreBatchLog>chunk(50)
+				.reader(this.readerFactory.getFeLogErroreBatchDbReader())
+				.processor(this.processorFactory.getProcessor(FeLogErroreBatchDb.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTErroreBatchLog.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLogEsecuzioneBatchDb() {
+    	return stepBuilderFactory.get("migrateFeLogEsecuzioneBatchDb")
+    			.listener(new ExecutionListener())
+    			.<FeLogEsecuzioneBatchDb, FatTEsecuzioneBatchLog>chunk(50)
+				.reader(this.readerFactory.getFeLogEsecuzioneBatchDbReader())
+				.processor(this.processorFactory.getProcessor(FeLogEsecuzioneBatchDb.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTEsecuzioneBatchLog.class))
+				.listener(new WriterListener())
+				.build();
+    }
 
 }
