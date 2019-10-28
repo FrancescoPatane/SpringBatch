@@ -1,6 +1,5 @@
 package it.pccube.batchmigration.destination.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -136,14 +135,13 @@ public class FatTAltroDatoGestStor implements ModelEntity {
 
 	@Override
 	public String getPKDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.idAltroDatoGestStor.toString();
 	}
 
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
-		return null;
+		return TABLE_NAME;
 	}
 	
 	

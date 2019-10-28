@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FeLogApplicativoMapper;
 import it.pccube.batchmigration.exception.NoProcessorFoundException;
-import it.pccube.batchmigration.source.model.FeCompilazioneSezione;
 
 @Component
 public class ProcessorFactory {
@@ -223,6 +223,10 @@ public class ProcessorFactory {
 		case "FeIpa":
 			FeIpaMapper feIpaMapper =  new FeIpaMapper();
 			mapper =  feIpaMapper;
+			break;
+		case "FeLogApplicativo":
+			FeLogApplicativoMapper feLogApplicativoMapper =  new FeLogApplicativoMapper();
+			mapper =  feLogApplicativoMapper;
 			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);

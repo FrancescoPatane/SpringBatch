@@ -16,6 +16,7 @@ import it.pccube.batchmigration.destination.model.FatTAllegato;
 import it.pccube.batchmigration.destination.model.FatTAllegatoStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestStor;
 import it.pccube.batchmigration.destination.model.FatTAltroDatoGestionale;
+import it.pccube.batchmigration.destination.model.FatTApplicativoLog;
 import it.pccube.batchmigration.destination.model.FatTArchivio;
 import it.pccube.batchmigration.destination.model.FatTArticolo;
 import it.pccube.batchmigration.destination.model.FatTArticoloStor;
@@ -222,6 +223,9 @@ public class WriterFactory {
 			break;
 		case "FatTIpa":
 			query = FatTIpa.INSERT_QUERY;
+			break;
+		case "FatTApplicativoLog":
+			query = FatTApplicativoLog.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

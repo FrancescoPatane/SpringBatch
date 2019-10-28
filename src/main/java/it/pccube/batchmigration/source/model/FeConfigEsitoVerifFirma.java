@@ -74,13 +74,11 @@ public class FeConfigEsitoVerifFirma implements ModelEntity {
 	}
 	@Override
 	public String getPKDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.idConfigEsitoVerifFirma.toString();
 	}
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return TABLE_NAME;
 	}
 	
 	
