@@ -65,6 +65,7 @@ import it.pccube.batchmigration.destination.model.FatTReportSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
 import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
+import it.pccube.batchmigration.destination.model.FatTRicProtocolImpronta;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -131,6 +132,7 @@ import it.pccube.batchmigration.source.model.FeReportSdi;
 import it.pccube.batchmigration.source.model.FeReportSsaInviiSdi;
 import it.pccube.batchmigration.source.model.FeReportSsaStatoAde;
 import it.pccube.batchmigration.source.model.FeRicImprontaArchivio;
+import it.pccube.batchmigration.source.model.FeRicProtocolloImpronta;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -962,6 +964,20 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeRicImprontaArchivio.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTRicImprontaArchivio.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeRicProtocolloImpronta() {
+    	return stepBuilderFactory.get("migrateFeRicProtocolloImpronta")
+    			.listener(new ExecutionListener())
+    			.<FeRicProtocolloImpronta, FatTRicProtocolImpronta>chunk(50)
+				.reader(this.readerFactory.tableReader(FeRicProtocolloImpronta.class, FeRicProtocolloImpronta.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeRicProtocolloImpronta.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTRicProtocolImpronta.class))
 				.listener(new WriterListener())
 				.build();
     }

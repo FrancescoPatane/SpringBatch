@@ -276,6 +276,10 @@ public class ProcessorFactory {
 			FeRicImprontaArchivioMapper feRicImprontaArchivioMapper =  new FeRicImprontaArchivioMapper();
 			mapper =  feRicImprontaArchivioMapper;
 			break;	
+		case "FeRicProtocolloImpronta":
+			FeRicProtocolloImprontaMapper feRicProtocolloImprontaMapper =  new FeRicProtocolloImprontaMapper();
+			mapper =  feRicProtocolloImprontaMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

@@ -147,6 +147,7 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeImpreseCollegAssoc())
 				.next(this.stepFactory.migrateFeIpa())
 				.next(this.stepFactory.migrateFeMail())
+				.next(this.stepFactory.migrateFeRicProtocolloImpronta())
 				.build();
 	}
 	

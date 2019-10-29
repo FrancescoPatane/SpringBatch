@@ -67,6 +67,7 @@ import it.pccube.batchmigration.destination.model.FatTReportSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
 import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
+import it.pccube.batchmigration.destination.model.FatTRicProtocolImpronta;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
@@ -275,6 +276,9 @@ public class WriterFactory {
 			break;	
 		case "FatTRicImprontaArchivio":
 			query = FatTRicImprontaArchivio.INSERT_QUERY;
+			break;
+		case "FatTRicProtocolImpronta":
+			query = FatTRicProtocolImpronta.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
