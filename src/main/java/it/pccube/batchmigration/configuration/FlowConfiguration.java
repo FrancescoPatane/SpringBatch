@@ -153,6 +153,7 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowFtp")
 				.start(this.stepFactory.migrateFeEsitoFtp())
 				.next(this.stepFactory.migrateFeLottoSupportoFtp())
+				.next(this.stepFactory.migrateFeNotificaSupportoFtp())
 				.build();
 	}
 	
@@ -162,6 +163,7 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeLogErroreBatchDb())
 				.next(this.stepFactory.migrateFeLogEsecuzioneBatchDb())
 				.next(this.stepFactory.migrateFeMonitoraggioInvioSdi())
+				.next(this.stepFactory.migrateFeReportSdi())
 				.build();
 	}
 }

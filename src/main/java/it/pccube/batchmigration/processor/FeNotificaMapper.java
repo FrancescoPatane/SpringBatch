@@ -14,10 +14,10 @@ import it.pccube.batchmigration.destination.model.FatTNotifica;
 import it.pccube.batchmigration.source.model.FeNotifica;
 
 public class FeNotificaMapper implements ItemProcessor<FeNotifica, FatTNotifica>{
-	
-public static final Logger logger = LoggerFactory.getLogger(FeNotificaMapper.class);
 
-	
+	public static final Logger logger = LoggerFactory.getLogger(FeNotificaMapper.class);
+
+
 	@Autowired
 	private DocumentaleService docService;
 
@@ -36,12 +36,12 @@ public static final Logger logger = LoggerFactory.getLogger(FeNotificaMapper.cla
 
 		if(source.getIdentificativoSdiArchivio() != null)
 			destination.setCdIdentificativoSdiArchivio(source.getIdentificativoSdiArchivio().toString());
-		
+
 		if(source.getIdentificativoSdiLotto() != null)
-		destination.setCdIdentificativoSdiLotto(source.getIdentificativoSdiLotto().toString());
-		
+			destination.setCdIdentificativoSdiLotto(source.getIdentificativoSdiLotto().toString());
+
 		if(source.getIdentificativoSdiNotifica() != null)
-		destination.setCdIdentificativoSdiNotifica(source.getIdentificativoSdiNotifica().toString());
+			destination.setCdIdentificativoSdiNotifica(source.getIdentificativoSdiNotifica().toString());
 
 		destination.setCdNumeroFatturaEsito(source.getNumeroFatturaEsito());
 
@@ -82,30 +82,30 @@ public static final Logger logger = LoggerFactory.getLogger(FeNotificaMapper.cla
 		destination.setNmUtenteUltimaModifica(source.getUseridUltimoAggiornamento());
 
 		if(source.getAnnoFatturaEsito() != null)
-		destination.setNrAnnoFatturaEsito(BigDecimal.valueOf(source.getAnnoFatturaEsito()));
+			destination.setNrAnnoFatturaEsito(BigDecimal.valueOf(source.getAnnoFatturaEsito()));
 
 		if(source.getPosizioneFatturaEsito() != null)
-		destination.setNrPosizioneFatturaEsito(BigDecimal.valueOf(source.getPosizioneFatturaEsito()));
+			destination.setNrPosizioneFatturaEsito(BigDecimal.valueOf(source.getPosizioneFatturaEsito()));
 
 		destination.setOjLogEccezioni(source.getLogEccezioni());
 
-		
+
 		if (source.getXmlNotifica() != null){
-		String base64String = Base64.getEncoder().encodeToString(source.getXmlNotifica());
-		logger.info("Tentativo chiamata documentale per salvataggion documento XmlNotifica tabella FeNotifica con id: " + source.getIdNotifica());
-		OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeFileNotifica());
-		destination.setIdXmlNotifica(doc.getId());
-	}
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlNotifica());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNotifica tabella FeNotifica con id: " + source.getIdNotifica());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeFileNotifica());
+			destination.setIdXmlNotifica(doc.getId());
+		}
 
 		if (source.getZipNotifica() != null){
-		String base64String = Base64.getEncoder().encodeToString(source.getZipNotifica());
-		logger.info("Tentativo chiamata documentale per salvataggion documento ZipNotifica tabella FeNotifica con id: " + source.getIdNotifica());
-		OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeFileNotifica());
-		destination.setIdZipNotifica(doc.getId());
-	}
+			String base64String = Base64.getEncoder().encodeToString(source.getZipNotifica());
+			logger.info("Tentativo chiamata documentale per salvataggion documento ZipNotifica tabella FeNotifica con id: " + source.getIdNotifica());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeFileNotifica());
+			destination.setIdZipNotifica(doc.getId());
+		}
 
 		if(source.getVersioneLotto() != null)
-		destination.setPgVersioneLotto(BigDecimal.valueOf(source.getVersioneLotto()));
+			destination.setPgVersioneLotto(BigDecimal.valueOf(source.getVersioneLotto()));
 
 		destination.setTsInserimento(source.getTmstInserimento());
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
+import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -62,6 +63,7 @@ import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
 import it.pccube.batchmigration.destination.model.FatTMail;
 import it.pccube.batchmigration.destination.model.FatTMonitorInvioSdi;
 import it.pccube.batchmigration.destination.model.FatTNotifica;
+import it.pccube.batchmigration.destination.model.FatTReportSdi;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
@@ -255,6 +257,12 @@ public class WriterFactory {
 		case "FatTNotifica":
 			query = FatTNotifica.INSERT_QUERY;
 			break;
+		case "FatANotificaSupportoFtp":
+			query = FatANotificaSupportoFtp.INSERT_QUERY;
+			break;	
+		case "FatTReportSdi":
+			query = FatTReportSdi.INSERT_QUERY;
+			break;		
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
 		}

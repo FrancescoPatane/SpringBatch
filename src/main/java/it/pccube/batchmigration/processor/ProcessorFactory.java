@@ -256,7 +256,14 @@ public class ProcessorFactory {
 			FeNotificaMapper feNotificaMapper =  new FeNotificaMapper();
 			mapper =  feNotificaMapper;
 			break;	
-			
+		case "FeNotificaSupportoFtp":
+			FeNotificaSupportoFtpMapper feNotificaSupportoFtpMapper =  new FeNotificaSupportoFtpMapper();
+			mapper =  feNotificaSupportoFtpMapper;
+			break;		
+		case "FeReportSdi":
+			FeReportSdiMapper feReportSdiMapper =  new FeReportSdiMapper();
+			mapper =  feReportSdiMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

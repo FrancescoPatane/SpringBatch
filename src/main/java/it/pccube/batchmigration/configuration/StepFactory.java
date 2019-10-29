@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
+import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -60,6 +61,7 @@ import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
 import it.pccube.batchmigration.destination.model.FatTMail;
 import it.pccube.batchmigration.destination.model.FatTMonitorInvioSdi;
 import it.pccube.batchmigration.destination.model.FatTNotifica;
+import it.pccube.batchmigration.destination.model.FatTReportSdi;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -121,6 +123,8 @@ import it.pccube.batchmigration.source.model.FeLottoSupportoFtp;
 import it.pccube.batchmigration.source.model.FeMail;
 import it.pccube.batchmigration.source.model.FeMonitoraggioInvioSdi;
 import it.pccube.batchmigration.source.model.FeNotifica;
+import it.pccube.batchmigration.source.model.FeNotificaSupportoFtp;
+import it.pccube.batchmigration.source.model.FeReportSdi;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -904,7 +908,31 @@ public class StepFactory {
 				.build();
     }
     
+    @SuppressWarnings("unchecked")
+	public Step migrateFeNotificaSupportoFtp() {
+    	return stepBuilderFactory.get("migrateFeNotificaSupportoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeNotificaSupportoFtp, FatANotificaSupportoFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeNotificaSupportoFtp.class, FeNotificaSupportoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeNotificaSupportoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatANotificaSupportoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
     
+    @SuppressWarnings("unchecked")
+	public Step migrateFeReportSdi() {
+    	return stepBuilderFactory.get("migrateFeReportSdi")
+    			.listener(new ExecutionListener())
+    			.<FeReportSdi, FatTReportSdi>chunk(50)
+				.reader(this.readerFactory.tableReader(FeReportSdi.class, FeReportSdi.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeReportSdi.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTReportSdi.class))
+				.listener(new WriterListener())
+				.build();
+    }
     
 
 }
