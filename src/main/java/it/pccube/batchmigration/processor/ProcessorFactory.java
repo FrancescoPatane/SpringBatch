@@ -272,6 +272,10 @@ public class ProcessorFactory {
 			FeReportSsaStatoAdeMapper feReportSsaStatoAdeMapper =  new FeReportSsaStatoAdeMapper();
 			mapper =  feReportSsaStatoAdeMapper;
 			break;	
+		case "FeRicImprontaArchivio":
+			FeRicImprontaArchivioMapper feRicImprontaArchivioMapper =  new FeRicImprontaArchivioMapper();
+			mapper =  feRicImprontaArchivioMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

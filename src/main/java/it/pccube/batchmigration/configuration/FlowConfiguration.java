@@ -77,6 +77,7 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowArchivio")
 				.start(this.stepFactory.migrateFeArchivio())
 				.next(this.stepFactory.migrateFeStatoArchivio())
+				.next(this.stepFactory.migrateFeRicImprontaArchivio())
 				.build();
 	}
 

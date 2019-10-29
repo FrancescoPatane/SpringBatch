@@ -64,6 +64,7 @@ import it.pccube.batchmigration.destination.model.FatTNotifica;
 import it.pccube.batchmigration.destination.model.FatTReportSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
+import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -129,16 +130,13 @@ import it.pccube.batchmigration.source.model.FeNotificaSupportoFtp;
 import it.pccube.batchmigration.source.model.FeReportSdi;
 import it.pccube.batchmigration.source.model.FeReportSsaInviiSdi;
 import it.pccube.batchmigration.source.model.FeReportSsaStatoAde;
+import it.pccube.batchmigration.source.model.FeRicImprontaArchivio;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
 @Component
 public class StepFactory {
 	
-	
-//	@Autowired
-//	@Qualifier("dbSource")
-//	private  DataSource dataSource;
 	
 	@Autowired
 	private  StepBuilderFactory stepBuilderFactory;
@@ -153,15 +151,6 @@ public class StepFactory {
 	private ReaderFactory readerFactory;
 	
 	
-	
-//    public <T> JdbcCursorItemReader<T> tableReader(Class<T> modelClass, String tableName) {
-//        return new JdbcCursorItemReaderBuilder<T>()
-//                .name("tableReader")
-//                .dataSource(this.dataSource)
-//                .sql("SELECT * FROM " + tableName)
-//                .rowMapper(new  BeanPropertyRowMapper<T>(modelClass))
-//                .build();
-//    }
 	
     @SuppressWarnings("unchecked")
 	public Step migrateFeLotto() {
@@ -953,13 +942,26 @@ public class StepFactory {
     
     @SuppressWarnings("unchecked")
 	public Step migrateFeReportSsaStatoAde() {
-    	return stepBuilderFactory.get("migrateFFeReportSsaStatoAde")
+    	return stepBuilderFactory.get("migrateFeReportSsaStatoAde")
     			.listener(new ExecutionListener())
     			.<FeReportSsaStatoAde, FatTReportSsaStatoAde>chunk(50)
 				.reader(this.readerFactory.tableReader(FeReportSsaStatoAde.class, FeReportSsaStatoAde.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeReportSsaStatoAde.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTReportSsaStatoAde.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeRicImprontaArchivio() {
+    	return stepBuilderFactory.get("migrateFeRicImprontaArchivio")
+    			.listener(new ExecutionListener())
+    			.<FeRicImprontaArchivio, FatTRicImprontaArchivio>chunk(50)
+				.reader(this.readerFactory.tableReader(FeRicImprontaArchivio.class, FeRicImprontaArchivio.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeRicImprontaArchivio.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTRicImprontaArchivio.class))
 				.listener(new WriterListener())
 				.build();
     }

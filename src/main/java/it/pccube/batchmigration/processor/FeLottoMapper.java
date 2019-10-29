@@ -1,6 +1,7 @@
 package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.pccube.batchmigration.client.doc.DocumentaleService;
+import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTLotto;
 import it.pccube.batchmigration.source.model.FeLotto;
 
@@ -108,18 +110,18 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto>{
 		destination.setIdUfficioReaCedente(source.getUfficioReaCedente());
 		
 		
-//		if (source.getXmlFirmato() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
-//			destination.setIdXmlFirmato(doc.getId());
-//		}
-//		if (source.getXmlNonFirmato() != null){
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
-//			destination.setIdXmlNonFirmato(doc.getId());
-//		}
+		if (source.getXmlFirmato() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
+			destination.setIdXmlFirmato(doc.getId());
+		}
+		if (source.getXmlNonFirmato() != null){
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
+			destination.setIdXmlNonFirmato(doc.getId());
+		}
 		
 		destination.setImCapitaleSocialeCedente(source.getCapitaleSocialeCedente());
 		destination.setNmAlboProfessionaleCedente(source.getAlboProfessionaleCedente());
