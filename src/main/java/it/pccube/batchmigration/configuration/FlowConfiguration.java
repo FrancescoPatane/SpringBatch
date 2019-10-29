@@ -148,6 +148,10 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeIpa())
 				.next(this.stepFactory.migrateFeMail())
 				.next(this.stepFactory.migrateFeRicProtocolloImpronta())
+				.next(this.stepFactory.migrateFeRiferimentoLinea())
+				.next(this.stepFactory.migrateFeRiferimentoLineaStorico())
+				.next(this.stepFactory.migrateFeScontoMaggiorazione())
+				.next(this.stepFactory.migrateFeScontoMagStorico())
 				.build();
 	}
 	

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
+import it.pccube.batchmigration.destination.model.FatARifLineaStor;
+import it.pccube.batchmigration.destination.model.FatARiferimentoLinea;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -68,10 +70,12 @@ import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
 import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
 import it.pccube.batchmigration.destination.model.FatTRicProtocolImpronta;
+import it.pccube.batchmigration.destination.model.FatTScontoMagStor;
+import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
-import it.pccube.batchmigration.source.model.FeReportSsaInviiSdi;
+import it.pccube.batchmigration.source.model.FeScontoMaggiorazione;
 
 @Component
 public class WriterFactory {
@@ -279,6 +283,18 @@ public class WriterFactory {
 			break;
 		case "FatTRicProtocolImpronta":
 			query = FatTRicProtocolImpronta.INSERT_QUERY;
+			break;
+		case "FatARiferimentoLinea":
+			query = FatARiferimentoLinea.INSERT_QUERY;
+			break;
+		case "FatARifLineaStor":
+			query = FatARifLineaStor.INSERT_QUERY;
+			break;
+		case "FatTScontoMaggiorazione":
+			query = FatTScontoMaggiorazione.INSERT_QUERY;
+			break;
+		case "FatTScontoMagStor":
+			query = FatTScontoMagStor.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

@@ -280,6 +280,22 @@ public class ProcessorFactory {
 			FeRicProtocolloImprontaMapper feRicProtocolloImprontaMapper =  new FeRicProtocolloImprontaMapper();
 			mapper =  feRicProtocolloImprontaMapper;
 			break;	
+		case "FeRiferimentoLinea":
+			FeRiferimentoLineaMapper feRiferimentoLineaMapper =  new FeRiferimentoLineaMapper();
+			mapper =  feRiferimentoLineaMapper;
+			break;	
+		case "FeRiferimentoLineaStorico":
+			FeRiferimentoLineaStoricoMapper feRiferimentoLineaStoricoMapper =  new FeRiferimentoLineaStoricoMapper();
+			mapper =  feRiferimentoLineaStoricoMapper;
+			break;	
+		case "FeScontoMaggiorazione":
+			FeScontoMaggiorazioneMapper feScontoMaggiorazioneMapper =  new FeScontoMaggiorazioneMapper();
+			mapper =  feScontoMaggiorazioneMapper;
+			break;	
+		case "FeScontoMagStorico":
+			FeScontoMagStoricoMapper feScontoMagStoricoMapper =  new FeScontoMagStoricoMapper();
+			mapper =  feScontoMagStoricoMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
+import it.pccube.batchmigration.destination.model.FatARifLineaStor;
+import it.pccube.batchmigration.destination.model.FatARiferimentoLinea;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
@@ -66,6 +68,8 @@ import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
 import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
 import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
 import it.pccube.batchmigration.destination.model.FatTRicProtocolImpronta;
+import it.pccube.batchmigration.destination.model.FatTScontoMagStor;
+import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -133,6 +137,10 @@ import it.pccube.batchmigration.source.model.FeReportSsaInviiSdi;
 import it.pccube.batchmigration.source.model.FeReportSsaStatoAde;
 import it.pccube.batchmigration.source.model.FeRicImprontaArchivio;
 import it.pccube.batchmigration.source.model.FeRicProtocolloImpronta;
+import it.pccube.batchmigration.source.model.FeRiferimentoLinea;
+import it.pccube.batchmigration.source.model.FeRiferimentoLineaStorico;
+import it.pccube.batchmigration.source.model.FeScontoMagStorico;
+import it.pccube.batchmigration.source.model.FeScontoMaggiorazione;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -978,6 +986,61 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeRicProtocolloImpronta.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTRicProtocolImpronta.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeRiferimentoLineaStorico() {
+    	return stepBuilderFactory.get("migrateFeRiferimentoLineaStorico")
+    			.listener(new ExecutionListener())
+    			.<FeRiferimentoLineaStorico, FatARifLineaStor>chunk(50)
+				.reader(this.readerFactory.tableReader(FeRiferimentoLineaStorico.class, FeRiferimentoLineaStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeRiferimentoLineaStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatARifLineaStor.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeRiferimentoLinea() {
+    	return stepBuilderFactory.get("migrateFeRiferimentoLinea")
+    			.listener(new ExecutionListener())
+    			.<FeRiferimentoLinea, FatARiferimentoLinea>chunk(50)
+				.reader(this.readerFactory.tableReader(FeRiferimentoLinea.class, FeRiferimentoLinea.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeRiferimentoLinea.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatARiferimentoLinea.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeScontoMagStorico() {
+    	return stepBuilderFactory.get("migrateFeScontoMagStorico")
+    			.listener(new ExecutionListener())
+    			.<FeScontoMagStorico, FatTScontoMagStor>chunk(50)
+				.reader(this.readerFactory.tableReader(FeScontoMagStorico.class, FeScontoMagStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeScontoMagStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTScontoMagStor.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeScontoMaggiorazione() {
+    	return stepBuilderFactory.get("migrateFeScontoMaggiorazione")
+    			.listener(new ExecutionListener())
+    			.<FeScontoMaggiorazione, FatTScontoMaggiorazione>chunk(50)
+				.reader(this.readerFactory.tableReader(FeScontoMaggiorazione.class, FeScontoMaggiorazione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeScontoMaggiorazione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTScontoMaggiorazione.class))
 				.listener(new WriterListener())
 				.build();
     }
