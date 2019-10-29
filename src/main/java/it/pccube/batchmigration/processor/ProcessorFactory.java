@@ -264,6 +264,14 @@ public class ProcessorFactory {
 			FeReportSdiMapper feReportSdiMapper =  new FeReportSdiMapper();
 			mapper =  feReportSdiMapper;
 			break;	
+		case "FeReportSsaInviiSdi":
+			FeReportSsaInviiSdiMapper feReportSsaInviiSdiMapper =  new FeReportSsaInviiSdiMapper();
+			mapper =  feReportSsaInviiSdiMapper;
+			break;	
+		case "FeReportSsaStatoAde":
+			FeReportSsaStatoAdeMapper feReportSsaStatoAdeMapper =  new FeReportSsaStatoAdeMapper();
+			mapper =  feReportSsaStatoAdeMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

@@ -164,6 +164,8 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeLogEsecuzioneBatchDb())
 				.next(this.stepFactory.migrateFeMonitoraggioInvioSdi())
 				.next(this.stepFactory.migrateFeReportSdi())
+				.next(this.stepFactory.migrateFeReportSsaInviiSdi())
+				.next(this.stepFactory.migrateFeReportSsaStatoAde())
 				.build();
 	}
 }

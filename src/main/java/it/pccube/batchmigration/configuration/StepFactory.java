@@ -62,6 +62,8 @@ import it.pccube.batchmigration.destination.model.FatTMail;
 import it.pccube.batchmigration.destination.model.FatTMonitorInvioSdi;
 import it.pccube.batchmigration.destination.model.FatTNotifica;
 import it.pccube.batchmigration.destination.model.FatTReportSdi;
+import it.pccube.batchmigration.destination.model.FatTReportSsaInviiSdi;
+import it.pccube.batchmigration.destination.model.FatTReportSsaStatoAde;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -125,6 +127,8 @@ import it.pccube.batchmigration.source.model.FeMonitoraggioInvioSdi;
 import it.pccube.batchmigration.source.model.FeNotifica;
 import it.pccube.batchmigration.source.model.FeNotificaSupportoFtp;
 import it.pccube.batchmigration.source.model.FeReportSdi;
+import it.pccube.batchmigration.source.model.FeReportSsaInviiSdi;
+import it.pccube.batchmigration.source.model.FeReportSsaStatoAde;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 
@@ -930,6 +934,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeReportSdi.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTReportSdi.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeReportSsaInviiSdi() {
+    	return stepBuilderFactory.get("migrateFeReportSsaInviiSdi")
+    			.listener(new ExecutionListener())
+    			.<FeReportSsaInviiSdi, FatTReportSsaInviiSdi>chunk(50)
+				.reader(this.readerFactory.tableReader(FeReportSsaInviiSdi.class, FeReportSsaInviiSdi.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeReportSsaInviiSdi.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTReportSsaInviiSdi.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeReportSsaStatoAde() {
+    	return stepBuilderFactory.get("migrateFFeReportSsaStatoAde")
+    			.listener(new ExecutionListener())
+    			.<FeReportSsaStatoAde, FatTReportSsaStatoAde>chunk(50)
+				.reader(this.readerFactory.tableReader(FeReportSsaStatoAde.class, FeReportSsaStatoAde.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeReportSsaStatoAde.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTReportSsaStatoAde.class))
 				.listener(new WriterListener())
 				.build();
     }
