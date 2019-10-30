@@ -168,12 +168,14 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeStatoExcelFattura())
 				.next(this.stepFactory.migrateFeStatoSupportoFtp())
 				.next(this.stepFactory.migrateFeSupportoFtp())
+				.next(this.stepFactory.migrateFeVerifFirmaEsitoFtp())
 				.build();
 	}
 	
 	public Flow flowVerificaFIrma() {
 		return new FlowBuilder<SimpleFlow>("flowVerificaFIrma")
 				.start(this.stepFactory.migrateFeVerifFirmaAde())
+				.next(this.stepFactory.migrateFeVerifFirmaLotto())
 				.build();
 	}
 	

@@ -29,12 +29,12 @@ public class FeAllegatoStoricoMapper implements ItemProcessor<FeAllegatoStorico,
 		destination.setDsDescrizioneAttachment(source.getDescrizioneAttachment());
 		destination.setIdAllegato(source.getIdAllegato());
 		destination.setIdAllegatoStor(source.getIdAllegatoStorico());
-//		if (source.getAttachment() != null){
-//			logger.info("Tentativo chiamata documentale per salvataggion documento Attachment tabella FeAllegatoStorico con id: " + source.getIdAllegatoStorico());
-//			String base64String = Base64.getEncoder().encodeToString(source.getAttachment());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeAttachment());
-//			destination.setIdAttachment(doc.getId());
-//		}
+		if (source.getAttachment() != null){
+			logger.info("Tentativo chiamata documentale per salvataggion documento Attachment tabella FeAllegatoStorico con id: " + source.getIdAllegatoStorico());
+			String base64String = Base64.getEncoder().encodeToString(source.getAttachment());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeAttachment());
+			destination.setIdAttachment(doc.getId());
+		}
 		if(source.getIdFattura()!=null)
 			destination.setIdFattura(BigDecimal.valueOf(source.getIdFattura()));
 		destination.setIdFatturaStor(source.getIdFatturaStorico());
