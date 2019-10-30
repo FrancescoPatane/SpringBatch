@@ -336,6 +336,10 @@ public class ProcessorFactory {
 			FeVerifFirmaLottoMapper feVerifFirmaLottoMapper =  new FeVerifFirmaLottoMapper();
 			mapper =  feVerifFirmaLottoMapper;
 			break;
+		case "FeVerifFirmaNotifica":
+			FeVerifFirmaNotificaMapper feVerifFirmaNotificaMapper =  new FeVerifFirmaNotificaMapper();
+			mapper =  feVerifFirmaNotificaMapper;
+			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

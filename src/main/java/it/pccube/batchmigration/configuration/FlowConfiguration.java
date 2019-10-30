@@ -176,6 +176,7 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("flowVerificaFIrma")
 				.start(this.stepFactory.migrateFeVerifFirmaAde())
 				.next(this.stepFactory.migrateFeVerifFirmaLotto())
+				.next(this.stepFactory.migrateFeVerifFirmaNotifica())
 				.build();
 	}
 	
