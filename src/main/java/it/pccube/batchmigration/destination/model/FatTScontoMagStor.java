@@ -11,7 +11,7 @@ public class FatTScontoMagStor implements ModelEntity {
 	
 	public static final String TABLE_NAME = "FAT_T_SCONTO_MAG_STOR";
 	
-	public static final String INSERT_QUERY = "INSERT INTO FAT_T_SCONTO_MAG_STOR ( ID_DETTAGLIO_LINEA, ID_DETTAGLIO_LINEA_STOR, ID_DIZ_TIPO_SCONTO_MAGG, ID_FATTURA, ID_FATTURA_STOR, ID_SCONTO_MAGGIORAZIONE, ID_SCONTO_MAG_STOR, IM_IMPORTO, NM_UTENTE_INSERIMENTO, NM_UTENTE_ULTIMA_MODIFICA, PC_PERCENTUALE, TS_INSERIMENTO, TS_ULTIMA_MODIFICA ) VALUES ( :idDettaglioLinea, :idDettaglioLineaStor, :idDizTipoScontoMagg, :idFattura, :idFatturaStor, :idScontoMaggiorazione, :idScontoMagStor, :imImporto, :nmUtenteInserimento, :nmUtenteUltimaModifica, ::pcPercentuale, :tsInserimento, :tsUltimaModifica )";
+	public static final String INSERT_QUERY = "INSERT INTO FAT_T_SCONTO_MAG_STOR ( ID_DETTAGLIO_LINEA, ID_DETTAGLIO_LINEA_STOR, ID_DIZ_TIPO_SCONTO_MAGG, ID_FATTURA, ID_FATTURA_STOR, ID_SCONTO_MAGGIORAZIONE, ID_SCONTO_MAG_STOR, IM_IMPORTO, NM_UTENTE_INSERIMENTO, NM_UTENTE_ULTIMA_MODIFICA, PC_PERCENTUALE, TS_INSERIMENTO, TS_ULTIMA_MODIFICA ) VALUES ( :idDettaglioLinea, :idDettaglioLineaStor, :idDizTipoScontoMagg, :idFattura, :idFatturaStor, :idScontoMaggiorazione, :idScontoMagStor, :imImporto, :nmUtenteInserimento, :nmUtenteUltimaModifica, :pcPercentuale, :tsInserimento, :tsUltimaModifica )";
 	
 	private Long idScontoMagStor;
 

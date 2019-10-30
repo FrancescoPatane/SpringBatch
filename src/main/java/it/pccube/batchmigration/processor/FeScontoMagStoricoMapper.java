@@ -11,7 +11,7 @@ public class FeScontoMagStoricoMapper implements ItemProcessor<FeScontoMagStoric
 	public FatTScontoMagStor process(FeScontoMagStorico source) throws Exception {
 		FatTScontoMagStor destination = new FatTScontoMagStor();
 		
-		destination.setIdScontoMagStor(source.getIdScontoMaggiorazione());
+		destination.setIdScontoMagStor(source.getIdScontoMagStorico());
 		destination.setIdDettaglioLinea(source.getIdDettaglioLinea());
 		destination.setIdFattura(source.getIdFattura());
 		destination.setIdScontoMaggiorazione(source.getIdScontoMaggiorazione());

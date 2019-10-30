@@ -9,7 +9,7 @@ import it.pccube.batchmigration.model.ModelEntity;
 
 public class FeFattura  implements ModelEntity{
 	
-	public static final String TABLE_NAME = "FE_FATTURA";
+	public static final String TABLE_NAME = "FE_FATTURA_INZ";
 
 
 	private Date dataOraConsegna;

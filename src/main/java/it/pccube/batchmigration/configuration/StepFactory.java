@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.pccube.batchmigration.destination.WriterFactory;
+import it.pccube.batchmigration.destination.model.FatAFatturaInz;
+import it.pccube.batchmigration.destination.model.FatAFatturaInzStor;
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatARifLineaStor;
@@ -118,6 +120,8 @@ import it.pccube.batchmigration.source.model.FeEsitoFtp;
 import it.pccube.batchmigration.source.model.FeExcelFailValidazione;
 import it.pccube.batchmigration.source.model.FeExcelFattura;
 import it.pccube.batchmigration.source.model.FeFattura;
+import it.pccube.batchmigration.source.model.FeFatturaInz;
+import it.pccube.batchmigration.source.model.FeFatturaInzStorico;
 import it.pccube.batchmigration.source.model.FeFatturaStorico;
 import it.pccube.batchmigration.source.model.FeImpreseCollegAssoc;
 import it.pccube.batchmigration.source.model.FeIpa;
@@ -1041,6 +1045,34 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeScontoMaggiorazione.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTScontoMaggiorazione.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeFatturaInz() {
+    	return stepBuilderFactory.get("migrateFeFatturaInz")
+    			.listener(new ExecutionListener())
+    			.<FeFatturaInz, FatAFatturaInz>chunk(50)
+				.reader(this.readerFactory.tableReader(FeFatturaInz.class, FeFatturaInz.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeFatturaInz.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAFatturaInz.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeFatturaInzStorico() {
+    	return stepBuilderFactory.get("migrateFeFatturaInzStorico")
+    			.listener(new ExecutionListener())
+    			.<FeFatturaInzStorico, FatAFatturaInzStor>chunk(50)
+				.reader(this.readerFactory.tableReader(FeFatturaInzStorico.class, FeFatturaInzStorico.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeFatturaInzStorico.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAFatturaInzStor.class))
 				.listener(new WriterListener())
 				.build();
     }

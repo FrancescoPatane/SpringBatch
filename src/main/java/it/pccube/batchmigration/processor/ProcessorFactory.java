@@ -296,6 +296,14 @@ public class ProcessorFactory {
 			FeScontoMagStoricoMapper feScontoMagStoricoMapper =  new FeScontoMagStoricoMapper();
 			mapper =  feScontoMagStoricoMapper;
 			break;	
+		case "FeFatturaInz":
+			FeFatturaInzMapper feFatturaInzMapper =  new FeFatturaInzMapper();
+			mapper =  feFatturaInzMapper;
+			break;	
+		case "FeFatturaInzStorico":
+			FeFatturaInzStoricoMapper feFatturaInzStoricoMapper =  new FeFatturaInzStoricoMapper();
+			mapper =  feFatturaInzStoricoMapper;
+			break;	
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);
 		}

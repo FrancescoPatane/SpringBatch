@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.destination.model.FatAFatturaInz;
+import it.pccube.batchmigration.destination.model.FatAFatturaInzStor;
 import it.pccube.batchmigration.destination.model.FatALottoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatANotificaSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatARifLineaStor;
@@ -75,7 +77,7 @@ import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
-import it.pccube.batchmigration.source.model.FeScontoMaggiorazione;
+import it.pccube.batchmigration.source.model.FeFatturaInz;
 
 @Component
 public class WriterFactory {
@@ -295,6 +297,12 @@ public class WriterFactory {
 			break;
 		case "FatTScontoMagStor":
 			query = FatTScontoMagStor.INSERT_QUERY;
+			break;
+		case "FatAFatturaInz":
+			query = FatAFatturaInz.INSERT_QUERY;
+			break;
+		case "FatAFatturaInzStor":
+			query = FatAFatturaInzStor.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

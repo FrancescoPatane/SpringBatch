@@ -9,7 +9,7 @@ public class FeScontoMagStorico implements ModelEntity {
 	
 	public static final String TABLE_NAME = "FE_SCONTO_MAG_STORICO";
 	
-	private Long idScontoMaggiorazioneStorico;
+	private Long idScontoMagStorico;
 	
 	private Long idFatturaStorico;
 	
@@ -35,12 +35,14 @@ public class FeScontoMagStorico implements ModelEntity {
 
 	private Date tmstUltimoAggiornamento;
 
-	public Long getIdScontoMaggiorazioneStorico() {
-		return idScontoMaggiorazioneStorico;
+	
+
+	public Long getIdScontoMagStorico() {
+		return idScontoMagStorico;
 	}
 
-	public void setIdScontoMaggiorazioneStorico(Long idScontoMaggiorazioneStorico) {
-		this.idScontoMaggiorazioneStorico = idScontoMaggiorazioneStorico;
+	public void setIdScontoMagStorico(Long idScontoMagStorico) {
+		this.idScontoMagStorico = idScontoMagStorico;
 	}
 
 	public Long getIdFatturaStorico() {
@@ -141,7 +143,7 @@ public class FeScontoMagStorico implements ModelEntity {
 
 	@Override
 	public String getPKDescription() {
-		return this.idScontoMaggiorazioneStorico.toString();
+		return this.idScontoMagStorico.toString();
 	}
 
 	@Override
