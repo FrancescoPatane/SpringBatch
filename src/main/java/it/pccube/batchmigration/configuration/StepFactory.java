@@ -16,6 +16,8 @@ import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
 import it.pccube.batchmigration.destination.model.FatAStatoEsitoFtp;
 import it.pccube.batchmigration.destination.model.FatAStatoExcelFattura;
+import it.pccube.batchmigration.destination.model.FatAStatoLottoFattura;
+import it.pccube.batchmigration.destination.model.FatAStatoSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
@@ -74,6 +76,8 @@ import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
 import it.pccube.batchmigration.destination.model.FatTRicProtocolImpronta;
 import it.pccube.batchmigration.destination.model.FatTScontoMagStor;
 import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
+import it.pccube.batchmigration.destination.model.FatTSupportoFtp;
+import it.pccube.batchmigration.destination.model.FatTVerifFirmaAde;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -151,6 +155,10 @@ import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
 import it.pccube.batchmigration.source.model.FeStatoEsitoFtp;
 import it.pccube.batchmigration.source.model.FeStatoExcelFattura;
+import it.pccube.batchmigration.source.model.FeStatoLottoFattura;
+import it.pccube.batchmigration.source.model.FeStatoSupportoFtp;
+import it.pccube.batchmigration.source.model.FeSupportoFtp;
+import it.pccube.batchmigration.source.model.FeVerifFirmaAde;
 
 @Component
 public class StepFactory {
@@ -1103,6 +1111,58 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeStatoExcelFattura.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatAStatoExcelFattura.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoSupportoFtp() {
+    	return stepBuilderFactory.get("migrateFeStatoSupportoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeStatoSupportoFtp, FatAStatoSupportoFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeStatoSupportoFtp.class, FeStatoSupportoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoSupportoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoSupportoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoLottoFattura() {
+    	return stepBuilderFactory.get("migrateFeStatoLottoFattura")
+    			.listener(new ExecutionListener())
+    			.<FeStatoLottoFattura, FatAStatoLottoFattura>chunk(50)
+				.reader(this.readerFactory.tableReader(FeStatoLottoFattura.class, FeStatoLottoFattura.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoLottoFattura.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoLottoFattura.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeSupportoFtp() {
+    	return stepBuilderFactory.get("migrateFeSupportoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeSupportoFtp, FatTSupportoFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeSupportoFtp.class, FeSupportoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeSupportoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTSupportoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeVerifFirmaAde() {
+    	return stepBuilderFactory.get("migrateFeVerifFirmaAde")
+    			.listener(new ExecutionListener())
+    			.<FeVerifFirmaAde, FatTVerifFirmaAde>chunk(50)
+				.reader(this.readerFactory.tableReader(FeVerifFirmaAde.class, FeVerifFirmaAde.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeVerifFirmaAde.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTVerifFirmaAde.class))
 				.listener(new WriterListener())
 				.build();
     }

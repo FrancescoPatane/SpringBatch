@@ -189,7 +189,7 @@ public class ProcessorFactory {
 			mapper =  feDettaglioLineaMapper;
 			break;
 		case "FeDettaglioLineaStorico":
-			FeTDettaglioLineaStoricoMapper feTDettaglioLineaStoricoMapper =  new FeTDettaglioLineaStoricoMapper();
+			FeDettaglioLineaStoricoMapper feTDettaglioLineaStoricoMapper =  new FeDettaglioLineaStoricoMapper();
 			mapper =  feTDettaglioLineaStoricoMapper;
 			break;
 		case "FeDettaglioPagamento":
@@ -311,6 +311,22 @@ public class ProcessorFactory {
 		case "FeStatoEsitoFtp":
 			FeStatoEsitoFtpMapper feStatoEsitoFtpMapper =  new FeStatoEsitoFtpMapper();
 			mapper =  feStatoEsitoFtpMapper;
+			break;
+		case "FeStatoSupportoFtp":
+			FeStatoSupportoFtpMapper feStatoSupportoFtpMapper =  new FeStatoSupportoFtpMapper();
+			mapper =  feStatoSupportoFtpMapper;
+			break;
+		case "FeStatoLottoFattura":
+			FeStatoLottoFatturaMapper feStatoLottoFatturaMapper =  new FeStatoLottoFatturaMapper();
+			mapper =  feStatoLottoFatturaMapper;
+			break;
+		case "FeVerifFirmaAde":
+			FeVerifFirmaAdeMapper feVerifFirmaAdeMapper =  new FeVerifFirmaAdeMapper();
+			mapper =  feVerifFirmaAdeMapper;
+			break;
+		case "FeSupportoFtp":
+			FeSupportoFtpMapper feSupportoFtpMapper =  new FeSupportoFtpMapper();
+			mapper =  feSupportoFtpMapper;
 			break;
 		default:
 			throw new NoProcessorFoundException("No processor found for entity " + srcModelClassName);

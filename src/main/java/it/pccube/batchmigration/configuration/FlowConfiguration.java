@@ -24,7 +24,8 @@ public class FlowConfiguration {
 		return new FlowBuilder<SimpleFlow>("splitFlow")
 				.split(taskExecutor())
 				.add(flowLotto(), flowFattura(), flowAdesioneNotifica(), flowAllegato(), flowAltroDatoGestionale(), flowArchivio(), flowLogReport(),
-						flowArticolo(), flowCompilazioneSezione(), flowCompilazioneConfig(), flowDatiDettagli(), flowDatiConfig())
+						flowArticolo(), flowCompilazioneSezione(), flowCompilazioneConfig(), flowDatiDettagli(), flowDatiConfig(), flowVerificaFIrma())
+				
 				.build();
 	}
 
@@ -59,6 +60,7 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeLottoStorico())
 				.next(this.stepFactory.migrateFeConservazAutoreLotto())
 				.next(this.stepFactory.migrateFeLottoRichiestaEstrUff())
+				.next(this.stepFactory.migrateFeStatoLottoFattura())
 				.build();
 	}
 
@@ -164,6 +166,14 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeNotificaSupportoFtp())
 				.next(this.stepFactory.migrateFeStatoEsitoFtp())
 				.next(this.stepFactory.migrateFeStatoExcelFattura())
+				.next(this.stepFactory.migrateFeStatoSupportoFtp())
+				.next(this.stepFactory.migrateFeSupportoFtp())
+				.build();
+	}
+	
+	public Flow flowVerificaFIrma() {
+		return new FlowBuilder<SimpleFlow>("flowVerificaFIrma")
+				.start(this.stepFactory.migrateFeVerifFirmaAde())
 				.build();
 	}
 	
