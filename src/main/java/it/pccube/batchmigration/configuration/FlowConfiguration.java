@@ -162,6 +162,8 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeEsitoFtp())
 				.next(this.stepFactory.migrateFeLottoSupportoFtp())
 				.next(this.stepFactory.migrateFeNotificaSupportoFtp())
+				.next(this.stepFactory.migrateFeStatoEsitoFtp())
+				.next(this.stepFactory.migrateFeStatoExcelFattura())
 				.build();
 	}
 	

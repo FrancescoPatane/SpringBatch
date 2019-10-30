@@ -16,6 +16,8 @@ import it.pccube.batchmigration.destination.model.FatARifLineaStor;
 import it.pccube.batchmigration.destination.model.FatARiferimentoLinea;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
+import it.pccube.batchmigration.destination.model.FatAStatoEsitoFtp;
+import it.pccube.batchmigration.destination.model.FatAStatoExcelFattura;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
@@ -77,7 +79,6 @@ import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.exception.NoWriterFoundException;
-import it.pccube.batchmigration.source.model.FeFatturaInz;
 
 @Component
 public class WriterFactory {
@@ -303,6 +304,12 @@ public class WriterFactory {
 			break;
 		case "FatAFatturaInzStor":
 			query = FatAFatturaInzStor.INSERT_QUERY;
+			break;
+		case "FatAStatoEsitoFtp":
+			query = FatAStatoEsitoFtp.INSERT_QUERY;
+			break;
+		case "FatAStatoExcelFattura":
+			query = FatAStatoExcelFattura.INSERT_QUERY;
 			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);

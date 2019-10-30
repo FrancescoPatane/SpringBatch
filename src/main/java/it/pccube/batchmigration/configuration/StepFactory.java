@@ -14,6 +14,8 @@ import it.pccube.batchmigration.destination.model.FatARifLineaStor;
 import it.pccube.batchmigration.destination.model.FatARiferimentoLinea;
 import it.pccube.batchmigration.destination.model.FatAStatoAdesione;
 import it.pccube.batchmigration.destination.model.FatAStatoArchivio;
+import it.pccube.batchmigration.destination.model.FatAStatoEsitoFtp;
+import it.pccube.batchmigration.destination.model.FatAStatoExcelFattura;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.destination.model.FatTAdesioneNotifica;
 import it.pccube.batchmigration.destination.model.FatTAllegato;
@@ -147,6 +149,8 @@ import it.pccube.batchmigration.source.model.FeScontoMagStorico;
 import it.pccube.batchmigration.source.model.FeScontoMaggiorazione;
 import it.pccube.batchmigration.source.model.FeStatoAdesione;
 import it.pccube.batchmigration.source.model.FeStatoArchivio;
+import it.pccube.batchmigration.source.model.FeStatoEsitoFtp;
+import it.pccube.batchmigration.source.model.FeStatoExcelFattura;
 
 @Component
 public class StepFactory {
@@ -1073,6 +1077,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeFatturaInzStorico.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatAFatturaInzStor.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoEsitoFtp() {
+    	return stepBuilderFactory.get("migrateFeStatoEsitoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeStatoEsitoFtp, FatAStatoEsitoFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeStatoEsitoFtp.class, FeStatoEsitoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoEsitoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoEsitoFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeStatoExcelFattura() {
+    	return stepBuilderFactory.get("migrateFeStatoExcelFattura")
+    			.listener(new ExecutionListener())
+    			.<FeStatoExcelFattura, FatAStatoExcelFattura>chunk(50)
+				.reader(this.readerFactory.tableReader(FeStatoExcelFattura.class, FeStatoExcelFattura.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeStatoExcelFattura.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatAStatoExcelFattura.class))
 				.listener(new WriterListener())
 				.build();
     }
