@@ -28,6 +28,7 @@ import it.pccube.batchmigration.destination.model.FatTApplicativoLog;
 import it.pccube.batchmigration.destination.model.FatTArchivio;
 import it.pccube.batchmigration.destination.model.FatTArticolo;
 import it.pccube.batchmigration.destination.model.FatTArticoloStor;
+import it.pccube.batchmigration.destination.model.FatTAssegnazione;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTCompSezioneStor;
@@ -63,6 +64,7 @@ import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTImpreseCollegAssoc;
 import it.pccube.batchmigration.destination.model.FatTIpa;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoArchivio;
 import it.pccube.batchmigration.destination.model.FatTLottoRicEstrUff;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
@@ -103,6 +105,7 @@ import it.pccube.batchmigration.source.model.FeAltroDatoGestionale;
 import it.pccube.batchmigration.source.model.FeArchivio;
 import it.pccube.batchmigration.source.model.FeArticolo;
 import it.pccube.batchmigration.source.model.FeArticoloStorico;
+import it.pccube.batchmigration.source.model.FeAssegnazione;
 import it.pccube.batchmigration.source.model.FeCausaleFattura;
 import it.pccube.batchmigration.source.model.FeCausaleFatturaStorico;
 import it.pccube.batchmigration.source.model.FeCompSezioneStorico;
@@ -144,6 +147,7 @@ import it.pccube.batchmigration.source.model.FeLogApplicativo;
 import it.pccube.batchmigration.source.model.FeLogErroreBatchDb;
 import it.pccube.batchmigration.source.model.FeLogEsecuzioneBatchDb;
 import it.pccube.batchmigration.source.model.FeLotto;
+import it.pccube.batchmigration.source.model.FeLottoArchivio;
 import it.pccube.batchmigration.source.model.FeLottoRichiestaEstrUff;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 import it.pccube.batchmigration.source.model.FeLottoSupportoFtp;
@@ -1298,6 +1302,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaSupportoFtp.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTVerifFirmaSuppFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeLottoArchivio() {
+    	return stepBuilderFactory.get("migrateFeLottoArchivio")
+    			.listener(new ExecutionListener())
+    			.<FeLottoArchivio, FatTLottoArchivio>chunk(50)
+				.reader(this.readerFactory.tableReader(FeLottoArchivio.class, FeLottoArchivio.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeLottoArchivio.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTLottoArchivio.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeAssegnazione() {
+    	return stepBuilderFactory.get("migrateFeAssegnazione")
+    			.listener(new ExecutionListener())
+    			.<FeAssegnazione, FatTAssegnazione>chunk(50)
+				.reader(this.readerFactory.tableReader(FeAssegnazione.class, FeAssegnazione.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeAssegnazione.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTAssegnazione.class))
 				.listener(new WriterListener())
 				.build();
     }

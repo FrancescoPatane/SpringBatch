@@ -30,6 +30,7 @@ import it.pccube.batchmigration.destination.model.FatTApplicativoLog;
 import it.pccube.batchmigration.destination.model.FatTArchivio;
 import it.pccube.batchmigration.destination.model.FatTArticolo;
 import it.pccube.batchmigration.destination.model.FatTArticoloStor;
+import it.pccube.batchmigration.destination.model.FatTAssegnazione;
 import it.pccube.batchmigration.destination.model.FatTCausaleFattura;
 import it.pccube.batchmigration.destination.model.FatTCausaleFatturaStor;
 import it.pccube.batchmigration.destination.model.FatTCompSezioneStor;
@@ -65,6 +66,7 @@ import it.pccube.batchmigration.destination.model.FatTGeneraleCfg;
 import it.pccube.batchmigration.destination.model.FatTImpreseCollegAssoc;
 import it.pccube.batchmigration.destination.model.FatTIpa;
 import it.pccube.batchmigration.destination.model.FatTLotto;
+import it.pccube.batchmigration.destination.model.FatTLottoArchivio;
 import it.pccube.batchmigration.destination.model.FatTLottoRicEstrUff;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.destination.model.FatTMacrosezAppCfg;
@@ -363,6 +365,12 @@ public class WriterFactory {
 		case "FatTVerifFirmaSuppFtp":
 			query = FatTVerifFirmaSuppFtp.INSERT_QUERY;
 			break;	
+		case "FatTLottoArchivio":
+			query = FatTLottoArchivio.INSERT_QUERY;
+			break;		
+		case "FatTAssegnazione":
+			query = FatTAssegnazione.INSERT_QUERY;
+			break;
 		default:
 			throw new NoWriterFoundException("No writer found for entity " + modelClassName);
 		}

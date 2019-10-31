@@ -1,4 +1,4 @@
-package it.pccube.batchmigration.destination.model;
+package it.pccube.batchmigration.processor;
 
 import org.springframework.batch.item.ItemProcessor;
 
