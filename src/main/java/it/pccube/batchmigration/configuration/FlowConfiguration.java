@@ -177,6 +177,9 @@ public class FlowConfiguration {
 				.start(this.stepFactory.migrateFeVerifFirmaAde())
 				.next(this.stepFactory.migrateFeVerifFirmaLotto())
 				.next(this.stepFactory.migrateFeVerifFirmaNotifica())
+				.next(this.stepFactory.migrateFeVerifFirmaServiceAde())
+				.next(this.stepFactory.migrateFeVerifFirmaServiceEsiFtp())
+				
 				.build();
 	}
 	
