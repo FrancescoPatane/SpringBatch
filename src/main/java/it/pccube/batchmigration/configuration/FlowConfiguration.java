@@ -192,6 +192,8 @@ public class FlowConfiguration {
 				.next(this.stepFactory.migrateFeReportSdi())
 				.next(this.stepFactory.migrateFeReportSsaInviiSdi())
 				.next(this.stepFactory.migrateFeReportSsaStatoAde())
+				.next(this.stepFactory.migrateFeVerifFirmaServiceLotto())
+				.next(this.stepFactory.migrateFeVerifFirmaServiceNotif())
 				.build();
 	}
 }

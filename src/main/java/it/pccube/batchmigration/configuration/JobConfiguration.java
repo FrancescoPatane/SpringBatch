@@ -24,8 +24,8 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-        		.start(this.stepFactory.migrateFeVerifFirmaServiceAde())
-				.next(this.stepFactory.migrateFeVerifFirmaServiceEsiFtp())
+        		.start(this.stepFactory.migrateFeVerifFirmaServiceLotto())
+				.next(this.stepFactory.migrateFeVerifFirmaServiceNotif())
                 .build();
 //        return jobBuilderFactory.get("migration")
 //                .start(flowProvider.splitFlow())
