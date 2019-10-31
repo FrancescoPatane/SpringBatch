@@ -78,6 +78,7 @@ import it.pccube.batchmigration.destination.model.FatTScontoMagStor;
 import it.pccube.batchmigration.destination.model.FatTScontoMaggiorazione;
 import it.pccube.batchmigration.destination.model.FatTSupportoFtp;
 import it.pccube.batchmigration.destination.model.FatTVerFirmServEsiFtp;
+import it.pccube.batchmigration.destination.model.FatTVerFirmServSupFtp;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmServLotto;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmServNotif;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmaAde;
@@ -85,6 +86,7 @@ import it.pccube.batchmigration.destination.model.FatTVerifFirmaEsitoFtp;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmaLotto;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmaNotifica;
 import it.pccube.batchmigration.destination.model.FatTVerifFirmaServAde;
+import it.pccube.batchmigration.destination.model.FatTVerifFirmaSuppFtp;
 import it.pccube.batchmigration.destination.model.FatTXsdCampoCfg;
 import it.pccube.batchmigration.destination.model.FatTXsdSezioneCfg;
 import it.pccube.batchmigration.listener.ExecutionListener;
@@ -173,6 +175,8 @@ import it.pccube.batchmigration.source.model.FeVerifFirmaServiceAde;
 import it.pccube.batchmigration.source.model.FeVerifFirmaServiceEsiFtp;
 import it.pccube.batchmigration.source.model.FeVerifFirmaServiceLotto;
 import it.pccube.batchmigration.source.model.FeVerifFirmaServiceNotif;
+import it.pccube.batchmigration.source.model.FeVerifFirmaServiceSupFtp;
+import it.pccube.batchmigration.source.model.FeVerifFirmaSupportoFtp;
 
 @Component
 public class StepFactory {
@@ -1268,6 +1272,32 @@ public class StepFactory {
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceNotif.class))
 				.listener(new ProcessListener())
 				.writer(this.writerFactory.getWriter(FatTVerifFirmServNotif.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeVerifFirmaServiceSupFtp() {
+    	return stepBuilderFactory.get("migrateFeVerifFirmaServiceSupFtp")
+    			.listener(new ExecutionListener())
+    			.<FeVerifFirmaServiceSupFtp, FatTVerFirmServSupFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceSupFtp.class, FeVerifFirmaServiceSupFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceSupFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTVerFirmServSupFtp.class))
+				.listener(new WriterListener())
+				.build();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Step migrateFeVerifFirmaSupportoFtp() {
+    	return stepBuilderFactory.get("migrateFeVerifFirmaSupportoFtp")
+    			.listener(new ExecutionListener())
+    			.<FeVerifFirmaSupportoFtp, FatTVerifFirmaSuppFtp>chunk(50)
+				.reader(this.readerFactory.tableReader(FeVerifFirmaSupportoFtp.class, FeVerifFirmaSupportoFtp.TABLE_NAME))
+				.processor(this.processorFactory.getProcessor(FeVerifFirmaSupportoFtp.class))
+				.listener(new ProcessListener())
+				.writer(this.writerFactory.getWriter(FatTVerifFirmaSuppFtp.class))
 				.listener(new WriterListener())
 				.build();
     }
