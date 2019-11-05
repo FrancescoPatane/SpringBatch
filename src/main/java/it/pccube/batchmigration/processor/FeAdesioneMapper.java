@@ -1,11 +1,21 @@
 package it.pccube.batchmigration.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.destination.model.FatTAdesione;
 import it.pccube.batchmigration.source.model.FeAdesione;
 
 public class FeAdesioneMapper implements ItemProcessor<FeAdesione, FatTAdesione>{
+	
+	public static final Logger logger = LoggerFactory.getLogger(FeAdesioneMapper.class);
+
+	
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 	
 
 	@Override
@@ -54,8 +64,11 @@ public class FeAdesioneMapper implements ItemProcessor<FeAdesione, FatTAdesione>
 		destination.setIdRegioneRea(source.getRegioneRea());
 		destination.setIdRegioneSede(source.getRegioneSede());
 		destination.setIdRegioneStabile(source.getRegioneStabile());
-		//TODO get sedia
-//		destination.setIdSedia();
+		if (source.getIdUtenteAzienda() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAzienda " + source.getIdUtenteAzienda() + "dell'entity FeAdesione con id: " + source.getIdAdesione());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAzienda().toString());
+			destination.setIdSedia(Long.valueOf(idSedia));
+		}
 		destination.setIdUfficioRea(source.getUfficioRea());
 		destination.setImCapitaleSociale(source.getCapitaleSociale());
 		destination.setNmAlboProfessionale(source.getAlboProfessionale());

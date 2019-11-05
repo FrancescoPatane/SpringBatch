@@ -5,6 +5,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import it.pccube.batchmigration.client.CryptoServiceCustom;
 import it.pccube.batchmigration.destination.WriterFactory;
 import it.pccube.batchmigration.destination.model.FatAFatturaInz;
 import it.pccube.batchmigration.destination.model.FatAFatturaInzStor;
@@ -204,7 +205,7 @@ public class StepFactory {
 	public Step migrateFeLotto() {
     	return stepBuilderFactory.get("migrateFeLotto")
     			.listener(new ExecutionListener())
-    			.<FeLotto, FatTLotto>chunk(50)
+    			.<FeLotto, FatTLotto>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLotto.class, FeLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLotto.class))
 				.listener(new ProcessListener())
@@ -217,7 +218,7 @@ public class StepFactory {
 	public Step migrateFeLottoStorico() {
     	return stepBuilderFactory.get("migrateFeLottoStorico")
     			.listener(new ExecutionListener())
-    			.<FeLottoStorico, FatTLottoStor>chunk(50)
+    			.<FeLottoStorico, FatTLottoStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLottoStorico.class, FeLottoStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLottoStorico.class))
 				.listener(new ProcessListener())
@@ -231,7 +232,7 @@ public class StepFactory {
 	public Step migrateFeFattura() {
     	return stepBuilderFactory.get("migrateFeFattura")
     			.listener(new ExecutionListener())
-    			.<FeFattura, FatTFattura>chunk(50)
+    			.<FeFattura, FatTFattura>chunk(1)
 				.reader(this.readerFactory.tableReader(FeFattura.class, FeFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFattura.class))
 				.listener(new ProcessListener())
@@ -244,7 +245,7 @@ public class StepFactory {
 	public Step migrateFeFatturaStorico() {
     	return stepBuilderFactory.get("migrateFeFatturaStorico")
     			.listener(new ExecutionListener())
-    			.<FeFatturaStorico, FatTFatturaStor>chunk(50)
+    			.<FeFatturaStorico, FatTFatturaStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeFatturaStorico.class, FeFatturaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFatturaStorico.class))
 				.listener(new ProcessListener())
@@ -257,7 +258,7 @@ public class StepFactory {
 	public Step migrateFeCausaleFattura() {
     	return stepBuilderFactory.get("migrateFeCausaleFattura")
     			.listener(new ExecutionListener())
-    			.<FeCausaleFattura, FatTCausaleFattura>chunk(50)
+    			.<FeCausaleFattura, FatTCausaleFattura>chunk(1)
 				.reader(this.readerFactory.tableReader(FeCausaleFattura.class, FeCausaleFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCausaleFattura.class))
 				.listener(new ProcessListener())
@@ -270,7 +271,7 @@ public class StepFactory {
 	public Step migrateFeCausaleFatturaStorico() {
     	return stepBuilderFactory.get("migrateFeCausaleFatturaStorico")
     			.listener(new ExecutionListener())
-    			.<FeCausaleFatturaStorico, FatTCausaleFatturaStor>chunk(50)
+    			.<FeCausaleFatturaStorico, FatTCausaleFatturaStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeCausaleFatturaStorico.class, FeCausaleFatturaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCausaleFatturaStorico.class))
 				.listener(new ProcessListener())
@@ -283,7 +284,7 @@ public class StepFactory {
 	public Step migrateFeAdesione() {
     	return stepBuilderFactory.get("migrateFeAdesione")
     			.listener(new ExecutionListener())
-    			.<FeAdesione, FatTAdesione>chunk(50)
+    			.<FeAdesione, FatTAdesione>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAdesione.class, FeAdesione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAdesione.class))
 				.listener(new ProcessListener())
@@ -296,7 +297,7 @@ public class StepFactory {
 	public Step migrateFeAdesioneNotifica() {
     	return stepBuilderFactory.get("migrateFeAdesioneNotifica")
     			.listener(new ExecutionListener())
-    			.<FeAdesioneNotifica, FatTAdesioneNotifica>chunk(50)
+    			.<FeAdesioneNotifica, FatTAdesioneNotifica>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAdesioneNotifica.class, FeAdesioneNotifica.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAdesioneNotifica.class))
 				.listener(new ProcessListener())
@@ -309,7 +310,7 @@ public class StepFactory {
 	public Step migrateFeAllegato() {
     	return stepBuilderFactory.get("migrateFeAllegato")
     			.listener(new ExecutionListener())
-    			.<FeAllegato, FatTAllegato>chunk(50)
+    			.<FeAllegato, FatTAllegato>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAllegato.class, FeAllegato.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAllegato.class))
 				.listener(new ProcessListener())
@@ -322,7 +323,7 @@ public class StepFactory {
 	public Step migrateFeAllegatoStorico() {
     	return stepBuilderFactory.get("migrateFeAllegatoStorico")
     			.listener(new ExecutionListener())
-    			.<FeAllegatoStorico, FatTAllegatoStor>chunk(50)
+    			.<FeAllegatoStorico, FatTAllegatoStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAllegatoStorico.class, FeAllegatoStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAllegatoStorico.class))
 				.listener(new ProcessListener())
@@ -335,7 +336,7 @@ public class StepFactory {
 	public Step migrateFeAltroDatoGestionale() {
     	return stepBuilderFactory.get("migrateFeAltroDatoGestionale")
     			.listener(new ExecutionListener())
-    			.<FeAltroDatoGestionale, FatTAltroDatoGestionale>chunk(50)
+    			.<FeAltroDatoGestionale, FatTAltroDatoGestionale>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAltroDatoGestionale.class, FeAltroDatoGestionale.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAltroDatoGestionale.class))
 				.listener(new ProcessListener())
@@ -348,7 +349,7 @@ public class StepFactory {
 	public Step migrateFeAltroDatoGestStorico() {
     	return stepBuilderFactory.get("migrateFeAltroDatoGestStorico")
     			.listener(new ExecutionListener())
-    			.<FeAltroDatoGestStorico, FatTAltroDatoGestionale>chunk(50)
+    			.<FeAltroDatoGestStorico, FatTAltroDatoGestionale>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAltroDatoGestStorico.class, FeAltroDatoGestStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAltroDatoGestStorico.class))
 				.listener(new ProcessListener())
@@ -361,7 +362,7 @@ public class StepFactory {
 	public Step migrateFeArchivio() {
     	return stepBuilderFactory.get("migrateFeArchivio")
     			.listener(new ExecutionListener())
-    			.<FeArchivio, FatTArchivio>chunk(50)
+    			.<FeArchivio, FatTArchivio>chunk(1)
 				.reader(this.readerFactory.tableReader(FeArchivio.class, FeArchivio.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeArchivio.class))
 				.listener(new ProcessListener())
@@ -374,7 +375,7 @@ public class StepFactory {
 	public Step migrateFeArticolo() {
     	return stepBuilderFactory.get("migrateFeArticolo")
     			.listener(new ExecutionListener())
-    			.<FeArticolo, FatTArticolo>chunk(50)
+    			.<FeArticolo, FatTArticolo>chunk(1)
 				.reader(this.readerFactory.tableReader(FeArticolo.class, FeArticolo.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeArticolo.class))
 				.listener(new ProcessListener())
@@ -387,7 +388,7 @@ public class StepFactory {
 	public Step migrateFeArticoloStorico() {
     	return stepBuilderFactory.get("migrateFeArticoloStorico")
     			.listener(new ExecutionListener())
-    			.<FeArticoloStorico, FatTArticoloStor>chunk(50)
+    			.<FeArticoloStorico, FatTArticoloStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeArticoloStorico.class, FeArticoloStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeArticoloStorico.class))
 				.listener(new ProcessListener())
@@ -400,7 +401,7 @@ public class StepFactory {
 	public Step migrateFeStatoAdesione() {
     	return stepBuilderFactory.get("migrateFeStatoAdesione")
     			.listener(new ExecutionListener())
-    			.<FeStatoAdesione, FatAStatoAdesione>chunk(50)
+    			.<FeStatoAdesione, FatAStatoAdesione>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoAdesione.class, FeStatoAdesione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoAdesione.class))
 				.listener(new ProcessListener())
@@ -414,7 +415,7 @@ public class StepFactory {
 	public Step migrateFeStatoArchivio() {
     	return stepBuilderFactory.get("migrateFeStatoArchivio")
     			.listener(new ExecutionListener())
-    			.<FeStatoArchivio, FatAStatoArchivio>chunk(50)
+    			.<FeStatoArchivio, FatAStatoArchivio>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoArchivio.class, FeStatoArchivio.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoArchivio.class))
 				.listener(new ProcessListener())
@@ -428,7 +429,7 @@ public class StepFactory {
 	public Step migrateFeCompilazioneSezione() {
     	return stepBuilderFactory.get("migrateFeCompilazioneSezione")
     			.listener(new ExecutionListener())
-    			.<FeCompilazioneSezione, FatTCompilazioneSezione>chunk(50)
+    			.<FeCompilazioneSezione, FatTCompilazioneSezione>chunk(1)
 				.reader(this.readerFactory.tableReader(FeCompilazioneSezione.class, FeCompilazioneSezione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCompilazioneSezione.class))
 				.listener(new ProcessListener())
@@ -441,7 +442,7 @@ public class StepFactory {
 	public Step migrateFeCompilazioneSezioneStorico() {
     	return stepBuilderFactory.get("migrateFeCompilazioneSezioneStorico")
     			.listener(new ExecutionListener())
-    			.<FeCompSezioneStorico, FatTCompSezioneStor>chunk(50)
+    			.<FeCompSezioneStorico, FatTCompSezioneStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeCompSezioneStorico.class, FeCompSezioneStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeCompSezioneStorico.class))
 				.listener(new ProcessListener())
@@ -455,7 +456,7 @@ public class StepFactory {
 	public Step migrateFeConfigEsitoVerifFirma() {
     	return stepBuilderFactory.get("FeConfigEsitoVerifFirma")
     			.listener(new ExecutionListener())
-    			.<FeConfigEsitoVerifFirma, FatTEsitoVerifFirmaCfg>chunk(50)
+    			.<FeConfigEsitoVerifFirma, FatTEsitoVerifFirmaCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigEsitoVerifFirma.class, FeConfigEsitoVerifFirma.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigEsitoVerifFirma.class))
 				.listener(new ProcessListener())
@@ -468,7 +469,7 @@ public class StepFactory {
 	public Step migrateFeConfigFoglioStile() {
     	return stepBuilderFactory.get("migrateFeConfigFoglioStile")
     			.listener(new ExecutionListener())
-    			.<FeConfigFoglioStile, FatTFoglioStileCfg>chunk(50)
+    			.<FeConfigFoglioStile, FatTFoglioStileCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigFoglioStile.class, FeConfigFoglioStile.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigFoglioStile.class))
 				.listener(new ProcessListener())
@@ -481,7 +482,7 @@ public class StepFactory {
 	public Step migrateFeConfigGenerale() {
     	return stepBuilderFactory.get("migrateFeConfigGenerale")
     			.listener(new ExecutionListener())
-    			.<FeConfigGenerale, FatTGeneraleCfg>chunk(50)
+    			.<FeConfigGenerale, FatTGeneraleCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigGenerale.class, FeConfigGenerale.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigGenerale.class))
 				.listener(new ProcessListener())
@@ -495,7 +496,7 @@ public class StepFactory {
 	public Step migrateFeConfigMacrosezApp() {
     	return stepBuilderFactory.get("migrateFeConfigMacrosezApp")
     			.listener(new ExecutionListener())
-    			.<FeConfigMacrosezApp, FatTMacrosezAppCfg>chunk(50)
+    			.<FeConfigMacrosezApp, FatTMacrosezAppCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigMacrosezApp.class, FeConfigMacrosezApp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigMacrosezApp.class))
 				.listener(new ProcessListener())
@@ -509,7 +510,7 @@ public class StepFactory {
 	public Step migrateFeConfigXsdCampo() {
     	return stepBuilderFactory.get("migrateFeConfigXsdCampo")
     			.listener(new ExecutionListener())
-    			.<FeConfigXsdCampo, FatTMacrosezAppCfg>chunk(50)
+    			.<FeConfigXsdCampo, FatTMacrosezAppCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigXsdCampo.class, FeConfigXsdCampo.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigXsdCampo.class))
 				.listener(new ProcessListener())
@@ -522,7 +523,7 @@ public class StepFactory {
 	public Step migrateFeConfigXsdSezione() {
     	return stepBuilderFactory.get("migrateFeConfigXsdSezione")
     			.listener(new ExecutionListener())
-    			.<FeConfigXsdSezione, FatTMacrosezAppCfg>chunk(50)
+    			.<FeConfigXsdSezione, FatTMacrosezAppCfg>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConfigXsdSezione.class, FeConfigXsdSezione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConfigXsdSezione.class))
 				.listener(new ProcessListener())
@@ -538,7 +539,7 @@ public class StepFactory {
 	public Step migrateFeConservazAutoreLotto() {
     	return stepBuilderFactory.get("migrateFeConservazAutoreLotto")
     			.listener(new ExecutionListener())
-    			.<FeConservazAutoreLotto, FatTConservAutoreLotto>chunk(50)
+    			.<FeConservazAutoreLotto, FatTConservAutoreLotto>chunk(1)
 				.reader(this.readerFactory.tableReader(FeConservazAutoreLotto.class, FeConservazAutoreLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeConservazAutoreLotto.class))
 				.listener(new ProcessListener())
@@ -551,7 +552,7 @@ public class StepFactory {
 	public Step migrateFeDatiCassaPrevidenziale() {
     	return stepBuilderFactory.get("migrateFeDatiCassaPrevidenziale")
     			.listener(new ExecutionListener())
-    			.<FeDatiCassaPrevidenziale, FatTDatiCassaPrevidenz>chunk(50)
+    			.<FeDatiCassaPrevidenziale, FatTDatiCassaPrevidenz>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiCassaPrevidenziale.class, FeDatiCassaPrevidenziale.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiCassaPrevidenziale.class))
 				.listener(new ProcessListener())
@@ -564,7 +565,7 @@ public class StepFactory {
 	public Step migrateFeDatiCassaPrevStorico() {
     	return stepBuilderFactory.get("migrateFeDatiCassaPrevStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiCassaPrevStorico, FatTDatiCassaPrevStor>chunk(50)
+    			.<FeDatiCassaPrevStorico, FatTDatiCassaPrevStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiCassaPrevStorico.class, FeDatiCassaPrevStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiCassaPrevStorico.class))
 				.listener(new ProcessListener())
@@ -577,7 +578,7 @@ public class StepFactory {
 	public Step migrateFeDatiDdtStorico() {
     	return stepBuilderFactory.get("migrateFeDatiDdtStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiDdtStorico, FatTDatiDdtStor>chunk(50)
+    			.<FeDatiDdtStorico, FatTDatiDdtStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiDdtStorico.class, FeDatiDdtStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiDdtStorico.class))
 				.listener(new ProcessListener())
@@ -590,7 +591,7 @@ public class StepFactory {
 	public Step migrateFeDatiDdt() {
     	return stepBuilderFactory.get("migrateFeDatiDdt")
     			.listener(new ExecutionListener())
-    			.<FeDatiDdt, FatTDatiDdt>chunk(50)
+    			.<FeDatiDdt, FatTDatiDdt>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiDdt.class, FeDatiDdt.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiDdt.class))
 				.listener(new ProcessListener())
@@ -604,7 +605,7 @@ public class StepFactory {
 	public Step migrateFeDatiPagamento() {
     	return stepBuilderFactory.get("migrateFeDatiPagamento")
     			.listener(new ExecutionListener())
-    			.<FeDatiPagamento, FatTDatiPagamento>chunk(50)
+    			.<FeDatiPagamento, FatTDatiPagamento>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiPagamento.class, FeDatiPagamento.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiPagamento.class))
 				.listener(new ProcessListener())
@@ -617,7 +618,7 @@ public class StepFactory {
 	public Step migrateFeDatiPagamentoStorico() {
     	return stepBuilderFactory.get("migrateFeDatiPagamentoStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiPagamentoStorico, FatTDatiPagamentoStor>chunk(50)
+    			.<FeDatiPagamentoStorico, FatTDatiPagamentoStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiPagamentoStorico.class, FeDatiPagamentoStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiPagamentoStorico.class))
 				.listener(new ProcessListener())
@@ -631,7 +632,7 @@ public class StepFactory {
 	public Step migrateFeDatiRiepilogo() {
     	return stepBuilderFactory.get("migrateFeDatiRiepilogo")
     			.listener(new ExecutionListener())
-    			.<FeDatiRiepilogo, FatTDatiRiepilogo>chunk(50)
+    			.<FeDatiRiepilogo, FatTDatiRiepilogo>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiRiepilogo.class, FeDatiRiepilogo.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiRiepilogo.class))
 				.listener(new ProcessListener())
@@ -644,7 +645,7 @@ public class StepFactory {
 	public Step migrateFeDatiRiepilogoStorico() {
     	return stepBuilderFactory.get("migrateFeDatiRiepilogoStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiRiepilogoStorico, FatTDatiRiepilogoStor>chunk(50)
+    			.<FeDatiRiepilogoStorico, FatTDatiRiepilogoStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiRiepilogoStorico.class, FeDatiRiepilogoStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiRiepilogoStorico.class))
 				.listener(new ProcessListener())
@@ -657,7 +658,7 @@ public class StepFactory {
 	public Step migrateFeDatiRiferimentoStorico() {
     	return stepBuilderFactory.get("migrateFeDatiRiferimentoStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiRiferimentoStorico, FatTDatiRiferimentoStor>chunk(50)
+    			.<FeDatiRiferimentoStorico, FatTDatiRiferimentoStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiRiferimentoStorico.class, FeDatiRiferimentoStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiRiferimentoStorico.class))
 				.listener(new ProcessListener())
@@ -670,7 +671,7 @@ public class StepFactory {
 	public Step migrateFeDatiRiferimento() {
     	return stepBuilderFactory.get("migrateFeDatiRiferimento")
     			.listener(new ExecutionListener())
-    			.<FeDatiRiferimento, FatTDatiRiferimento>chunk(50)
+    			.<FeDatiRiferimento, FatTDatiRiferimento>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiRiferimento.class, FeDatiRiferimento.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiRiferimento.class))
 				.listener(new ProcessListener())
@@ -683,7 +684,7 @@ public class StepFactory {
 	public Step migrateFeDatiSal() {
     	return stepBuilderFactory.get("migrateFeDatiSal")
     			.listener(new ExecutionListener())
-    			.<FeDatiSal, FatTDatiSal>chunk(50)
+    			.<FeDatiSal, FatTDatiSal>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiSal.class, FeDatiSal.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiSal.class))
 				.listener(new ProcessListener())
@@ -696,7 +697,7 @@ public class StepFactory {
 	public Step migrateFeDatiSalStorico() {
     	return stepBuilderFactory.get("migrateFeDatiSalStorico")
     			.listener(new ExecutionListener())
-    			.<FeDatiSalStorico, FatTDatiSalStor>chunk(50)
+    			.<FeDatiSalStorico, FatTDatiSalStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDatiSalStorico.class, FeDatiSalStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDatiSalStorico.class))
 				.listener(new ProcessListener())
@@ -709,7 +710,7 @@ public class StepFactory {
 	public Step migrateFeDettaglioLinea() {
     	return stepBuilderFactory.get("migrateFeDettaglioLinea")
     			.listener(new ExecutionListener())
-    			.<FeDettaglioLinea, FatTDettaglioLinea>chunk(50)
+    			.<FeDettaglioLinea, FatTDettaglioLinea>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDettaglioLinea.class, FeDettaglioLinea.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDettaglioLinea.class))
 				.listener(new ProcessListener())
@@ -723,7 +724,7 @@ public class StepFactory {
 	public Step migrateFeDettaglioLineaStorico() {
     	return stepBuilderFactory.get("migrateFeDettaglioLineaStorico")
     			.listener(new ExecutionListener())
-    			.<FeDettaglioLineaStorico, FatTDettaglioLineaStor>chunk(50)
+    			.<FeDettaglioLineaStorico, FatTDettaglioLineaStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDettaglioLineaStorico.class, FeDettaglioLineaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDettaglioLineaStorico.class))
 				.listener(new ProcessListener())
@@ -737,7 +738,7 @@ public class StepFactory {
 	public Step migrateFeDettaglioPagStorico() {
     	return stepBuilderFactory.get("migrateFeDettaglioPagStorico")
     			.listener(new ExecutionListener())
-    			.<FeDettaglioPagStorico, FatTDettaglioPagStor>chunk(50)
+    			.<FeDettaglioPagStorico, FatTDettaglioPagStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDettaglioPagStorico.class, FeDettaglioPagStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDettaglioPagStorico.class))
 				.listener(new ProcessListener())
@@ -751,7 +752,7 @@ public class StepFactory {
 	public Step migrateFeDettaglioPagamento() {
     	return stepBuilderFactory.get("migrateFeDettaglioPagamento")
     			.listener(new ExecutionListener())
-    			.<FeDettaglioPagamento, FatTDettaglioPagamento>chunk(50)
+    			.<FeDettaglioPagamento, FatTDettaglioPagamento>chunk(1)
 				.reader(this.readerFactory.tableReader(FeDettaglioPagamento.class, FeDettaglioPagamento.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeDettaglioPagamento.class))
 				.listener(new ProcessListener())
@@ -764,7 +765,7 @@ public class StepFactory {
 	public Step migrateFeErroreNotifica() {
     	return stepBuilderFactory.get("migrateFeErroreNotifica")
     			.listener(new ExecutionListener())
-    			.<FeErroreNotifica, FatTErroreNotifica>chunk(50)
+    			.<FeErroreNotifica, FatTErroreNotifica>chunk(1)
 				.reader(this.readerFactory.tableReader(FeErroreNotifica.class, FeErroreNotifica.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeErroreNotifica.class))
 				.listener(new ProcessListener())
@@ -777,7 +778,7 @@ public class StepFactory {
 	public Step migrateFeEsitoFtp() {
     	return stepBuilderFactory.get("migrateFeEsitoFtp")
     			.listener(new ExecutionListener())
-    			.<FeEsitoFtp, FatTEsitoFtp>chunk(50)
+    			.<FeEsitoFtp, FatTEsitoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeEsitoFtp.class, FeEsitoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeEsitoFtp.class))
 				.listener(new ProcessListener())
@@ -790,7 +791,7 @@ public class StepFactory {
 	public Step migrateFeExcelFattura() {
     	return stepBuilderFactory.get("migrateFeExcelFattura")
     			.listener(new ExecutionListener())
-    			.<FeExcelFattura, FatTExcelFattura>chunk(50)
+    			.<FeExcelFattura, FatTExcelFattura>chunk(1)
 				.reader(this.readerFactory.tableReader(FeExcelFattura.class, FeExcelFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeExcelFattura.class))
 				.listener(new ProcessListener())
@@ -803,7 +804,7 @@ public class StepFactory {
 	public Step migrateFeExcelFailValidazione() {
     	return stepBuilderFactory.get("migrateFeExcelFailValidazione")
     			.listener(new ExecutionListener())
-    			.<FeExcelFailValidazione, FatTExcelFailValidaz>chunk(50)
+    			.<FeExcelFailValidazione, FatTExcelFailValidaz>chunk(1)
 				.reader(this.readerFactory.tableReader(FeExcelFailValidazione.class, FeExcelFailValidazione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeExcelFailValidazione.class))
 				.listener(new ProcessListener())
@@ -816,7 +817,7 @@ public class StepFactory {
 	public Step migrateFeImpreseCollegAssoc() {
     	return stepBuilderFactory.get("migrateFeImpreseCollegAssoc")
     			.listener(new ExecutionListener())
-    			.<FeImpreseCollegAssoc, FatTImpreseCollegAssoc>chunk(50)
+    			.<FeImpreseCollegAssoc, FatTImpreseCollegAssoc>chunk(1)
 				.reader(this.readerFactory.tableReader(FeImpreseCollegAssoc.class, FeImpreseCollegAssoc.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeImpreseCollegAssoc.class))
 				.listener(new ProcessListener())
@@ -830,7 +831,7 @@ public class StepFactory {
 	public Step migrateFeIpa() {
     	return stepBuilderFactory.get("migrateFeIpa")
     			.listener(new ExecutionListener())
-    			.<FeIpa, FatTIpa>chunk(50)
+    			.<FeIpa, FatTIpa>chunk(1)
 				.reader(this.readerFactory.tableReader(FeIpa.class, FeIpa.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeIpa.class))
 				.listener(new ProcessListener())
@@ -843,7 +844,7 @@ public class StepFactory {
 	public Step migrateFeLogApplicativo() {
     	return stepBuilderFactory.get("migrateFeLogApplicativo")
     			.listener(new ExecutionListener())
-    			.<FeLogApplicativo, FatTApplicativoLog>chunk(50)
+    			.<FeLogApplicativo, FatTApplicativoLog>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLogApplicativo.class, FeLogApplicativo.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLogApplicativo.class))
 				.listener(new ProcessListener())
@@ -857,7 +858,7 @@ public class StepFactory {
 	public Step migrateFeLogErroreBatchDb() {
     	return stepBuilderFactory.get("migrateFeLogErroreBatchDb")
     			.listener(new ExecutionListener())
-    			.<FeLogErroreBatchDb, FatTErroreBatchLog>chunk(50)
+    			.<FeLogErroreBatchDb, FatTErroreBatchLog>chunk(1)
 				.reader(this.readerFactory.getFeLogErroreBatchDbReader())
 				.processor(this.processorFactory.getProcessor(FeLogErroreBatchDb.class))
 				.listener(new ProcessListener())
@@ -871,7 +872,7 @@ public class StepFactory {
 	public Step migrateFeLogEsecuzioneBatchDb() {
     	return stepBuilderFactory.get("migrateFeLogEsecuzioneBatchDb")
     			.listener(new ExecutionListener())
-    			.<FeLogEsecuzioneBatchDb, FatTEsecuzioneBatchLog>chunk(50)
+    			.<FeLogEsecuzioneBatchDb, FatTEsecuzioneBatchLog>chunk(1)
 				.reader(this.readerFactory.getFeLogEsecuzioneBatchDbReader())
 				.processor(this.processorFactory.getProcessor(FeLogEsecuzioneBatchDb.class))
 				.listener(new ProcessListener())
@@ -885,7 +886,7 @@ public class StepFactory {
 	public Step migrateFeLottoRichiestaEstrUff() {
     	return stepBuilderFactory.get("migrateFeLottoRichiestaEstrUff")
     			.listener(new ExecutionListener())
-    			.<FeLottoRichiestaEstrUff, FatTLottoRicEstrUff>chunk(50)
+    			.<FeLottoRichiestaEstrUff, FatTLottoRicEstrUff>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLottoRichiestaEstrUff.class, FeLottoRichiestaEstrUff.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLottoRichiestaEstrUff.class))
 				.listener(new ProcessListener())
@@ -898,7 +899,7 @@ public class StepFactory {
 	public Step migrateFeLottoSupportoFtp() {
     	return stepBuilderFactory.get("migrateFeLottoSupportoFtp")
     			.listener(new ExecutionListener())
-    			.<FeLottoSupportoFtp, FatALottoSupportoFtp>chunk(50)
+    			.<FeLottoSupportoFtp, FatALottoSupportoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLottoSupportoFtp.class, FeLottoSupportoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLottoSupportoFtp.class))
 				.listener(new ProcessListener())
@@ -912,7 +913,7 @@ public class StepFactory {
 	public Step migrateFeMail() {
     	return stepBuilderFactory.get("migrateFeMail")
     			.listener(new ExecutionListener())
-    			.<FeMail, FatTMail>chunk(50)
+    			.<FeMail, FatTMail>chunk(1)
 				.reader(this.readerFactory.tableReader(FeMail.class, FeMail.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeMail.class))
 				.listener(new ProcessListener())
@@ -926,7 +927,7 @@ public class StepFactory {
 	public Step migrateFeMonitoraggioInvioSdi() {
     	return stepBuilderFactory.get("migrateFeMonitoraggioInvioSdi")
     			.listener(new ExecutionListener())
-    			.<FeMonitoraggioInvioSdi, FatTMonitorInvioSdi>chunk(50)
+    			.<FeMonitoraggioInvioSdi, FatTMonitorInvioSdi>chunk(1)
 				.reader(this.readerFactory.tableReader(FeMonitoraggioInvioSdi.class, FeMonitoraggioInvioSdi.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeMonitoraggioInvioSdi.class))
 				.listener(new ProcessListener())
@@ -940,7 +941,7 @@ public class StepFactory {
 	public Step migrateFeNotifica() {
     	return stepBuilderFactory.get("migrateFeNotifica")
     			.listener(new ExecutionListener())
-    			.<FeNotifica, FatTNotifica>chunk(50)
+    			.<FeNotifica, FatTNotifica>chunk(1)
 				.reader(this.readerFactory.tableReader(FeNotifica.class, FeNotifica.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeNotifica.class))
 				.listener(new ProcessListener())
@@ -953,7 +954,7 @@ public class StepFactory {
 	public Step migrateFeNotificaSupportoFtp() {
     	return stepBuilderFactory.get("migrateFeNotificaSupportoFtp")
     			.listener(new ExecutionListener())
-    			.<FeNotificaSupportoFtp, FatANotificaSupportoFtp>chunk(50)
+    			.<FeNotificaSupportoFtp, FatANotificaSupportoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeNotificaSupportoFtp.class, FeNotificaSupportoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeNotificaSupportoFtp.class))
 				.listener(new ProcessListener())
@@ -966,7 +967,7 @@ public class StepFactory {
 	public Step migrateFeReportSdi() {
     	return stepBuilderFactory.get("migrateFeReportSdi")
     			.listener(new ExecutionListener())
-    			.<FeReportSdi, FatTReportSdi>chunk(50)
+    			.<FeReportSdi, FatTReportSdi>chunk(1)
 				.reader(this.readerFactory.tableReader(FeReportSdi.class, FeReportSdi.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeReportSdi.class))
 				.listener(new ProcessListener())
@@ -979,7 +980,7 @@ public class StepFactory {
 	public Step migrateFeReportSsaInviiSdi() {
     	return stepBuilderFactory.get("migrateFeReportSsaInviiSdi")
     			.listener(new ExecutionListener())
-    			.<FeReportSsaInviiSdi, FatTReportSsaInviiSdi>chunk(50)
+    			.<FeReportSsaInviiSdi, FatTReportSsaInviiSdi>chunk(1)
 				.reader(this.readerFactory.tableReader(FeReportSsaInviiSdi.class, FeReportSsaInviiSdi.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeReportSsaInviiSdi.class))
 				.listener(new ProcessListener())
@@ -992,7 +993,7 @@ public class StepFactory {
 	public Step migrateFeReportSsaStatoAde() {
     	return stepBuilderFactory.get("migrateFeReportSsaStatoAde")
     			.listener(new ExecutionListener())
-    			.<FeReportSsaStatoAde, FatTReportSsaStatoAde>chunk(50)
+    			.<FeReportSsaStatoAde, FatTReportSsaStatoAde>chunk(1)
 				.reader(this.readerFactory.tableReader(FeReportSsaStatoAde.class, FeReportSsaStatoAde.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeReportSsaStatoAde.class))
 				.listener(new ProcessListener())
@@ -1005,7 +1006,7 @@ public class StepFactory {
 	public Step migrateFeRicImprontaArchivio() {
     	return stepBuilderFactory.get("migrateFeRicImprontaArchivio")
     			.listener(new ExecutionListener())
-    			.<FeRicImprontaArchivio, FatTRicImprontaArchivio>chunk(50)
+    			.<FeRicImprontaArchivio, FatTRicImprontaArchivio>chunk(1)
 				.reader(this.readerFactory.tableReader(FeRicImprontaArchivio.class, FeRicImprontaArchivio.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeRicImprontaArchivio.class))
 				.listener(new ProcessListener())
@@ -1019,7 +1020,7 @@ public class StepFactory {
 	public Step migrateFeRicProtocolloImpronta() {
     	return stepBuilderFactory.get("migrateFeRicProtocolloImpronta")
     			.listener(new ExecutionListener())
-    			.<FeRicProtocolloImpronta, FatTRicProtocolImpronta>chunk(50)
+    			.<FeRicProtocolloImpronta, FatTRicProtocolImpronta>chunk(1)
 				.reader(this.readerFactory.tableReader(FeRicProtocolloImpronta.class, FeRicProtocolloImpronta.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeRicProtocolloImpronta.class))
 				.listener(new ProcessListener())
@@ -1033,7 +1034,7 @@ public class StepFactory {
 	public Step migrateFeRiferimentoLineaStorico() {
     	return stepBuilderFactory.get("migrateFeRiferimentoLineaStorico")
     			.listener(new ExecutionListener())
-    			.<FeRiferimentoLineaStorico, FatARifLineaStor>chunk(50)
+    			.<FeRiferimentoLineaStorico, FatARifLineaStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeRiferimentoLineaStorico.class, FeRiferimentoLineaStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeRiferimentoLineaStorico.class))
 				.listener(new ProcessListener())
@@ -1047,7 +1048,7 @@ public class StepFactory {
 	public Step migrateFeRiferimentoLinea() {
     	return stepBuilderFactory.get("migrateFeRiferimentoLinea")
     			.listener(new ExecutionListener())
-    			.<FeRiferimentoLinea, FatARiferimentoLinea>chunk(50)
+    			.<FeRiferimentoLinea, FatARiferimentoLinea>chunk(1)
 				.reader(this.readerFactory.tableReader(FeRiferimentoLinea.class, FeRiferimentoLinea.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeRiferimentoLinea.class))
 				.listener(new ProcessListener())
@@ -1060,7 +1061,7 @@ public class StepFactory {
 	public Step migrateFeScontoMagStorico() {
     	return stepBuilderFactory.get("migrateFeScontoMagStorico")
     			.listener(new ExecutionListener())
-    			.<FeScontoMagStorico, FatTScontoMagStor>chunk(50)
+    			.<FeScontoMagStorico, FatTScontoMagStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeScontoMagStorico.class, FeScontoMagStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeScontoMagStorico.class))
 				.listener(new ProcessListener())
@@ -1074,7 +1075,7 @@ public class StepFactory {
 	public Step migrateFeScontoMaggiorazione() {
     	return stepBuilderFactory.get("migrateFeScontoMaggiorazione")
     			.listener(new ExecutionListener())
-    			.<FeScontoMaggiorazione, FatTScontoMaggiorazione>chunk(50)
+    			.<FeScontoMaggiorazione, FatTScontoMaggiorazione>chunk(1)
 				.reader(this.readerFactory.tableReader(FeScontoMaggiorazione.class, FeScontoMaggiorazione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeScontoMaggiorazione.class))
 				.listener(new ProcessListener())
@@ -1088,7 +1089,7 @@ public class StepFactory {
 	public Step migrateFeFatturaInz() {
     	return stepBuilderFactory.get("migrateFeFatturaInz")
     			.listener(new ExecutionListener())
-    			.<FeFatturaInz, FatAFatturaInz>chunk(50)
+    			.<FeFatturaInz, FatAFatturaInz>chunk(1)
 				.reader(this.readerFactory.tableReader(FeFatturaInz.class, FeFatturaInz.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFatturaInz.class))
 				.listener(new ProcessListener())
@@ -1102,7 +1103,7 @@ public class StepFactory {
 	public Step migrateFeFatturaInzStorico() {
     	return stepBuilderFactory.get("migrateFeFatturaInzStorico")
     			.listener(new ExecutionListener())
-    			.<FeFatturaInzStorico, FatAFatturaInzStor>chunk(50)
+    			.<FeFatturaInzStorico, FatAFatturaInzStor>chunk(1)
 				.reader(this.readerFactory.tableReader(FeFatturaInzStorico.class, FeFatturaInzStorico.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeFatturaInzStorico.class))
 				.listener(new ProcessListener())
@@ -1115,7 +1116,7 @@ public class StepFactory {
 	public Step migrateFeStatoEsitoFtp() {
     	return stepBuilderFactory.get("migrateFeStatoEsitoFtp")
     			.listener(new ExecutionListener())
-    			.<FeStatoEsitoFtp, FatAStatoEsitoFtp>chunk(50)
+    			.<FeStatoEsitoFtp, FatAStatoEsitoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoEsitoFtp.class, FeStatoEsitoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoEsitoFtp.class))
 				.listener(new ProcessListener())
@@ -1128,7 +1129,7 @@ public class StepFactory {
 	public Step migrateFeStatoExcelFattura() {
     	return stepBuilderFactory.get("migrateFeStatoExcelFattura")
     			.listener(new ExecutionListener())
-    			.<FeStatoExcelFattura, FatAStatoExcelFattura>chunk(50)
+    			.<FeStatoExcelFattura, FatAStatoExcelFattura>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoExcelFattura.class, FeStatoExcelFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoExcelFattura.class))
 				.listener(new ProcessListener())
@@ -1141,7 +1142,7 @@ public class StepFactory {
 	public Step migrateFeStatoSupportoFtp() {
     	return stepBuilderFactory.get("migrateFeStatoSupportoFtp")
     			.listener(new ExecutionListener())
-    			.<FeStatoSupportoFtp, FatAStatoSupportoFtp>chunk(50)
+    			.<FeStatoSupportoFtp, FatAStatoSupportoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoSupportoFtp.class, FeStatoSupportoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoSupportoFtp.class))
 				.listener(new ProcessListener())
@@ -1154,7 +1155,7 @@ public class StepFactory {
 	public Step migrateFeStatoLottoFattura() {
     	return stepBuilderFactory.get("migrateFeStatoLottoFattura")
     			.listener(new ExecutionListener())
-    			.<FeStatoLottoFattura, FatAStatoLottoFattura>chunk(50)
+    			.<FeStatoLottoFattura, FatAStatoLottoFattura>chunk(1)
 				.reader(this.readerFactory.tableReader(FeStatoLottoFattura.class, FeStatoLottoFattura.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeStatoLottoFattura.class))
 				.listener(new ProcessListener())
@@ -1167,7 +1168,7 @@ public class StepFactory {
 	public Step migrateFeSupportoFtp() {
     	return stepBuilderFactory.get("migrateFeSupportoFtp")
     			.listener(new ExecutionListener())
-    			.<FeSupportoFtp, FatTSupportoFtp>chunk(50)
+    			.<FeSupportoFtp, FatTSupportoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeSupportoFtp.class, FeSupportoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeSupportoFtp.class))
 				.listener(new ProcessListener())
@@ -1180,7 +1181,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaAde() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaAde")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaAde, FatTVerifFirmaAde>chunk(50)
+    			.<FeVerifFirmaAde, FatTVerifFirmaAde>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaAde.class, FeVerifFirmaAde.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaAde.class))
 				.listener(new ProcessListener())
@@ -1193,7 +1194,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaEsitoFtp() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaEsitoFtp")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaEsitoFtp, FatTVerifFirmaEsitoFtp>chunk(50)
+    			.<FeVerifFirmaEsitoFtp, FatTVerifFirmaEsitoFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaEsitoFtp.class, FeVerifFirmaEsitoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaEsitoFtp.class))
 				.listener(new ProcessListener())
@@ -1206,7 +1207,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaLotto() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaLotto")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaLotto, FatTVerifFirmaLotto>chunk(50)
+    			.<FeVerifFirmaLotto, FatTVerifFirmaLotto>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaLotto.class, FeVerifFirmaLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaLotto.class))
 				.listener(new ProcessListener())
@@ -1219,7 +1220,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaNotifica() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaNotifica")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaNotifica, FatTVerifFirmaNotifica>chunk(50)
+    			.<FeVerifFirmaNotifica, FatTVerifFirmaNotifica>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaNotifica.class, FeVerifFirmaNotifica.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaNotifica.class))
 				.listener(new ProcessListener())
@@ -1232,7 +1233,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaServiceAde() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaServiceAde")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaServiceAde, FatTVerifFirmaServAde>chunk(50)
+    			.<FeVerifFirmaServiceAde, FatTVerifFirmaServAde>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceAde.class, FeVerifFirmaServiceAde.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceAde.class))
 				.listener(new ProcessListener())
@@ -1245,7 +1246,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaServiceEsiFtp() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaServiceEsiFtp")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaServiceEsiFtp, FatTVerFirmServEsiFtp>chunk(50)
+    			.<FeVerifFirmaServiceEsiFtp, FatTVerFirmServEsiFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceEsiFtp.class, FeVerifFirmaServiceEsiFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceEsiFtp.class))
 				.listener(new ProcessListener())
@@ -1258,7 +1259,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaServiceLotto() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaServiceLotto")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaServiceLotto, FatTVerifFirmServLotto>chunk(50)
+    			.<FeVerifFirmaServiceLotto, FatTVerifFirmServLotto>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceLotto.class, FeVerifFirmaServiceLotto.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceLotto.class))
 				.listener(new ProcessListener())
@@ -1271,7 +1272,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaServiceNotif() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaServiceNotif")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaServiceNotif, FatTVerifFirmServNotif>chunk(50)
+    			.<FeVerifFirmaServiceNotif, FatTVerifFirmServNotif>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceNotif.class, FeVerifFirmaServiceNotif.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceNotif.class))
 				.listener(new ProcessListener())
@@ -1284,7 +1285,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaServiceSupFtp() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaServiceSupFtp")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaServiceSupFtp, FatTVerFirmServSupFtp>chunk(50)
+    			.<FeVerifFirmaServiceSupFtp, FatTVerFirmServSupFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaServiceSupFtp.class, FeVerifFirmaServiceSupFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaServiceSupFtp.class))
 				.listener(new ProcessListener())
@@ -1297,7 +1298,7 @@ public class StepFactory {
 	public Step migrateFeVerifFirmaSupportoFtp() {
     	return stepBuilderFactory.get("migrateFeVerifFirmaSupportoFtp")
     			.listener(new ExecutionListener())
-    			.<FeVerifFirmaSupportoFtp, FatTVerifFirmaSuppFtp>chunk(50)
+    			.<FeVerifFirmaSupportoFtp, FatTVerifFirmaSuppFtp>chunk(1)
 				.reader(this.readerFactory.tableReader(FeVerifFirmaSupportoFtp.class, FeVerifFirmaSupportoFtp.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeVerifFirmaSupportoFtp.class))
 				.listener(new ProcessListener())
@@ -1310,7 +1311,7 @@ public class StepFactory {
 	public Step migrateFeLottoArchivio() {
     	return stepBuilderFactory.get("migrateFeLottoArchivio")
     			.listener(new ExecutionListener())
-    			.<FeLottoArchivio, FatTLottoArchivio>chunk(50)
+    			.<FeLottoArchivio, FatTLottoArchivio>chunk(1)
 				.reader(this.readerFactory.tableReader(FeLottoArchivio.class, FeLottoArchivio.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeLottoArchivio.class))
 				.listener(new ProcessListener())
@@ -1323,7 +1324,7 @@ public class StepFactory {
 	public Step migrateFeAssegnazione() {
     	return stepBuilderFactory.get("migrateFeAssegnazione")
     			.listener(new ExecutionListener())
-    			.<FeAssegnazione, FatTAssegnazione>chunk(50)
+    			.<FeAssegnazione, FatTAssegnazione>chunk(1)
 				.reader(this.readerFactory.tableReader(FeAssegnazione.class, FeAssegnazione.TABLE_NAME))
 				.processor(this.processorFactory.getProcessor(FeAssegnazione.class))
 				.listener(new ProcessListener())
@@ -1331,5 +1332,10 @@ public class StepFactory {
 				.listener(new WriterListener())
 				.build();
     }
+    
+    
+   
+    
+
 
 }

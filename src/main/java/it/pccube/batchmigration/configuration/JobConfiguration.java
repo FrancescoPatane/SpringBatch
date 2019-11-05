@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import it.pccube.batchmigration.client.CryptoServiceCustom;
+
 @Configuration
 public class JobConfiguration {
+	
+	
 	
 	
 	@Autowired
@@ -15,7 +19,7 @@ public class JobConfiguration {
 	
 	
 	@Autowired
-	StepFactory stepFactory;
+	private StepFactory stepFactory;
 	
 	@Autowired
 	private FlowConfiguration flowProvider;
@@ -24,8 +28,7 @@ public class JobConfiguration {
     @Bean
     public Job migration() {
         return jobBuilderFactory.get("migration")
-        		.start(this.stepFactory.migrateFeLottoArchivio())
-				.next(this.stepFactory.migrateFeAssegnazione())
+        		.start(this.stepFactory.migrateFeArchivio())
                 .build();
 //        return jobBuilderFactory.get("migration")
 //                .start(flowProvider.splitFlow())

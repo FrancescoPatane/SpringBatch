@@ -1,14 +1,21 @@
 package it.pccube.batchmigration.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.destination.model.FatTMail;
 import it.pccube.batchmigration.source.model.FeMail;
 
 public class FeMailMapper implements ItemProcessor<FeMail, FatTMail>{
 	
 	
+	public static final Logger logger = LoggerFactory.getLogger(FeMailMapper.class);
 
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 	
 
 	@Override
@@ -22,8 +29,12 @@ public class FeMailMapper implements ItemProcessor<FeMail, FatTMail>{
 		destination.setDtDataOraInvio(source.getDataOraInvio());
 
 		destination.setDtDataSospensione(source.getDataSospensione());
-//TODO id sedia
-//		destination.setIdSediaDest(source.get);
+		
+		if (source.getIdUtenteAziendaDest() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaDest " + source.getIdUtenteAziendaDest() + "dell'entity FeMail con id: " + source.getIdMail());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaDest().toString());
+			destination.setIdSediaDest(Long.valueOf(idSedia));
+		}
 
 		destination.setNmIndirizzoDestinatario(source.getIndirizzoDestinatario());
 

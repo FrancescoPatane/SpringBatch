@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
+import it.pccube.batchmigration.client.CryptoServiceCustom;
 import it.pccube.batchmigration.client.doc.DocumentaleService;
 import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTArchivio;
@@ -19,6 +21,9 @@ public class FeArchivioMapper implements ItemProcessor<FeArchivio, FatTArchivio>
 
 	@Autowired
 	private DocumentaleService docService;
+	
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 
 
 	@Override
@@ -34,11 +39,15 @@ public class FeArchivioMapper implements ItemProcessor<FeArchivio, FatTArchivio>
 		destination.setIdEsitoInvio(source.getEsitoInvio());
 		if (source.getFileArchivio() != null){
 			String base64String = Base64.getEncoder().encodeToString(source.getFileArchivio());
-			logger.info("Tentativo chiamata documentale per salvataggion documento fileArchivio tabella FatTArchivio con id: " + source.getIdArchivio());
+			logger.info("Tentativo chiamata documentale per salvataggion documento fileArchivio tabella FeArchivio con id: " + source.getIdArchivio());
 			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeFile());
 			destination.setIdFileArchivio(doc.getId());
 		}
-		//TODO		destination.setIdSediaCreatore(idSediaCreatore);
+		if (source.getIdUtenteAziendaCreatore() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaCreatore " + source.getIdUtenteAziendaCreatore() + "dell'entity FeArchivio con id: " + source.getIdArchivio());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaCreatore().toString());
+			destination.setIdSediaCreatore(Long.valueOf(idSedia));
+		}
 		destination.setNmNomeFile(source.getNomeFile());
 		destination.setNmUtenteInserimento(source.getUseridInserimento());
 		destination.setNmUtenteUltimaModifica(source.getUseridUltimoAggiornamento());

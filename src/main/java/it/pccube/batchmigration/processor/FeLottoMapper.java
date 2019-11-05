@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.client.doc.DocumentaleService;
 import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTLotto;
@@ -17,6 +18,8 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto>{
 	
 	public static final Logger logger = LoggerFactory.getLogger(FeLottoMapper.class);
 
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 	
 	@Autowired
 	private DocumentaleService docService;
@@ -103,10 +106,25 @@ public class FeLottoMapper implements ItemProcessor<FeLotto, FatTLotto>{
 		destination.setIdRegioneSedeCessionario(source.getRegioneSedeCessionario());
 		destination.setIdRegioneStabileCedente(source.getRegioneStabileCedente());
 		destination.setIdRegioneStabileCessionario(source.getRegioneStabileCessionario());
-//TODO id sedia
-//		entity.setIdSediaAssegnatario(idSediaAssegnatario);
-//		entity.setIdSediaCreatore(idSediaCreatore);
-//		entity.setIdSediaUltimaMod(idSediaUltimaMod);
+		
+		if (source.getIdUtenteAziendaAssegnatario() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaAssegnatario " + source.getIdUtenteAziendaAssegnatario() + "dell'entity FeLotto con id: " + source.getIdLotto());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaAssegnatario().toString());
+			destination.setIdSediaAssegnatario(Long.valueOf(idSedia));
+		}
+		
+		if (source.getIdUtenteAziendaCreatore() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaCreatore " + source.getIdUtenteAziendaCreatore() + "dell'entity FeLotto con id: " + source.getIdLotto());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaCreatore().toString());
+			destination.setIdSediaCreatore(Long.valueOf(idSedia));
+		}
+		
+		if (source.getIdUtenteAziendaUltimaMod() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaUltimaMod " + source.getIdUtenteAziendaUltimaMod() + "dell'entity FeLotto con id: " + source.getIdLotto());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaUltimaMod().toString());
+			destination.setIdSediaUltimaMod(Long.valueOf(idSedia));
+		}
+		
 		destination.setIdUfficioReaCedente(source.getUfficioReaCedente());
 		
 		

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.client.doc.DocumentaleService;
 import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTRicImprontaArchivio;
@@ -16,6 +17,8 @@ public class FeRicImprontaArchivioMapper implements ItemProcessor<FeRicImprontaA
 
 	public static final Logger logger = LoggerFactory.getLogger(FeRicImprontaArchivioMapper.class);
 
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 
 	@Autowired
 	private DocumentaleService docService;
@@ -61,8 +64,12 @@ public class FeRicImprontaArchivioMapper implements ItemProcessor<FeRicImprontaA
 		destination.setDtDataRicezioneXmlComunic(source.getDataRicezioneXmlComunic());
 
 		destination.setFlEsitoRichiestaNcs(source.getEsitoRichiestaNcs());
-		//TODO id sedia
-		//		destination.setIdSediaRichiesta(source.get);
+		
+		if (source.getIdUtenteAziendaRichiesta() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaRichiesta " + source.getIdUtenteAziendaRichiesta() + "dell'entity FeRicImprontaArchivio con id: " + source.getIdRicImprontaArchivio());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaRichiesta().toString());
+			destination.setIdSediaRichiesta(Long.valueOf(idSedia));
+		}
 
 		destination.setNmCognomeTitolareCont(source.getCognomeTitolareCont());
 

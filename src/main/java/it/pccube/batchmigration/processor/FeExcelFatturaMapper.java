@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.client.doc.DocumentaleService;
 import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTExcelFattura;
@@ -16,6 +17,8 @@ public class FeExcelFatturaMapper implements ItemProcessor<FeExcelFattura, FatTE
 	
 	public static final Logger logger = LoggerFactory.getLogger(FeExcelFatturaMapper.class);
 
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 
 	@Autowired
 	private DocumentaleService docService;
@@ -32,7 +35,11 @@ public class FeExcelFatturaMapper implements ItemProcessor<FeExcelFattura, FatTE
 
 		destination.setDtDataOraUltimaModifica(source.getDataOraUltimaModifica());
 
-//TODO ID SEDIA		destination.setIdSedia(source.get);
+		if (source.getIdUtenteAzienda() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAzienda " + source.getIdUtenteAzienda() + "dell'entity FeExcelFattura con id: " + source.getIdExcelFattura());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAzienda().toString());
+			destination.setIdSedia(Long.valueOf(idSedia));
+		}
 
 		destination.setNmContentTypeExcelOrig(source.getContentTypeExcelOriginale());
 

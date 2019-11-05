@@ -1,22 +1,28 @@
 package it.pccube.batchmigration.processor;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.client.doc.DocumentaleService;
+import it.pccube.batchmigration.client.doc.OutputDocumentale;
 import it.pccube.batchmigration.destination.model.FatTLottoStor;
 import it.pccube.batchmigration.source.model.FeLottoStorico;
 
 public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTLottoStor >{
-	
-	public static final Logger logger = LoggerFactory.getLogger(FeFatturaStoricoMapper.class);
-	
+
+	public static final Logger logger = LoggerFactory.getLogger(FeLottoStoricoMapper.class);
+
 	@Autowired
 	private DocumentaleService docService;
+
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 
 	@Override
 	public FatTLottoStor process(FeLottoStorico source) throws Exception {
@@ -101,26 +107,41 @@ public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTL
 		destination.setIdRegioneSedeCessionario(source.getRegioneSedeCessionario());
 		destination.setIdRegioneStabileCedente(source.getRegioneStabileCedente());
 		destination.setIdRegioneStabileCessionario(source.getRegioneStabileCessionario());
-//TODO
-//		entity.setIdSediaAssegnatario(idSediaAssegnatario);
-//		entity.setIdSediaCreatore(idSediaCreatore);
-//		entity.setIdSediaUltimaMod(idSediaUltimaMod);
+
+		if (source.getIdUtenteAziendaAssegnatario() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaAssegnatario " + source.getIdUtenteAziendaAssegnatario() + "dell'entity FeLottoStorico con id: " + source.getIdLottoStorico());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaAssegnatario().toString());
+			destination.setIdSediaCreatore(Long.valueOf(idSedia));
+		}
+
+		if (source.getIdUtenteAziendaCreatore() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaCreatore " + source.getIdUtenteAziendaCreatore() + "dell'entity FeLottoStorico con id: " + source.getIdLottoStorico());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaCreatore().toString());
+			destination.setIdSediaCreatore(Long.valueOf(idSedia));
+		}
+
+		if (source.getIdUtenteAziendaUltimaMod() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAziendaUltimaMod " + source.getIdUtenteAziendaUltimaMod() + "dell'entity FeLottoStorico con id: " + source.getIdLottoStorico());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAziendaUltimaMod().toString());
+			destination.setIdSediaCreatore(Long.valueOf(idSedia));
+		}
+
 		destination.setIdUfficioReaCedente(source.getUfficioReaCedente());
-		
-		
-//		if (source.getXmlFirmato() != null){
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
-//			destination.setIdXmlFirmato(doc.getId());
-//		}
-//		if (source.getXmlNonFirmato() != null){
-//			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
-//			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
-//			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
-//			destination.setIdXmlNonFirmato(doc.getId());
-//		}
-		
+
+
+		if (source.getXmlFirmato() != null){
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlFirmato());
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlFirmato tabella FeLotto con id: " + source.getIdLotto());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlFirmato());
+			destination.setIdXmlFirmato(doc.getId());
+		}
+		if (source.getXmlNonFirmato() != null){
+			logger.info("Tentativo chiamata documentale per salvataggion documento XmlNonFirmato tabella FeLotto con id: " + source.getIdLotto());
+			String base64String = Base64.getEncoder().encodeToString(source.getXmlNonFirmato());
+			OutputDocumentale doc = docService.uploadDocumento(base64String, source.getNomeXmlNonFirmato());
+			destination.setIdXmlNonFirmato(doc.getId());
+		}
+
 		destination.setImCapitaleSocialeCedente(source.getCapitaleSocialeCedente());
 		destination.setNmAlboProfessionaleCedente(source.getAlboProfessionaleCedente());
 		destination.setNmCognomeCedente(source.getCognomeCedente());
@@ -162,7 +183,7 @@ public class FeLottoStoricoMapper implements ItemProcessor<FeLottoStorico, FatTL
 			destination.setQtSizeXmlFirmato(BigDecimal.valueOf(source.getSizeXmlFirmato()));
 		destination.setTsInserimento(source.getTmstInserimento());
 		destination.setTsUltimaModifica(source.getTmstUltimoAggiornamento());
-		
+
 		return destination;
 	}
 

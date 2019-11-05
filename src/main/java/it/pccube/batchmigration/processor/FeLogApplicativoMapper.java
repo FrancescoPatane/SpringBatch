@@ -1,11 +1,20 @@
 package it.pccube.batchmigration.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import it.pccube.batchmigration.client.AutorizzazioneService;
 import it.pccube.batchmigration.destination.model.FatTApplicativoLog;
 import it.pccube.batchmigration.source.model.FeLogApplicativo;
 
 public class FeLogApplicativoMapper implements ItemProcessor<FeLogApplicativo, FatTApplicativoLog>{
+
+	public static final Logger logger = LoggerFactory.getLogger(FeLogApplicativoMapper.class);
+
+	@Autowired
+	private AutorizzazioneService autorizzazioneService;
 
 	@Override
 	public FatTApplicativoLog process(FeLogApplicativo source) throws Exception {
@@ -39,8 +48,12 @@ public class FeLogApplicativoMapper implements ItemProcessor<FeLogApplicativo, F
 		destination.setIdRicEstrazioneUfficiale(source.getIdRicEstrazioneUfficiale());
 
 		destination.setIdRicImprontaArchivio(source.getIdRicImprontaArchivio());
-//TODO ID SEDIA
-//		destination.setIdSedia(source.gets);
+
+		if (source.getIdUtenteAzienda() != null) {
+			logger.info("Tentativo chiamata autorizzazione per recupero di sedia da IdUtenteAzienda " + source.getIdUtenteAzienda() + "dell'entity FeLogApplicativo con id: " + source.getIdLogApplicativo());
+			String idSedia = this.autorizzazioneService.getIdSediaFromIdUtenteAzienda(source.getIdUtenteAzienda().toString());
+			destination.setIdSedia(Long.valueOf(idSedia));
+		}
 
 		destination.setIdSupporto(source.getIdSupporto());
 
